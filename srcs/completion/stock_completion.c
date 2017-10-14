@@ -30,8 +30,8 @@ void			stock_completion(t_rlist *list, t_completion data_comple,\
 	int		t_cursor;
 
 	size = ft_strlen(data_comple.path) + ft_strlen(data_comple.string);
-	prompt = ft_strndup(line->buffer, (line->position - size));
-	t_cursor = line->position;
+	prompt = ft_strndup(line->buffer, (ft_calc_position(tool) - size));
+	t_cursor = ft_calc_position(tool);
 	temp = ft_memalloc((ft_strlen(list->file) + 2), sizeof(char));
 	ft_memset(temp, '\0', (ft_strlen(list->file) + 2));
 	ft_strcpy(temp, list->file);

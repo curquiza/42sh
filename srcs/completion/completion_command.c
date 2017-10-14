@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 14:12:41 by rcarette          #+#    #+#             */
-/*   Updated: 2017/06/30 15:12:37 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/10/14 18:06:21 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void			stock_command(t_line_edit *line, t_rlist *list, \
 	char	*prompt;
 	int		t_cursor;
 
-	prompt = ft_strndup(line->buffer, line->position - \
+	prompt = ft_strndup(line->buffer, ft_calc_position(tool) - \
 												ft_strlen(data_comple.path));
 	ft_clear_all_line(line);
 	ft_memset(line->buffer, '\0', BUFF);
@@ -83,17 +83,17 @@ static void			stock_command_match(t_line_edit *line, \
 }
 
 int					completion_command(t_line_edit *line,
-								t_completion data_comple, t_control_env *env)
+								t_completion data_comple)
 {
 	char	*path;
 	t_rlist	*list;
 	int		nbr;
 
 	nbr = 0;
-	if (!(path = ft_getenv(env, "PATH")))
-		return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+	if (!(path = ft_get_varvalue(g_shell->var_env, "PATH")))
+		return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	if (!(list = ft_get_rlistcommand(path, data_comple)))
-		return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+		return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	(lenght_rlist_s(list) == 1) ? stock_command(line, list, data_comple, 0) : 0;
 	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));

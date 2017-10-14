@@ -95,3 +95,8 @@ int		clear_tab(char **board)
 	free(board);
 	return (0);
 }
+
+int		ft_calc_position(t_tc *tool)
+{
+	return (tool->curs_y * tool->x_max + tool->curs_x)
+}

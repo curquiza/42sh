@@ -22,12 +22,12 @@ int		completion_dir(t_completion data_comple, t_line_edit *line)
 	if (!(ft_strlen(data_comple.string)))
 	{
 		if (!(list = ft_getfiles(data_comple, temporary, 2)))
-			return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	}
 	else
 	{
 		if (!(list = ft_getfiles_opt(data_comple, temporary, 2)))
-			return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	}
 	(lenght_rlist_s(list) == 1) ? stock_completion(list, data_comple, line) : 0;
 	if (lenght_rlist_s(list) > 1)

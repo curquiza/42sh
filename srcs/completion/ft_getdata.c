@@ -41,8 +41,8 @@ void			ft_getdata(t_completion *data_compl, t_line_edit *line)
 	nbr = 0;
 	i = -1;
 	init_data(data_compl);
-	data_compl->after_cursor = ft_strdup(&line->buffer[line->position]);
-	temp_data = ft_strndup(line->buffer, line->position);
+	data_compl->after_cursor = ft_strdup(&line->buffer[ft_calc_position(tool)]);
+	temp_data = ft_strndup(line->buffer, ft_calc_position(tool));
 	size_to = (ft_strlen(temp_data));
 	while (temp_data[--size_to] != ' ' || size_to == (int)line->nbr_prompt)
 		++nbr;

@@ -18,7 +18,7 @@ void		stockafter_command(t_line_edit *line, t_completion data_comple,\
 	char	*prompt;
 	int		t_cursor;
 
-	prompt = ft_strndup(line->buffer, line->position - \
+	prompt = ft_strndup(line->buffer, ft_calc_position(tool) - \
 												ft_strlen(data_comple.path));
 	ft_memset(line->buffer, '\0', BUFF);
 	ft_clear_all_line(line);

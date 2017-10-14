@@ -17,7 +17,7 @@ static int		check_line(t_line_edit *line, t_completion data_comple)
 	char	*temporary;
 	char	*temp;
 
-	temporary = ft_strndup(line->buffer, line->position - \
+	temporary = ft_strndup(line->buffer, ft_calc_position(tool) - \
 										ft_strlen(data_comple.path));
 	temp = temporary;
 	temporary = ft_strtrim(temp);
@@ -36,7 +36,7 @@ static int		stock_slash(t_line_edit *line, t_completion data_comple)
 	char	*begin;
 	int		t_cursor;
 
-	begin = ft_strndup(line->buffer, line->position);
+	begin = ft_strndup(line->buffer, ft_calc_position(tool));
 	ft_memset(line->buffer, '\0', BUFF);
 	ft_strcpy(line->buffer, begin);
 	free(begin);
@@ -60,13 +60,13 @@ int				search_file_current(t_completion data_comple, t_line_edit *line)
 	if (!(ft_strlen(data_comple.string)))
 	{
 		if (!(list = ft_getfiles_curr(&data_comple, temporary, 2)))
-			return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 		display_all_completion(list, line, ft_getbigsize_file(list));
 		clear_list_s(&list);
 		return (1);
 	}
 	if (!(list = ft_getfiles_opt_curr(&data_comple, temporary, 2)))
-		return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+		return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	(lenght_rlist_s(list) == 1) ? stock_completion(list, data_comple, line) : 0;
 	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));
@@ -90,12 +90,12 @@ int				search_file_with_path(t_line_edit *line, \
 	if (!(ft_strlen(data_comple.string)))
 	{
 		if (!(list = ft_getfiles_all(data_comple, temporary, 2)))
-			return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	}
 	else
 	{
 		if (!(list = ft_getfiles_all_opt(data_comple, temporary, 2)))
-			return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	}
 	(lenght_rlist_s(list) == 1) ? stock_completion(list, data_comple, line) : 0;
 	if (lenght_rlist_s(list) > 1)
@@ -119,7 +119,7 @@ int				ft_start_completion_current(t_completion data_comple, \
 				data_comple.string != NULL && data_comple.string[0] == '.')
 	{
 		if (ft_strlen(data_comple.string) > 1)
-			return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 		stock_slash(line, data_comple);
 	}
 	else if (ft_strlen(data_comple.path) == 1 && data_comple.path[0] == '.' \

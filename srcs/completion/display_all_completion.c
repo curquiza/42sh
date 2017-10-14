@@ -15,7 +15,7 @@
 static void		manage_display_all_completion(t_line_edit *line)
 {
 	write(1, "\n", 1);
-	line->position = (0);
+	ft_calc_position(tool) = (0);
 	line->t_size_screen = line->size_screen;
 	line->nbr_lines = (1);
 	ft_write_buffer(line);
@@ -46,7 +46,7 @@ void			display_all_completion(t_rlist *list, t_line_edit *line, \
 
 	nbr_character = 0;
 	n_spaces = 0;
-	t_cursor = line->position;
+	t_cursor = ft_calc_position(tool);
 	ft_end_of_line(line);
 	write(1, "\n", 1);
 	while (list)

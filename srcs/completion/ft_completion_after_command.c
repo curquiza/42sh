@@ -23,12 +23,12 @@ static int		completion_with_path(t_line_edit *line, \
 	if (!(ft_strlen(data_comple.string)))
 	{
 		if (!(list = ft_getfiles(data_comple, temporary, 2)))
-			return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	}
 	else
 	{
 		if (!(list = ft_getfiles_opt(data_comple, temporary, 2)))
-			return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	}
 	(lenght_rlist_s(list) == 1) ? stock_completion(list, data_comple, line) : 0;
 	if (lenght_rlist_s(list) > 1)
@@ -81,7 +81,7 @@ static int		completion_current(t_line_edit *line, t_completion data_c)
 	temporary = NULL;
 	nbr = 0;
 	if (!(list = getfile_opt("./", data_c, temporary, 2)))
-		return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
+		return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	(lenght_rlist_s(list) == 1) ? stockafter_command(line, data_c, list) : 0;
 	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));
