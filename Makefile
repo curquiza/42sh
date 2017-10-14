@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/13 11:20:52 by curquiza         ###   ########.fr        #
+#    Updated: 2017/10/14 17:29:14 by sfranc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ C_DIR = $(addprefix $(SRC)/, \
 	  lexer \
 	  parser \
 	  ast \
+	  completion \
 	  execution \
 	  shell)
 
@@ -42,6 +43,7 @@ C_FILES = $(addprefix $(SRC)/, \
 	  $(PARSER) \
 	  $(AST) \
 	  $(EXEC) \
+	  $(COMPL) \
 	  $(MAIN)) 
 
 READLINE = $(addprefix read_line/, \
@@ -116,6 +118,24 @@ EXEC = $(addprefix execution/, \
 	  exec_redirection.c \
 	  exec_ass_word.c \
 	  exec_cmd_return.c)
+
+COMPL = $(addprefix completion/, \
+		completion_command.c \
+		completion_dir.c \
+		countnbr_match.c \
+		display_all_completion.c \
+		display_all_current.c \
+		ft_completion.c \
+		ft_completion_after_command.c \
+		ft_getbigsize_file.c \
+		ft_getdata.c \
+		ft_getfile_op_curr.c \
+		ft_getfiles.c \
+		ft_getsmall_file.c \
+		ft_start_completion_current.c \
+		init_var.c \
+		stock_after_command.c \
+		stock_completion.c)
 
 MAIN = $(addprefix shell/, \
 	  signal.c \
