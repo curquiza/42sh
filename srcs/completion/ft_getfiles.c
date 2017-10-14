@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "shell.h"
 
-t_list		*ft_getfiles(t_completion data_comple, char *temporary, int type)
+t_rlist		*ft_getfiles(t_completion data_comple, char *temporary, int type)
 {
-	t_list			*list;
+	t_rlist			*list;
 	DIR				*rep;
 	struct dirent	*cur;
 	struct stat		inf;
@@ -40,10 +40,10 @@ t_list		*ft_getfiles(t_completion data_comple, char *temporary, int type)
 	return (list);
 }
 
-t_list		*ft_getfiles_opt(t_completion data_comple, char *temporary, \
+t_rlist		*ft_getfiles_opt(t_completion data_comple, char *temporary, \
 																	int type)
 {
-	t_list			*list;
+	t_rlist			*list;
 	DIR				*rep;
 	struct dirent	*cur;
 	struct stat		inf;
@@ -70,10 +70,10 @@ ft_strncmp(cur->d_name, data_comple.string, ft_strlen(data_comple.string)) != 0)
 	return (list);
 }
 
-t_list		*ft_getfiles_curr(t_completion *data_comple, char *temporary, \
+t_rlist		*ft_getfiles_curr(t_completion *data_comple, char *temporary, \
 																	int type)
 {
-	t_list			*list;
+	t_rlist			*list;
 	DIR				*rep;
 	struct dirent	*cur;
 	struct stat		inf;
@@ -97,10 +97,10 @@ t_list		*ft_getfiles_curr(t_completion *data_comple, char *temporary, \
 	return (list);
 }
 
-t_list		*ft_getfiles_all(t_completion data_comple, char *temporary, \
+t_rlist		*ft_getfiles_all(t_completion data_comple, char *temporary, \
 																	int type)
 {
-	t_list			*list;
+	t_rlist			*list;
 	DIR				*rep;
 	struct dirent	*cur;
 	struct stat		inf;
@@ -126,10 +126,10 @@ t_list		*ft_getfiles_all(t_completion data_comple, char *temporary, \
 	return (list);
 }
 
-t_list		*ft_getfiles_all_opt(t_completion data_comple, char *temporary, \
+t_rlist		*ft_getfiles_all_opt(t_completion data_comple, char *temporary, \
 																	int type)
 {
-	t_list			*list;
+	t_rlist			*list;
 	DIR				*rep;
 	struct dirent	*c;
 	struct stat		inf;

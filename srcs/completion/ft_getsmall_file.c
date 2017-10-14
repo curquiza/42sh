@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "shell.h"
 
-char		*ft_getsmall_file(t_list *list)
+char		*ft_getsmall_file(t_rlist *list)
 {
 	char	*small_file;
 

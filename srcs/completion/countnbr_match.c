@@ -10,19 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "shell.h"
 
-static void		init_match(t_match *match, t_list *list)
+static void		init_match(t_match *match, t_rlist *list)
 {
 	match->i = -1;
 	match->j = 0;
 	match->nbr_character = 0;
 	match->size = 0;
 	match->list = list;
-	match->size_list = lenght_list_s(list);
+	match->size_list = lenght_rlist_s(list);
 }
 
-int				countnbr_match(t_list *list, char *small_str)
+int				countnbr_match(t_rlist *list, char *small_str)
 {
 	t_match		match;
 

@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/14 17:29:14 by sfranc           ###   ########.fr        #
+#    Updated: 2017/10/14 17:48:40 by sfranc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -135,7 +135,8 @@ COMPL = $(addprefix completion/, \
 		ft_start_completion_current.c \
 		init_var.c \
 		stock_after_command.c \
-		stock_completion.c)
+		stock_completion.c \
+		tool_compl.c)
 
 MAIN = $(addprefix shell/, \
 	  signal.c \

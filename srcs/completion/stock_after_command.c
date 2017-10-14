@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "shell.h"
 
 void		stockafter_command(t_line_edit *line, t_completion data_comple,\
-																t_list *list)
+																t_rlist *list)
 {
 	char	*prompt;
 	int		t_cursor;
@@ -36,9 +36,9 @@ void		stockafter_command(t_line_edit *line, t_completion data_comple,\
 }
 
 void		stock_after_match(t_line_edit *line, t_completion data_comple, \
-														t_list *list, int nbr)
+														t_rlist *list, int nbr)
 {
-	t_list		*list_file;
+	t_rlist		*list_file;
 	char		*str;
 
 	list_file = NULL;

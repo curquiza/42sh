@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "shell.h"
 
-static t_list		*ft_getfiles_space(char *path, char *temporary, int type)
+static t_rlist		*ft_getfiles_space(char *path, char *temporary, int type)
 {
-	t_list			*list;
+	t_rlist			*list;
 	DIR				*rep;
 	struct dirent	*curr;
 	struct stat		inf;
@@ -42,7 +42,7 @@ static t_list		*ft_getfiles_space(char *path, char *temporary, int type)
 void				display_all_current(t_line_edit *line, \
 													t_completion data_comple)
 {
-	t_list		*list;
+	t_rlist		*list;
 	char		*temporary;
 
 	(void)data_comple;

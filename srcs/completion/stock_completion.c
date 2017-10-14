@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "shell.h"
 
 static void		stock_line(t_completion data_comple, t_line_edit *line,\
 												char *temp, char *prompt)
@@ -21,7 +21,7 @@ static void		stock_line(t_completion data_comple, t_line_edit *line,\
 	ft_strcat(line->buffer, temp);
 }
 
-void			stock_completion(t_list *list, t_completion data_comple,\
+void			stock_completion(t_rlist *list, t_completion data_comple,\
 															t_line_edit *line)
 {
 	char	*prompt;
@@ -52,7 +52,7 @@ void			stock_completion(t_list *list, t_completion data_comple,\
 void			stock_completion_match(t_completion data_comple, \
 										int nbr, char *file, t_line_edit *line)
 {
-	t_list		*list;
+	t_rlist		*list;
 	char		*str;
 
 	list = NULL;

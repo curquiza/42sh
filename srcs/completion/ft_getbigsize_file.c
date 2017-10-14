@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "shell.h"
 
-int		ft_getbigsize_file(t_list *list)
+int		ft_getbigsize_file(t_rlist *list)
 {
 	int		size;
 

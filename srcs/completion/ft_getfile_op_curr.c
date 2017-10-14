@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "shell.h"
 
 static void		ft_fuck_norm(struct stat *sb, int *type, char **temporary, \
 																	char *data)
@@ -20,7 +20,7 @@ static void		ft_fuck_norm(struct stat *sb, int *type, char **temporary, \
 	*type = (S_ISDIR(sb->st_mode)) ? 0 : 2;
 }
 
-static void		ft_fuck_norm_comple(t_list **list, char *data, int type)
+static void		ft_fuck_norm_comple(t_rlist **list, char *data, int type)
 {
 	char	*temporary;
 
@@ -29,10 +29,10 @@ static void		ft_fuck_norm_comple(t_list **list, char *data, int type)
 	free(temporary);
 }
 
-t_list			*ft_getfiles_opt_curr(t_completion *data_comple, \
+t_rlist			*ft_getfiles_opt_curr(t_completion *data_comple, \
 													char *temporary, int type)
 {
-	t_list			*list;
+	t_rlist			*list;
 	DIR				*rep;
 	struct dirent	*curr;
 	struct stat		inf;

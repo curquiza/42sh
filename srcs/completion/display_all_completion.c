@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "shell.h"
 
 static void		manage_display_all_completion(t_line_edit *line)
 {
@@ -21,7 +21,7 @@ static void		manage_display_all_completion(t_line_edit *line)
 	ft_write_buffer(line);
 }
 
-static void		print_file(t_list *list)
+static void		print_file(t_rlist *list)
 {
 	(list->type == 0) ? write(1, BLUE, ft_strlen(BLUE)) : 0;
 	(list->type == 1) ? write(1, GREEN, ft_strlen(GREEN)) : 0;
@@ -37,7 +37,7 @@ static void		print_nspaces(int n_spaces)
 		write(1, " ", 1);
 }
 
-void			display_all_completion(t_list *list, t_line_edit *line, \
+void			display_all_completion(t_rlist *list, t_line_edit *line, \
 																int big_size)
 {
 	int		nbr_character;

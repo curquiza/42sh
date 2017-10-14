@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:56:25 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 18:00:56 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/14 17:37:08 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "define.h"
 # include "struct.h"
 # include "tc.h"
+# include "completion.h"
 # include "token.h"
 # include "lexer.h"
 # include "parser.h"

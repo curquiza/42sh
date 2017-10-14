@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "shell.h"
 
 static int		check_line(t_line_edit *line, t_completion data_comple)
 {
@@ -53,7 +53,7 @@ static int		stock_slash(t_line_edit *line, t_completion data_comple)
 int				search_file_current(t_completion data_comple, t_line_edit *line)
 {
 	char		*temporary;
-	t_list		*list;
+	t_rlist		*list;
 	int			nbr;
 
 	init_var(&temporary, &nbr);
@@ -67,11 +67,11 @@ int				search_file_current(t_completion data_comple, t_line_edit *line)
 	}
 	if (!(list = ft_getfiles_opt_curr(&data_comple, temporary, 2)))
 		return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
-	(lenght_list_s(list) == 1) ? stock_completion(list, data_comple, line) : 0;
-	if (lenght_list_s(list) > 1)
+	(lenght_rlist_s(list) == 1) ? stock_completion(list, data_comple, line) : 0;
+	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));
 	nbr = (nbr == (int)ft_strlen(data_comple.string)) ? 0 : nbr;
-	if (!nbr && lenght_list_s(list) > 1)
+	if (!nbr && lenght_rlist_s(list) > 1)
 		display_all_completion(list, line, ft_getbigsize_file(list));
 	else if (nbr > 0)
 		stock_completion_match(data_comple, nbr, ft_getsmall_file(list), line);
@@ -83,7 +83,7 @@ int				search_file_with_path(t_line_edit *line, \
 													t_completion data_comple)
 {
 	char		*temporary;
-	t_list		*list;
+	t_rlist		*list;
 	int			nbr;
 
 	init_var(&temporary, &nbr);
@@ -97,11 +97,11 @@ int				search_file_with_path(t_line_edit *line, \
 		if (!(list = ft_getfiles_all_opt(data_comple, temporary, 2)))
 			return (tputs(tgetstr("bl", NULL), 1, &ft_putchar));
 	}
-	(lenght_list_s(list) == 1) ? stock_completion(list, data_comple, line) : 0;
-	if (lenght_list_s(list) > 1)
+	(lenght_rlist_s(list) == 1) ? stock_completion(list, data_comple, line) : 0;
+	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));
 	nbr = (nbr == (int)ft_strlen(data_comple.string)) ? 0 : nbr;
-	if (!nbr && lenght_list_s(list) > 1)
+	if (!nbr && lenght_rlist_s(list) > 1)
 		display_all_completion(list, line, ft_getbigsize_file(list));
 	else if (nbr > 0)
 		stock_completion_match(data_comple, nbr, ft_getsmall_file(list), line);
