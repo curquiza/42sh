@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 20:01:38 by rcarette          #+#    #+#             */
-/*   Updated: 2017/06/29 22:09:14 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/10/14 18:43:56 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		manage_data_current(t_completion *data_compl, DIR **rep)
 	return (1);
 }
 
-void			ft_getdata(t_completion *data_compl, t_line_edit *line)
+void			ft_getdata(t_completion *data_compl, t_tc *tool)
 {
 	char	*temp_data;
 	int		size_to;
@@ -41,10 +41,10 @@ void			ft_getdata(t_completion *data_compl, t_line_edit *line)
 	nbr = 0;
 	i = -1;
 	init_data(data_compl);
-	data_compl->after_cursor = ft_strdup(&line->buffer[ft_calc_position(tool)]);
-	temp_data = ft_strndup(line->buffer, ft_calc_position(tool));
+	data_compl->after_cursor = ft_strdup(&tool->buff[ft_calc_position(tool)]);
+	temp_data = ft_strndup(tool->buff, ft_calc_position(tool));
 	size_to = (ft_strlen(temp_data));
-	while (temp_data[--size_to] != ' ' || size_to == (int)line->nbr_prompt)
+	while (temp_data[--size_to] != ' ' || size_to == (int)tool->nbr_prompt)
 		++nbr;
 	if (nbr == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:28:05 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 18:00:42 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/14 18:43:30 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_tc
 	int				ctrl_r;
 	int				stop;
 	int				redim;
+	int				nbr_prompt;
 }					t_tc;
 
 typedef struct		s_histo

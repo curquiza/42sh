@@ -6,7 +6,7 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 16:04:01 by rcarette          #+#    #+#             */
-/*   Updated: 2017/10/14 18:30:48 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/14 18:59:40 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ void			ft_completion(t_tc *tool)
 	//if (!(if_line_empty(tool)))
 	//	return ;
 	if (tool->buff[0] == '\0')
-		return ;
-	ft_getdata(&data_compl, tool); //ICI
-	ft_getdata_dir(&data_compl);
-	ft_start_completion(data_compl, tool, &rep);
+		return ; // OK?
+	ft_getdata(&data_compl, tool);//OK
+	ft_getdata_dir(&data_compl);//OK
+	ft_start_completion(data_compl, tool, &rep); //ICI
 	(rep != NULL) ? closedir(rep) : 0;
-	free_struct_data(&data_compl);
+	free_struct_data(&data_compl);//OK
 }
