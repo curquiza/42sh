@@ -64,7 +64,7 @@ char	*ft_get_flags(char **array)
 
 	if (!array)
 		return (NULL);
-	flags = ft_strnew(127);
+	flags = ft_strnew(TC_SIZE);
 	i = 0;
 	cpt_flags = 0;
 	while (array[i])
@@ -84,11 +84,8 @@ void	ft_fill_flagstab(char *s, char *flags, int *cpt_flags)
 	i = 1;
 	while (s[i])
 	{
-		if (!ft_strchr(flags, s[i]))
-		{
-			flags[*cpt_flags] = s[i];
-			*cpt_flags = *cpt_flags + 1;
-		}
+		flags[*cpt_flags] = s[i];
+		*cpt_flags = *cpt_flags + 1;
 		i++;
 	}
 }
