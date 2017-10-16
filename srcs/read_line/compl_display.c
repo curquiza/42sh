@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:16:28 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:17:22 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/16 16:15:48 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void		ft_put_comp_prompt(t_tc *tool)
 	int		new_pos;
 	int		i;
 
+	ft_putchar('\n');
 	ft_putstr(COMP_PROMPT);
 	tmp = ft_strdup(tool->buff);
 	old_pos = tool->curs_y * (tool->x_max + 1)

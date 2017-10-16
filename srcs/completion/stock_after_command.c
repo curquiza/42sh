@@ -6,7 +6,7 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 01:44:17 by rcarette          #+#    #+#             */
-/*   Updated: 2017/10/16 15:31:45 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/16 16:01:46 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 void		stockafter_command(t_tc *tool, t_completion data_comple,\
 																t_rlist *list)
 {
-	(void)data_comple;
-	ft_insert(list->file, tool);
+	//(void)data_comple;
+	//ft_putendl2_fd("\nafcmd path = ", data_comple.path, 1);
+	//ft_putendl2_fd("afcmd string = ", data_comple.string, 1);
+	//ft_putendl2_fd("afcmd buff_cursor = ", data_comple.buff_cursor, 1);
+	//ft_putendl2_fd("afcmd after_cursor = ", data_comple.after_cursor, 1);
+	ft_insert(list->file + ft_strlen(data_comple.path), tool);
 	if (list->type == 0)
 		ft_insert("/", tool);
 	else if (list->type == 2)

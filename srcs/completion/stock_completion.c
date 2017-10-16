@@ -6,7 +6,7 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 23:12:50 by rcarette          #+#    #+#             */
-/*   Updated: 2017/10/16 14:26:12 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/16 16:04:02 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,13 @@
 void			stock_completion(t_rlist *list, t_completion data_comple,\
 															t_tc *tool)
 {
-	(void)data_comple;
-	ft_insert(list->file, tool);
+//	ft_putendl2_fd("\nsc path = ", data_comple.path, 1);
+//	ft_putendl2_fd("sc string = ", data_comple.string, 1);
+//	ft_putendl2_fd("sc buff_cursor = ", data_comple.buff_cursor, 1);
+//	ft_putendl2_fd("sc after_cursor = ", data_comple.after_cursor, 1);
+//	ft_putendl2_fd("sc list->file = ", list->file, 1);
+//	(void)data_comple;
+	ft_insert(list->file + ft_strlen(data_comple.string), tool);
 	if (list->type == 0)
 		ft_insert("/", tool);
 	else if (list->type == 2)

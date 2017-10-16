@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:41:52 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:42:05 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/16 15:41:01 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	ft_compl_interpreter(char *buff, t_tc *tool)
 	if (tool->ctrl_r == 0 && g_shell->inhib == 0)
 	{
 		if (buff[0] == 9)
-			ft_completion(tool, g_shell->comp_ctrl);
-		ft_reset_compl(g_shell->comp_ctrl);
+			ft_completion_romain(tool);
+			//ft_completion(tool, g_shell->comp_ctrl);
+		//ft_reset_compl(g_shell->comp_ctrl);
 	}
 }
