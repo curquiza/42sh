@@ -6,7 +6,7 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 16:04:01 by rcarette          #+#    #+#             */
-/*   Updated: 2017/10/14 18:59:40 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/16 15:26:51 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ static void		free_struct_data(t_completion *data_compl)
 	(data_compl->buff_cursor != NULL) ? free(data_compl->buff_cursor) : 0;
 }
 
-static int		check_pipe(t_tc *line, t_completion data_comple)
+static int		check_pipe(t_tc *tool, t_completion data_comple)
 {
 	char	*temporary;
 	char	*temp;
 	int		size;
 
-	temporary = ft_strndup(line->buffer, ft_calc_position(tool) - \
+	temporary = ft_strndup(tool->buff, ft_calc_position(tool) - \
 										ft_strlen(data_comple.path));
 	temp = temporary;
 	temporary = ft_strtrim(temp);
 	free(temp);
 	size = ft_strlen(temporary);
-	if (ft_strlen(temporary) == line->nbr_prompt - 1)
+	if ((int)ft_strlen(temporary) == tool->nbr_prompt - 1)
 	{
 		free(temporary);
 		return (1);
@@ -97,7 +97,7 @@ int				ft_start_completion(t_completion data_compl, \
 	return (0);
 }
 
-void			ft_completion(t_tc *tool)
+void			ft_completion_romain(t_tc *tool)
 {
 	t_completion	data_compl;
 	DIR				*rep;
@@ -109,7 +109,7 @@ void			ft_completion(t_tc *tool)
 		return ; // OK?
 	ft_getdata(&data_compl, tool);//OK
 	ft_getdata_dir(&data_compl);//OK
-	ft_start_completion(data_compl, tool, &rep); //ICI
+	ft_start_completion(data_compl, tool, &rep); //OK
 	(rep != NULL) ? closedir(rep) : 0;
 	free_struct_data(&data_compl);//OK
 }

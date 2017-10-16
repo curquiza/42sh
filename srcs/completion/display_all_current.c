@@ -6,7 +6,7 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/02 15:35:57 by rcarette          #+#    #+#             */
-/*   Updated: 2017/07/07 05:24:05 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/10/16 14:28:53 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static t_rlist		*ft_getfiles_space(char *path, char *temporary, int type)
 	return (list);
 }
 
-void				display_all_current(t_line_edit *line, \
-													t_completion data_comple)
+void				display_all_current(t_tc *tool, t_completion data_comple)
 {
 	t_rlist		*list;
 	char		*temporary;
@@ -48,6 +47,6 @@ void				display_all_current(t_line_edit *line, \
 	(void)data_comple;
 	temporary = NULL;
 	list = ft_getfiles_space("./", temporary, 2);
-	display_all_completion(list, line, ft_getbigsize_file(list));
+	display_all_completion(list, tool, ft_getbigsize_file(list));
 	clear_list_s(&list);
 }

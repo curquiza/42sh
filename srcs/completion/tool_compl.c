@@ -24,14 +24,14 @@ char	*ft_strndup(char *str, int size) //attention memallocde romain
 	i = -1;
 	if (!str || *str == '\0')
 		return (ft_strnew(1));
-	new_str = ft_memalloc((size + 1), sizeof(char));
+	new_str = ft_memalloc((size + 1));
 	new_str[size + 1] = '\0';
 	while (++i < size)
 		new_str[i] = str[i];
 	return (new_str);
 }
 
-int		lenght_list_s(t_rlist *li)
+int		lenght_rlist_s(t_rlist *li)
 {
 	int		size_li;
 
@@ -98,5 +98,5 @@ int		clear_tab(char **board)
 
 int		ft_calc_position(t_tc *tool)
 {
-	return (tool->curs_y * tool->x_max + tool->curs_x)
+	return (tool->curs_y * tool->x_max + tool->curs_x);
 }

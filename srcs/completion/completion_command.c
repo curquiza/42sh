@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 14:12:41 by rcarette          #+#    #+#             */
-/*   Updated: 2017/10/14 18:06:21 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/16 15:26:45 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,33 @@ static t_rlist		*ft_get_rlistcommand(char *path, t_completion data_comple)
 	return (list);
 }
 
-static void			stock_command(t_line_edit *line, t_rlist *list, \
+static void			stock_command(t_tc *tool, t_rlist *list, \
 											t_completion data_comple, int i)
 {
-	char	*prompt;
-	int		t_cursor;
-
-	prompt = ft_strndup(line->buffer, ft_calc_position(tool) - \
-												ft_strlen(data_comple.path));
-	ft_clear_all_line(line);
-	ft_memset(line->buffer, '\0', BUFF);
-	ft_strcpy(line->buffer, prompt);
-	ft_strcat(line->buffer, list->file);
+	ft_insert(list->file, tool);
 	if (ft_strlen(data_comple.after_cursor) == 0 && i == 0)
-		ft_strcat(line->buffer, " ");
-	t_cursor = ft_strlen(line->buffer);
-	ft_strcat(line->buffer, data_comple.after_cursor);
-	line->nbr_character = ft_strlen(line->buffer);
-	ft_write_buffer(line);
-	ft_move_cursor(line, t_cursor);
-	free(prompt);
+		ft_insert(" ", tool);
+
+	//char	*prompt;
+	//int		t_cursor;
+
+	//prompt = ft_strndup(line->buffer, ft_calc_position(tool) - \
+	//											ft_strlen(data_comple.path));
+	//ft_clear_all_line(line);
+	//ft_memset(line->buffer, '\0', BUFF);
+	//ft_strcpy(line->buffer, prompt);
+	//ft_strcat(line->buffer, list->file);
+	//if (ft_strlen(data_comple.after_cursor) == 0 && i == 0)
+	//	ft_strcat(line->buffer, " ");
+	//t_cursor = ft_strlen(line->buffer);
+	//ft_strcat(line->buffer, data_comple.after_cursor);
+	//line->nbr_character = ft_strlen(line->buffer);
+	//ft_write_buffer(line);
+	//ft_move_cursor(line, t_cursor);
+	//free(prompt);
 }
 
-static void			stock_command_match(t_line_edit *line, \
+static void			stock_command_match(t_tc *tool, \
 								t_completion data_comple, char *file, int nbr)
 {
 	t_rlist		*list;
@@ -77,13 +81,13 @@ static void			stock_command_match(t_line_edit *line, \
 	list = NULL;
 	str = ft_strndup(file, nbr);
 	push_back_s(&list, str, -1);
-	stock_command(line, list, data_comple, -1);
+	stock_command(tool, list, data_comple, -1);
 	clear_list_s(&list);
 	free(str);
 }
 
-int					completion_command(t_line_edit *line,
-								t_completion data_comple)
+int					completion_command(t_tc *tool, \
+												t_completion data_comple)
 {
 	char	*path;
 	t_rlist	*list;
@@ -94,14 +98,14 @@ int					completion_command(t_line_edit *line,
 		return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 	if (!(list = ft_get_rlistcommand(path, data_comple)))
 		return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
-	(lenght_rlist_s(list) == 1) ? stock_command(line, list, data_comple, 0) : 0;
+	(lenght_rlist_s(list) == 1) ? stock_command(tool, list, data_comple, 0) : 0;
 	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));
 	nbr = (nbr == (int)ft_strlen(data_comple.path)) ? 0 : nbr;
 	if (!nbr && lenght_rlist_s(list) > 1)
-		display_all_completion(list, line, ft_getbigsize_file(list));
+		display_all_completion(list, tool, ft_getbigsize_file(list));
 	else if (nbr > 0)
-		stock_command_match(line, data_comple, ft_getsmall_file(list), nbr);
+		stock_command_match(tool, data_comple, ft_getsmall_file(list), nbr);
 	clear_list_s(&list);
 	return (1);
 }

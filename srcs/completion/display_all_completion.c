@@ -6,20 +6,20 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/02 02:01:43 by rcarette          #+#    #+#             */
-/*   Updated: 2017/07/07 05:24:03 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/10/16 15:21:53 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void		manage_display_all_completion(t_line_edit *line)
-{
-	write(1, "\n", 1);
-	ft_calc_position(tool) = (0);
-	line->t_size_screen = line->size_screen;
-	line->nbr_lines = (1);
-	ft_write_buffer(line);
-}
+//static void		manage_display_all_completion(t_line_edit *line)
+//{
+//	write(1, "\n", 1);
+//	ft_calc_position(tool) = (0);
+//	line->t_size_screen = line->size_screen;
+//	line->nbr_lines = (1);
+//	ft_write_buffer(line);
+//}
 
 static void		print_file(t_rlist *list)
 {
@@ -27,7 +27,7 @@ static void		print_file(t_rlist *list)
 	(list->type == 1) ? write(1, GREEN, ft_strlen(GREEN)) : 0;
 	write(1, list->file, list->size_file);
 	(list->type == 0) ? write(1, "/", 1) : 0;
-	write(1, DEFAULT_COMPLE, ft_strlen(DEFAULT_COMPLE));
+	write(1, DEF, ft_strlen(DEF));
 	(list->type > 0) ? write(1, " ", 1) : 0;
 }
 
@@ -37,8 +37,7 @@ static void		print_nspaces(int n_spaces)
 		write(1, " ", 1);
 }
 
-void			display_all_completion(t_rlist *list, t_line_edit *line, \
-																int big_size)
+void			display_all_completion(t_rlist *list, t_tc *tool, int big_size)
 {
 	int		nbr_character;
 	int		n_spaces;
@@ -47,13 +46,14 @@ void			display_all_completion(t_rlist *list, t_line_edit *line, \
 	nbr_character = 0;
 	n_spaces = 0;
 	t_cursor = ft_calc_position(tool);
-	ft_end_of_line(line);
+	//ft_end_of_line(tool);
+	ft_move_end(tool);
 	write(1, "\n", 1);
 	while (list)
 	{
 		n_spaces = ((big_size - (ft_strlen(list->file))) + 3);
 		nbr_character += ((ft_strlen(list->file) + 1) + n_spaces);
-		if (nbr_character >= (int)line->size_screen)
+		if (nbr_character >= (int)tool->x_max)
 		{
 			nbr_character = 0;
 			nbr_character += n_spaces + ft_strlen(list->file);
@@ -63,6 +63,10 @@ void			display_all_completion(t_rlist *list, t_line_edit *line, \
 		(list->next != NULL) ? print_nspaces(n_spaces) : 0;
 		list = list->next;
 	}
-	manage_display_all_completion(line);
-	ft_move_cursor(line, t_cursor);
+	ft_put_comp_prompt(tool);
+	//write(1, COMP_PROMPT, ft_strlen(COMP_PROMPT));
+
+	//ATTENTION
+	//manage_display_all_completion(tool);
+	//ft_move_cursor(tool, t_cursor);
 }

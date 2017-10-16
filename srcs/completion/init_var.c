@@ -6,11 +6,11 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 02:31:54 by rcarette          #+#    #+#             */
-/*   Updated: 2017/07/07 05:25:21 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/10/16 15:26:31 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <main.h>
+#include "shell.h"
 
 void	init_var(char **temporary, int *nbr)
 {
