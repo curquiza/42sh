@@ -6,7 +6,7 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 16:04:01 by rcarette          #+#    #+#             */
-/*   Updated: 2017/10/16 15:26:51 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/16 18:43:49 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 //	temporary_getline = getline;
 //	getline = ft_strtrim(temporary_getline);
 //	free(temporary_getline);
-//	if (ft_strlen(getline))
+//	if (ft_rstrlen(getline))
 //	{
 //		free(getline);
 //		return (1);
@@ -48,13 +48,14 @@ static int		check_pipe(t_tc *tool, t_completion data_comple)
 	char	*temp;
 	int		size;
 
-	temporary = ft_strndup(tool->buff, ft_calc_position(tool) - \
-										ft_strlen(data_comple.path));
+	//temporary = ft_strndup(tool->buff, ft_calc_position(tool) - ft_rstrlen(data_comple.path));
+	temporary = ft_strsub(tool->buff, 0, ft_calc_position(tool) - ft_rstrlen(data_comple.path));
+	(!temporary) ? temporary = ft_strnew(0) : 0; //s+c
 	temp = temporary;
 	temporary = ft_strtrim(temp);
 	free(temp);
-	size = ft_strlen(temporary);
-	if ((int)ft_strlen(temporary) == tool->nbr_prompt - 1)
+	size = ft_rstrlen(temporary);
+	if ((int)ft_rstrlen(temporary) == tool->nbr_prompt - 1)
 	{
 		free(temporary);
 		return (1);
@@ -73,6 +74,9 @@ static int		check_pipe(t_tc *tool, t_completion data_comple)
 int				ft_start_completion(t_completion data_compl, \
 							t_tc *tool, DIR **rep)
 {
+	if (data_compl.path == NULL)
+		ft_putendl("NULL");
+	ft_putendl2_fd("PATH = ", data_compl.path, 1);
 	if (data_compl.path[0] == '/')
 	{
 		if (!(*rep = opendir(data_compl.path)))
@@ -90,6 +94,7 @@ int				ft_start_completion(t_completion data_compl, \
 	}
 	else
 	{
+		ft_putendl("UNGRANDMOTBORDEL");
 		if ((check_pipe(tool, data_compl)))
 			return (completion_command(tool, data_compl));
 		ft_completion_after_command(tool, data_compl);

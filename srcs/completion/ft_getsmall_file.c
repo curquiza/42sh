@@ -19,7 +19,7 @@ char		*ft_getsmall_file(t_rlist *list)
 	small_file = list->file;
 	while (list)
 	{
-		if (ft_strlen(small_file) > ft_strlen(list->file))
+		if (ft_rstrlen(small_file) > ft_rstrlen(list->file))
 			small_file = list->file;
 		list = list->next;
 	}

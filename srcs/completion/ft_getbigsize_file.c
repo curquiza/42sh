@@ -19,8 +19,8 @@ int		ft_getbigsize_file(t_rlist *list)
 	size = 0;
 	while (list)
 	{
-		if (size < (int)ft_strlen(list->file))
-			size = ft_strlen(list->file);
+		if (size < (int)ft_rstrlen(list->file))
+			size = ft_rstrlen(list->file);
 		list = list->next;
 	}
 	return (size);

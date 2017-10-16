@@ -6,7 +6,7 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/02 16:02:48 by rcarette          #+#    #+#             */
-/*   Updated: 2017/10/16 15:26:42 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/16 17:48:37 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ static int		check_line(t_tc *tool, t_completion data_comple)
 	char	*temporary;
 	char	*temp;
 
-	temporary = ft_strndup(tool->buff, ft_calc_position(tool) - \
-										ft_strlen(data_comple.path));
+	//temporary = ft_strndup(tool->buff, ft_calc_position(tool) - \
+	//									ft_rstrlen(data_comple.path));
+	temporary = ft_strsub(tool->buff, 0, ft_calc_position(tool) - \
+										ft_rstrlen(data_comple.path));
+	(!temporary) ? temporary = ft_strnew(0) : 0; //s+c
 	temp = temporary;
 	temporary = ft_strtrim(temp);
 	free(temp);
-	if ((int)ft_strlen(temporary) == tool->nbr_prompt - 1)
+	if ((int)ft_rstrlen(temporary) == tool->nbr_prompt - 1)
 	{
 		free(temporary);
 		return (0);
@@ -43,9 +46,9 @@ static int		stock_slash(t_tc *tool, t_completion data_comple)
 	//ft_strcpy(line->buffer, begin);
 	//free(begin);
 	//ft_strcat(line->buffer, "/");
-	//t_cursor = ft_strlen(line->buffer);
+	//t_cursor = ft_rstrlen(line->buffer);
 	//ft_strcat(line->buffer, data_comple.after_cursor);
-	//line->nbr_character = ft_strlen(line->buffer);
+	//line->nbr_character = ft_rstrlen(line->buffer);
 	//ft_clear_all_line(line);
 	//ft_write_buffer(line);
 	//ft_move_cursor(line, t_cursor);
@@ -59,7 +62,7 @@ int				search_file_current(t_completion data_comple, t_tc *tool)
 	int			nbr;
 
 	init_var(&temporary, &nbr);
-	if (!(ft_strlen(data_comple.string)))
+	if (!(ft_rstrlen(data_comple.string)))
 	{
 		if (!(list = ft_getfiles_curr(&data_comple, temporary, 2)))
 			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
@@ -72,7 +75,7 @@ int				search_file_current(t_completion data_comple, t_tc *tool)
 	(lenght_rlist_s(list) == 1) ? stock_completion(list, data_comple, tool) : 0;
 	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));
-	nbr = (nbr == (int)ft_strlen(data_comple.string)) ? 0 : nbr;
+	nbr = (nbr == (int)ft_rstrlen(data_comple.string)) ? 0 : nbr;
 	if (!nbr && lenght_rlist_s(list) > 1)
 		display_all_completion(list, tool, ft_getbigsize_file(list));
 	else if (nbr > 0)
@@ -89,7 +92,7 @@ int				search_file_with_path(t_tc *tool, \
 	int			nbr;
 
 	init_var(&temporary, &nbr);
-	if (!(ft_strlen(data_comple.string)))
+	if (!(ft_rstrlen(data_comple.string)))
 	{
 		if (!(list = ft_getfiles_all(data_comple, temporary, 2)))
 			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
@@ -102,7 +105,7 @@ int				search_file_with_path(t_tc *tool, \
 	(lenght_rlist_s(list) == 1) ? stock_completion(list, data_comple, tool) : 0;
 	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));
-	nbr = (nbr == (int)ft_strlen(data_comple.string)) ? 0 : nbr;
+	nbr = (nbr == (int)ft_rstrlen(data_comple.string)) ? 0 : nbr;
 	if (!nbr && lenght_rlist_s(list) > 1)
 		display_all_completion(list, tool, ft_getbigsize_file(list));
 	else if (nbr > 0)
@@ -114,17 +117,17 @@ int				search_file_with_path(t_tc *tool, \
 int				ft_start_completion_current(t_completion data_comple, \
 															t_tc *tool)
 {
-	if (ft_strlen(data_comple.path) == 1 && data_comple.path[0] == '.'\
+	if (ft_rstrlen(data_comple.path) == 1 && data_comple.path[0] == '.'\
 										&& check_line(tool, data_comple) == 0)
 		return (stock_slash(tool, data_comple));
 	else if (ft_strchr(data_comple.path, '/') == NULL && \
 				data_comple.string != NULL && data_comple.string[0] == '.')
 	{
-		if (ft_strlen(data_comple.string) > 1)
+		if (ft_rstrlen(data_comple.string) > 1)
 			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
 		stock_slash(tool, data_comple);
 	}
-	else if (ft_strlen(data_comple.path) == 1 && data_comple.path[0] == '.' \
+	else if (ft_rstrlen(data_comple.path) == 1 && data_comple.path[0] == '.' \
 										&& check_line(tool, data_comple) != 0)
 	{
 		search_file_current(data_comple, tool);

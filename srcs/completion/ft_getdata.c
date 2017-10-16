@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 20:01:38 by rcarette          #+#    #+#             */
-/*   Updated: 2017/10/14 18:43:56 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/16 18:52:56 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,15 @@ void			ft_getdata(t_completion *data_compl, t_tc *tool)
 	nbr = 0;
 	i = -1;
 	init_data(data_compl);
+	ft_putnbr2("calc_pos", ft_calc_position(tool));
 	data_compl->after_cursor = ft_strdup(&tool->buff[ft_calc_position(tool)]);
-	temp_data = ft_strndup(tool->buff, ft_calc_position(tool));
-	size_to = (ft_strlen(temp_data));
-	while (temp_data[--size_to] != ' ' || size_to == (int)tool->nbr_prompt)
-		++nbr;
+	//temp_data = ft_strndup(tool->buff, ft_calc_position(tool));
+	temp_data = ft_strsub(tool->buff, 0, ft_calc_position(tool));
+	(!temp_data) ? temp_data = ft_strnew(1) : 0; //s+c
+	nbr = (ft_rstrlen(temp_data));
+	size_to = (ft_rstrlen(temp_data));
+//	while (temp_data[--size_to] != ' ' || size_to == (int)tool->nbr_prompt)
+//		++nbr;
 	if (nbr == 0)
 	{
 		data_compl->path = ft_strdup(" ");
@@ -57,6 +61,8 @@ void			ft_getdata(t_completion *data_compl, t_tc *tool)
 	ft_memset(data_compl->path, '\0', (nbr + 1));
 	while (temp_data[++size_to])
 		data_compl->path[++i] = temp_data[size_to];
+	//ft_putendl2_fd("\npath titi = ", data_compl->path, 1);
+	//ft_putchar('\n');
 	free(temp_data);
 }
 
@@ -66,10 +72,10 @@ int				ft_getdata_dir(t_completion *data_compl)
 	char	*temporary;
 
 	rep = NULL;
-	if (ft_strlen(data_compl->path) == 1)
+	if (ft_rstrlen(data_compl->path) == 1)
 		return (1);
 	else if ((rep = opendir(data_compl->path)) &&
-		data_compl->path[ft_strlen(data_compl->path) - 1] == '/')
+		data_compl->path[ft_rstrlen(data_compl->path) - 1] == '/')
 		return (closedir(rep));
 	else if (data_compl->path[0] == '.')
 	{
@@ -85,5 +91,9 @@ int				ft_getdata_dir(t_completion *data_compl)
 		*(temporary + 1) = '\0';
 	}
 	(rep != NULL) ? closedir(rep) : 0;
+	//if (data_compl->string == NULL)
+	//	ft_putendl("string est NULL");
+	//else
+	//	ft_putendl("TOTO");
 	return (1);
 }

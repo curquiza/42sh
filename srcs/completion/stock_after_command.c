@@ -6,7 +6,7 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 01:44:17 by rcarette          #+#    #+#             */
-/*   Updated: 2017/10/16 16:01:46 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/16 17:48:56 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		stockafter_command(t_tc *tool, t_completion data_comple,\
 	//ft_putendl2_fd("afcmd string = ", data_comple.string, 1);
 	//ft_putendl2_fd("afcmd buff_cursor = ", data_comple.buff_cursor, 1);
 	//ft_putendl2_fd("afcmd after_cursor = ", data_comple.after_cursor, 1);
-	ft_insert(list->file + ft_strlen(data_comple.path), tool);
+	ft_insert(list->file + ft_rstrlen(data_comple.path), tool);
 	if (list->type == 0)
 		ft_insert("/", tool);
 	else if (list->type == 2)
@@ -30,17 +30,17 @@ void		stockafter_command(t_tc *tool, t_completion data_comple,\
 //	int		t_cursor;
 //
 //	prompt = ft_strndup(line->buffer, ft_calc_position(tool) - \
-//												ft_strlen(data_comple.path));
+//												ft_rstrlen(data_comple.path));
 //	ft_memset(line->buffer, '\0', BUFF);
 //	ft_clear_all_line(line);
 //	ft_strcpy(line->buffer, prompt);
 //	ft_strcat(line->buffer, list->file);
 //	(list->type == 0) ? ft_strcat(line->buffer, "/") : 0;
-//	if (list->type == 2 && ft_strlen(data_comple.after_cursor) == 0)
+//	if (list->type == 2 && ft_rstrlen(data_comple.after_cursor) == 0)
 //		ft_strcat(line->buffer, " ");
-//	t_cursor = ft_strlen(line->buffer);
+//	t_cursor = ft_rstrlen(line->buffer);
 //	ft_strcat(line->buffer, data_comple.after_cursor);
-//	line->nbr_character = ft_strlen(line->buffer);
+//	line->nbr_character = ft_rstrlen(line->buffer);
 //	ft_write_buffer(line);
 //	ft_move_cursor(line, t_cursor);
 //	free(prompt);
@@ -53,7 +53,9 @@ void		stock_after_match(t_tc *tool, t_completion data_comple, \
 	char		*str;
 
 	list_file = NULL;
-	str = ft_strndup(ft_getsmall_file(list), nbr);
+	//str = ft_strndup(ft_getsmall_file(list), nbr);
+	str = ft_strsub(ft_getsmall_file(list), 0, nbr);
+	(!str) ? str = ft_strnew(0) : 0; //s+c
 	push_back_s(&list_file, str, -1);
 	stockafter_command(tool, data_comple, list_file);
 	clear_list_s(&list_file);

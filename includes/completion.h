@@ -28,11 +28,12 @@ typedef struct			s_completion
 }						t_completion;
 
 void	clear_list_s(t_rlist **li);
-char	*ft_strndup(char *str, int size);
+//char	*ft_strndup(char *str, int size);
 int		lenght_rlist_s(t_rlist *li);
 void	push_back_s(t_rlist **list, const char *str, int type);
 int		clear_tab(char **board);
 int		ft_calc_position(t_tc *tool);
+size_t	ft_rstrlen(const char *s);
 
 void				ft_completion_romain(t_tc *tool);
 int					ft_start_completion(t_completion data_compl, \

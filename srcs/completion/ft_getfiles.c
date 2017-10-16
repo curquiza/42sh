@@ -55,7 +55,7 @@ t_rlist		*ft_getfiles_opt(t_completion data_comple, char *temporary, \
 	{
 		if (ft_strcmp(cur->d_name, ".") == 0 || \
 									ft_strcmp(cur->d_name, "..") == 0 || \
-ft_strncmp(cur->d_name, data_comple.string, ft_strlen(data_comple.string)) != 0)
+ft_strncmp(cur->d_name, data_comple.string, ft_rstrlen(data_comple.string)) != 0)
 			continue ;
 		temporary = ft_strjoin(data_comple.path, cur->d_name);
 		lstat(temporary, &inf);
@@ -141,7 +141,7 @@ t_rlist		*ft_getfiles_all_opt(t_completion data_comple, char *temporary, \
 		if (ft_strcmp(c->d_name, "..") == 0 || ft_strcmp(c->d_name, ".") == 0)
 			continue ;
 		if (ft_strncmp(c->d_name, data_comple.string, \
-									ft_strlen(data_comple.string)) != 0)
+									ft_rstrlen(data_comple.string)) != 0)
 			continue ;
 		temporary = ft_strjoin(data_comple.path, c->d_name);
 		lstat(temporary, &inf);

@@ -19,7 +19,7 @@ int		completion_dir(t_completion data_comple, t_tc *tool)
 	int			nbr;
 
 	init_var(&temporary, &nbr);
-	if (!(ft_strlen(data_comple.string)))
+	if (!(ft_rstrlen(data_comple.string)))
 	{
 		if (!(list = ft_getfiles(data_comple, temporary, 2)))
 			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
@@ -32,7 +32,7 @@ int		completion_dir(t_completion data_comple, t_tc *tool)
 	(lenght_rlist_s(list) == 1) ? stock_completion(list, data_comple, tool) : 0;
 	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));
-	nbr = (nbr == (int)ft_strlen(data_comple.string)) ? 0 : nbr;
+	nbr = (nbr == (int)ft_rstrlen(data_comple.string)) ? 0 : nbr;
 	if (!nbr && lenght_rlist_s(list) > 1)
 		display_all_completion(list, tool, ft_getbigsize_file(list));
 	else if (nbr > 0)

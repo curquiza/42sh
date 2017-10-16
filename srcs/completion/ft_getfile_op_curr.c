@@ -44,7 +44,7 @@ t_rlist			*ft_getfiles_opt_curr(t_completion *data_comple, \
 		if (curr->d_name[0] != '.')
 			continue ;
 		temporary = ft_strjoin(".", data_comple->string);
-		if (ft_strncmp(temporary, curr->d_name, ft_strlen(temporary)) != 0)
+		if (ft_strncmp(temporary, curr->d_name, ft_rstrlen(temporary)) != 0)
 		{
 			ft_memdel((void *)&temporary);
 			continue ;

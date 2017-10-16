@@ -16,19 +16,33 @@ void	clear_list_s(t_rlist **li)
 	*li = NULL;
 }
 
-char	*ft_strndup(char *str, int size) //attention memallocde romain
+//char	*ft_strndup(char *str, int size) //attention memallocde romain
+//{
+//	char	*new_str;
+//	int		i;
+//
+//	i = -1;
+//	if (!str || *str == '\0')
+//		return (ft_strnew(1));
+//	new_str = ft_memalloc((size + 1));
+//	new_str[size + 1] = '\0';
+//	while (++i < size)
+//		new_str[i] = str[i];
+//	return (new_str);
+//}
+
+size_t		ft_rstrlen(const char *s)
 {
-	char	*new_str;
 	int		i;
 
+	if (s == NULL)
+		return (0);
+	if (*s == '\0')
+		return (0);
 	i = -1;
-	if (!str || *str == '\0')
-		return (ft_strnew(1));
-	new_str = ft_memalloc((size + 1));
-	new_str[size + 1] = '\0';
-	while (++i < size)
-		new_str[i] = str[i];
-	return (new_str);
+	while (s[++i])
+		;
+	return (i);
 }
 
 int		lenght_rlist_s(t_rlist *li)
@@ -54,13 +68,13 @@ static t_rlist		*creat_new_elem_s(const char *str, int type)
 	t_rlist		*new_link;
 	int			size_str;
 
-	size_str = (ft_strlen(str) + 1);
+	size_str = (ft_rstrlen(str) + 1);
 	new_link = new_list();
 	if (!(new_link = (t_rlist *)malloc(sizeof(t_rlist))))
 		exit(EXIT_FAILURE);
 	if (!(new_link->file = (char *)malloc(sizeof(char) * size_str)))
 		exit(EXIT_FAILURE);
-	new_link->size_file = ft_strlen(str);
+	new_link->size_file = ft_rstrlen(str);
 	new_link->type = type;
 	ft_memcpy(new_link->file, str, size_str);
 	new_link->next = NULL;
@@ -98,5 +112,5 @@ int		clear_tab(char **board)
 
 int		ft_calc_position(t_tc *tool)
 {
-	return (tool->curs_y * tool->x_max + tool->curs_x);
+	return (tool->curs_y * tool->x_max + tool->curs_x - tool->prompt_len);
 }

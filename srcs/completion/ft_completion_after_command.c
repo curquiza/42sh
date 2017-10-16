@@ -6,7 +6,7 @@
 /*   By: rcarette <rcarette@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 16:46:38 by rcarette          #+#    #+#             */
-/*   Updated: 2017/10/16 15:13:50 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/16 18:05:50 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@ static int		completion_with_path(t_tc *tool, t_completion data_comple)
 	int			nbr;
 
 	init_var(&temporary, &nbr);
-	if (!(ft_strlen(data_comple.string)))
+	//if (data_comple.string == NULL)
+	//	ft_putendl("string est NULL");
+	//ft_putendl2_fd("\ncwp path = ", data_comple.path, 1);
+	//ft_putendl2_fd("cwp buff_cursor = ", data_comple.buff_cursor, 1);
+	//ft_putendl2_fd("cwp after_cursor = ", data_comple.after_cursor, 1);
+	if (!(ft_rstrlen(data_comple.string)))
+	//if (!data_comple.string)
 	{
 		if (!(list = ft_getfiles(data_comple, temporary, 2)))
 			return (tputs(tgetstr("bl", NULL), 1, &ft_termput));
@@ -32,7 +38,8 @@ static int		completion_with_path(t_tc *tool, t_completion data_comple)
 	(lenght_rlist_s(list) == 1) ? stock_completion(list, data_comple, tool) : 0;
 	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));
-	nbr = (nbr == (int)ft_strlen(data_comple.string)) ? 0 : nbr;
+	nbr = (nbr == (int)ft_rstrlen(data_comple.string)) ? 0 : nbr;
+	//nbr = (data_comple.string ? ft_rstrlen(data_comple.string) : 0);
 	if (!nbr && lenght_rlist_s(list) > 1)
 		display_all_completion(list, tool, ft_getbigsize_file(list));
 	else if (nbr > 0)
@@ -56,7 +63,7 @@ static t_rlist	*getfile_opt(char *path, t_completion data_comple,\
 		if (ft_strcmp(curr->d_name, ".") == 0 || \
 							ft_strcmp(curr->d_name, "..") == 0 || \
 							ft_strncmp(curr->d_name, data_comple.path, \
-							ft_strlen(data_comple.path)) != 0)
+							ft_rstrlen(data_comple.path)) != 0)
 			continue ;
 		temporary = ft_strjoin("./", curr->d_name);
 		lstat(temporary, &inf);
@@ -84,7 +91,7 @@ static int		completion_current(t_tc *tool, t_completion data_c)
 	(lenght_rlist_s(list) == 1) ? stockafter_command(tool, data_c, list) : 0;
 	if (lenght_rlist_s(list) > 1)
 		nbr = countnbr_match(list, ft_getsmall_file(list));
-	nbr = (nbr == (int)ft_strlen(data_c.path)) ? 0 : nbr;
+	nbr = (nbr == (int)ft_rstrlen(data_c.path)) ? 0 : nbr;
 	if (!nbr && lenght_rlist_s(list) > 1)
 		display_all_completion(list, tool, ft_getbigsize_file(list));
 	else if (nbr > 0)

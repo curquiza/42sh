@@ -23,11 +23,11 @@
 
 static void		print_file(t_rlist *list)
 {
-	(list->type == 0) ? write(1, BLUE, ft_strlen(BLUE)) : 0;
-	(list->type == 1) ? write(1, GREEN, ft_strlen(GREEN)) : 0;
+	(list->type == 0) ? write(1, BLUE, ft_rstrlen(BLUE)) : 0;
+	(list->type == 1) ? write(1, GREEN, ft_rstrlen(GREEN)) : 0;
 	write(1, list->file, list->size_file);
 	(list->type == 0) ? write(1, "/", 1) : 0;
-	write(1, DEF, ft_strlen(DEF));
+	write(1, DEF, ft_rstrlen(DEF));
 	(list->type > 0) ? write(1, " ", 1) : 0;
 }
 
@@ -51,12 +51,12 @@ void			display_all_completion(t_rlist *list, t_tc *tool, int big_size)
 	write(1, "\n", 1);
 	while (list)
 	{
-		n_spaces = ((big_size - (ft_strlen(list->file))) + 3);
-		nbr_character += ((ft_strlen(list->file) + 1) + n_spaces);
+		n_spaces = ((big_size - (ft_rstrlen(list->file))) + 3);
+		nbr_character += ((ft_rstrlen(list->file) + 1) + n_spaces);
 		if (nbr_character >= (int)tool->x_max)
 		{
 			nbr_character = 0;
-			nbr_character += n_spaces + ft_strlen(list->file);
+			nbr_character += n_spaces + ft_rstrlen(list->file);
 			write(1, "\n", 1);
 		}
 		print_file(list);
@@ -64,7 +64,7 @@ void			display_all_completion(t_rlist *list, t_tc *tool, int big_size)
 		list = list->next;
 	}
 	ft_put_comp_prompt(tool);
-	//write(1, COMP_PROMPT, ft_strlen(COMP_PROMPT));
+	//write(1, COMP_PROMPT, ft_rstrlen(COMP_PROMPT));
 
 	//ATTENTION
 	//manage_display_all_completion(tool);
