@@ -44,7 +44,7 @@ char	*ft_get_match(t_comp_ctrl *ctrl)
 	int		i;
 
 	len = ft_strlen(ctrl->to_find);
-	if (!ctrl->len || !ctrl->start || len > (int)ft_strlen(ctrl->start->word))
+	if (!ctrl->len || !ctrl->start || len > (int)ft_strlen(ctrl->start->word)) //???
 		return (NULL);
 	if (ctrl->len == 1)
 		return (ft_strdup(ctrl->start->word));
