@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 14:44:22 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 15:56:47 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/17 16:25:22 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int		ft_find_exec_in(DIR *open, t_comp_ctrl *ctrl, int mode_dir)
 	struct dirent	*dir;
 	int				len;
 
-	(void)mode_dir;
+	//(void)mode_dir;
 	len = ft_strlen(ctrl->clues);
 	while ((dir = readdir(open)) != NULL)
 	{
@@ -131,10 +131,16 @@ int		ft_find_exec_in(DIR *open, t_comp_ctrl *ctrl, int mode_dir)
 		if (ft_check_hidden_file(ctrl, dir->d_name) == 1
 			&& ft_strncmp(dir->d_name, ctrl->clues, len) == 0)
 		{
+			ft_putendl("coco");
 			if (ft_check_user_right(ctrl, dir->d_name) == 1)
 			{
-				ft_complst_pushback(ctrl, ft_complete_name(dir->d_name, ctrl));
-				ctrl->len++;
+			ft_putendl("ICI");
+			ft_putendl(dir->d_name);
+				if (mode_dir == 0 && !ft_check_is_dir(ctrl, dir->d_name))
+				{
+					ft_complst_pushback(ctrl, ft_complete_name(dir->d_name, ctrl));
+					ctrl->len++;
+				}
 			}
 		}
 	}
@@ -170,6 +176,33 @@ int		ft_find_exec_in(DIR *open, t_comp_ctrl *ctrl, int mode_dir)
 //	return (0);
 //}
 
+int		ft_exec_in_env_path(t_comp_ctrl *ctrl)
+{
+	char	**pathtab;
+	DIR		*open;
+	int		i;
+	int		len;
+
+	if (!(pathtab = ft_get_pathtab(g_shell)))
+		return (0);
+	len = ft_tablen(pathtab);
+	i = -1;
+	while (++i < len)
+	{
+		if (!(open = opendir(pathtab[i])))
+			continue;
+		if (ft_find_exec_in(open, ctrl, 0) == -1)
+		{
+			ft_tabdel(&pathtab);
+			closedir(open);
+			return (-1);
+		}
+		closedir(open);
+	}
+	ft_tabdel(&pathtab);
+	return (0);
+}
+
 int		ft_get_cmd_words(t_comp_ctrl *ctrl)
 {
 	DIR		*open;
@@ -178,6 +211,18 @@ int		ft_get_cmd_words(t_comp_ctrl *ctrl)
 	ret = 0;
 	if (ft_strchr(ctrl->word_to_comp, '/'))
 	{
+		if (!(open = opendir(ctrl->path)))
+			return (ret);
+		if (ft_find_exec_in(open, ctrl, 1) == -1)
+			ret = -1;
+		closedir(open);
+	}
+	else
+	{
+		ft_putendl("PAS DE SLASH");
+		if (ft_exec_in_env_path(ctrl) == -1)
+			return (-1);
+		ft_putendl("ENV_PATH FINI");
 		if (!(open = opendir(ctrl->path)))
 			return (ret);
 		if (ft_find_exec_in(open, ctrl, 1) == -1)
@@ -194,7 +239,6 @@ int		ft_get_file_words(t_comp_ctrl *ctrl)
 	DIR		*open;
 
 	ret = 0;
-	//if (!(open = opendir(".")))
 	if (!(open = opendir(ctrl->path)))
 		return (ret);
 	if (ft_find_words_in(open, ctrl) == -1)
