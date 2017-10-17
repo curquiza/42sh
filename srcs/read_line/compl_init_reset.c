@@ -6,16 +6,17 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 14:48:11 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 11:55:25 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/17 12:35:38 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char	*ft_get_comp_word(t_tc *tool)
+void	ft_get_comp_word(t_tc *tool, t_comp_ctrl *ctrl)
 {
 	int		pos;
 	int		i;
+	char	*temp;
 
 	pos = tool->curs_y * (tool->x_max + 1) + tool->curs_x - tool->prompt_len;
 	i = pos - 1;
@@ -25,7 +26,14 @@ char	*ft_get_comp_word(t_tc *tool)
 			&& ft_is_separator(tool->buff[i]) != 1)
 		i--;
 	i++;
-	return (ft_strsub(tool->buff, i, pos - i));
+	ctrl->word_to_comp = ft_strsub(tool->buff, i, pos - i);
+	if ((temp = ft_strrchr(ctrl->word_to_comp, '/')))
+	{
+		ctrl->clues = ft_strdup(temp + 1);
+		ctrl->path = ft_strsub(ctrl->word_to_comp, 0, ft_strlen(ctrl->word_to_comp) - ft_strlen(ctrl->clues));
+	}
+	else
+		ctrl->clues = ft_strdup(ctrl->word_to_comp);
 }
 
 
@@ -35,7 +43,7 @@ int		ft_get_comp_status(t_tc *tool, t_comp_ctrl *ctrl)
 	int	pos;
 	int i;
 
-	len = (ctrl->to_find ? ft_strlen(ctrl->to_find) : 0);
+	len = (ctrl->word_to_comp ? ft_strlen(ctrl->word_to_comp) : 0);
 //	ft_putnbr2("len = ", len);
 	pos = tool->curs_y * (tool->x_max + 1) + tool->curs_x - tool->prompt_len;
 //	ft_putstr("\ntool->buff[pos] = ");
@@ -108,6 +116,9 @@ void	ft_erase_comp(t_comp_ctrl *ctrl)
 void	ft_reset_compl(t_comp_ctrl *ctrl)
 {
 	ft_erase_comp(g_shell->comp_ctrl);
-	ft_strdel(&ctrl->to_find);
+	//ft_strdel(&ctrl->to_find);
+	ft_strdel(&ctrl->word_to_comp);
+	ft_strdel(&ctrl->path);
+	ft_strdel(&ctrl->clues);
 	ft_bzero(ctrl, sizeof(*ctrl));
 }

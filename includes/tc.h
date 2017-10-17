@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:42:46 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 11:35:44 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/17 12:27:32 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	ft_completion(t_tc *tool, t_comp_ctrl *ctrl);
 ** compl_init_reset.c
 */
 
-char	*ft_get_comp_word(t_tc *tool);
+void	ft_get_comp_word(t_tc *tool, t_comp_ctrl *ctrl);
 int		ft_get_comp_status(t_tc *tool, t_comp_ctrl *ctrl);
 void	ft_erase_comp(t_comp_ctrl *ctrl);
 void	ft_reset_compl(t_comp_ctrl *ctrl);
