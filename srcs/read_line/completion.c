@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/25 18:28:19 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 12:33:47 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/17 14:51:21 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	ft_print_comp(t_comp_ctrl *ctrl)
 	ft_putnbr2("status = ", ctrl->status);
 }
 
+//void	ft_print_candidates(t_comp_ctrl *ctrl)
+//{
+//	t_comp	*comp;
+//
+//	comp = ctrl->start;
+//	while (comp)
+//	{
+//		ft_putendl(comp->word);
+//		comp = comp->next;
+//	}
+//}
+
 void	ft_completion(t_tc *tool, t_comp_ctrl *ctrl)
 {
 	//char	*match;
@@ -33,6 +45,10 @@ void	ft_completion(t_tc *tool, t_comp_ctrl *ctrl)
 	//ctrl->to_find = ft_get_comp_word(tool);
 //	ft_putnbr2("status = ", ctrl->status);
 	ft_print_comp(ctrl);
+	ft_get_all_candidates(ctrl, tool);
+//	ft_print_candidates(ctrl);
+	ft_put_all_words(tool, ctrl->start);
+	ft_put_comp_prompt(tool);
 //	if (ft_get_all_words(ctrl, tool) != -1) // ft_get_all_candidats
 //	{
 //		match = ft_get_match(ctrl); //get_matched_part

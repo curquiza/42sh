@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:42:46 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 12:27:32 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/17 12:45:10 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,10 @@ void	ft_reset_compl(t_comp_ctrl *ctrl);
 */
 
 void	ft_complst_pushback(t_comp_ctrl *ctrl, char *word);
-int		ft_find_words_in(DIR *open, t_comp_ctrl *ctrl);
-int		ft_get_bin_words(t_comp_ctrl *ctrl);
-int		ft_get_file_words(t_comp_ctrl *ctrl);
-int		ft_get_all_words(t_comp_ctrl *ctrl, t_tc *tool);
+//int		ft_find_words_in(DIR *open, t_comp_ctrl *ctrl);
+//int		ft_get_bin_words(t_comp_ctrl *ctrl);
+//int		ft_get_file_words(t_comp_ctrl *ctrl);
+int		ft_get_all_candidates(t_comp_ctrl *ctrl, t_tc *tool);
 
 /*
 ** compl_matches.c

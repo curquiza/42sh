@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 14:48:11 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 12:40:24 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/17 12:49:04 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	ft_get_comp_word(t_tc *tool, t_comp_ctrl *ctrl)
 				ft_strlen(ctrl->word_to_comp) - ft_strlen(ctrl->clues));
 	}
 	else
+	{
 		ctrl->clues = ft_strdup(ctrl->word_to_comp);
+		ctrl->path = ft_strdup("./");
+	}
 }
 
 int		ft_get_comp_status(t_tc *tool, t_comp_ctrl *ctrl)
