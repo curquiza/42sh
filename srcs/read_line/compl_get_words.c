@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 14:44:22 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 15:42:23 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/17 15:55:35 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,20 @@ char	*ft_complete_name(char *word, t_comp_ctrl *ctrl)
 	return (new);
 }
 
+/*
+** ft_check_hidden_file :
+** Returns 1 if hidden file taken 
+*/
+
+int		ft_check_hidden_file(t_comp_ctrl *ctrl, char *name)
+{
+	if (ctrl->clues[0] == '.')
+		return (1);
+	else if (!ft_strcmp(name, ".") || !ft_strcmp(name, ".."))
+		return (0);
+	return (1);
+}
+
 int		ft_find_words_in(DIR *open, t_comp_ctrl *ctrl)
 {
 	struct dirent	*dir;
@@ -60,7 +74,8 @@ int		ft_find_words_in(DIR *open, t_comp_ctrl *ctrl)
 	{
 		if (ctrl->len >= COMP_SIZE)
 			return (-1);
-		if ((dir->d_name[0] != '.' || ctrl->clues[0] == '.')
+	//	if ((ctrl->clues[0] == '.' || dir->d_name[0] != '.')
+		if (ft_check_hidden_file(ctrl, dir->d_name) == 1
 			&& ft_strncmp(dir->d_name, ctrl->clues, len) == 0)
 		{
 			//ft_complst_pushback(ctrl, dir->d_name);
