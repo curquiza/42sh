@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 16:37:32 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 14:45:38 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/17 18:19:50 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ char	*ft_get_match(t_comp_ctrl *ctrl)
 	int		len;
 	int		i;
 
-	len = ft_strlen(ctrl->to_find);
+	//len = ft_strlen(ctrl->to_find);
+	len = ft_strlen(ctrl->clues);
 	if (!ctrl->len || !ctrl->start || len > (int)ft_strlen(ctrl->start->word)) //???
 		return (NULL);
 	if (ctrl->len == 1)
