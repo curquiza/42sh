@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/17 12:32:02 by sfranc           ###   ########.fr        #
+#    Updated: 2017/10/17 16:39:54 by sfranc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,8 @@ READLINE = $(addprefix read_line/, \
 		   completion.c \
 		   compl_init_reset.c \
 		   compl_get_words.c \
+		   compl_file_words.c \
+		   compl_cmd_words.c \
 		   compl_matches.c \
 		   compl_ascii_sort.c \
 		   compl_display.c \
