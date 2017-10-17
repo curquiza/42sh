@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 14:44:22 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 15:55:35 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/17 15:56:47 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int		ft_find_exec_in(DIR *open, t_comp_ctrl *ctrl, int mode_dir)
 	{
 		if (ctrl->len >= COMP_SIZE)
 			return (-1);
-		if ((dir->d_name[0] != '.' || ctrl->clues[0] == '.')
+		if (ft_check_hidden_file(ctrl, dir->d_name) == 1
 			&& ft_strncmp(dir->d_name, ctrl->clues, len) == 0)
 		{
 			if (ft_check_user_right(ctrl, dir->d_name) == 1)
