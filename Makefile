@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/13 11:20:52 by curquiza         ###   ########.fr        #
+#    Updated: 2017/10/17 12:32:02 by sfranc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,7 +156,7 @@ $(NAME) : $(MLX) $(LIBFT) $(O_FILES)
 	@echo "\033[1;31m-- EXEC ------------------------\033[0m"
 	@printf  "%-45s\033[1;32m%s\033[0m\n" "Make $@" "OK"
 
-$(OBJ)/%.o: $(SRC)/%.c
+$(OBJ)/%.o: $(SRC)/%.c includes/
 	@mkdir -p objs/ $(O_DIR)
 	@$(CC) -o $@ -c $< $(INCL)
 	@printf  "%-45s\033[1;32m%s\033[0m\n" "Make $@" "OK"
