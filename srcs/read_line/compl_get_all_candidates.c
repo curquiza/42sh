@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 14:44:22 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 16:48:20 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/18 10:52:28 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_complete_name(char *word, t_comp_ctrl *ctrl)
 
 /*
 ** ft_check_hidden_file :
-** Returns 1 if hidden file taken 
+** Returns 1 if hidden file taken.
 */
 
 int		ft_check_hidden_file(t_comp_ctrl *ctrl, char *name)
@@ -63,8 +63,6 @@ int		ft_check_hidden_file(t_comp_ctrl *ctrl, char *name)
 		return (0);
 	return (1);
 }
-
-/********************************************************************/
 
 int		ft_get_all_candidates(t_comp_ctrl *ctrl, t_tc *tool)
 {

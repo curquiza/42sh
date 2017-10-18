@@ -6,23 +6,11 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/25 18:28:19 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 18:21:59 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/18 10:56:10 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-void	ft_print_comp(t_comp_ctrl *ctrl)
-{
-	ft_putendl2_fd("\nword_to_comp : ", ctrl->word_to_comp, 1);
-	if (ctrl->path)
-		ft_putendl2_fd("path : ", ctrl->path, 1);
-	else
-		ft_putendl2_fd("path : ", "NULL", 1);
-	ft_putendl2_fd("clues : ", ctrl->clues, 1);
-	ft_putnbr2("len : ", ctrl->len);
-	ft_putnbr2("status = ", ctrl->status);
-}
 
 void	ft_completion(t_tc *tool, t_comp_ctrl *ctrl)
 {
@@ -30,15 +18,10 @@ void	ft_completion(t_tc *tool, t_comp_ctrl *ctrl)
 
 	ft_get_comp_word(tool, ctrl);
 	ctrl->status = ft_get_comp_status(tool, ctrl);
-	//ft_print_comp(ctrl);
-	//ft_get_all_candidates(ctrl, tool);
-	//ft_put_all_words(tool, ctrl->start);
-	//ft_put_comp_prompt(tool);
 	if (ft_get_all_candidates(ctrl, tool) != -1)
 	{
-		match = ft_get_match(ctrl); //get_matched_part
-		if (match || (ctrl->len == 1 && ctrl->start && match)) //???
-			//ft_put_matched_part(tool, ctrl->to_find, match);
+		match = ft_get_matched_part(ctrl);
+		if (match || (ctrl->len == 1 && ctrl->start && match))
 			ft_put_matched_part(tool, ctrl->clues, match);
 		else if (ctrl->len > 1 && !match && ctrl->start)
 		{

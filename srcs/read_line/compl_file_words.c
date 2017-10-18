@@ -10,11 +10,9 @@ static int	ft_find_files_in(DIR *open, t_comp_ctrl *ctrl)
 	{
 		if (ctrl->len >= COMP_SIZE)
 			return (-1);
-	//	if ((ctrl->clues[0] == '.' || dir->d_name[0] != '.')
 		if (ft_check_hidden_file(ctrl, dir->d_name) == 1
 			&& ft_strncmp(dir->d_name, ctrl->clues, len) == 0)
 		{
-			//ft_complst_pushback(ctrl, dir->d_name);
 			ft_complst_pushback(ctrl, ft_complete_name(dir->d_name, ctrl));
 			ctrl->len++;
 		}

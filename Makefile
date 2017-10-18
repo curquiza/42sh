@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/17 16:39:54 by sfranc           ###   ########.fr        #
+#    Updated: 2017/10/18 11:04:13 by curquiza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ C_FILES = $(addprefix $(SRC)/, \
 	  $(PARSER) \
 	  $(AST) \
 	  $(EXEC) \
-	  $(MAIN)) 
+	  $(MAIN))
 
 READLINE = $(addprefix read_line/, \
 		   init_reset.c \
@@ -58,9 +58,10 @@ READLINE = $(addprefix read_line/, \
 		   ctrl_d.c \
 		   completion.c \
 		   compl_init_reset.c \
-		   compl_get_words.c \
+		   compl_get_all_candidates.c \
 		   compl_file_words.c \
 		   compl_cmd_words.c \
+		   compl_check.c \
 		   compl_matches.c \
 		   compl_ascii_sort.c \
 		   compl_display.c \
@@ -150,30 +151,30 @@ all : $(NAME)
 $(LIBFT) :
 	@echo "\033[1;31m-- LIBFT -----------------------\033[0m"
 	@make -C $(LIBFT_DIR)
-	@printf  "%-45s\033[1;33m%s\033[0m\n" "Make $@" "OK"
+	@printf  "%-50s\033[1;33m%s\033[0m\n" "Make $@" "OK"
 	@echo "\033[1;31m-- OBJECTS ---------------------\033[0m"
 
 $(NAME) : $(MLX) $(LIBFT) $(O_FILES)
 	@$(CC) $(O_FILES) -o $@ $(LIB) $(INCL)
 	@echo "\033[1;31m-- EXEC ------------------------\033[0m"
-	@printf  "%-45s\033[1;32m%s\033[0m\n" "Make $@" "OK"
+	@printf  "%-50s\033[1;32m%s\033[0m\n" "Make $@" "OK"
 
 $(OBJ)/%.o: $(SRC)/%.c includes/
 	@mkdir -p objs/ $(O_DIR)
 	@$(CC) -o $@ -c $< $(INCL)
-	@printf  "%-45s\033[1;32m%s\033[0m\n" "Make $@" "OK"
+	@printf  "%-50s\033[1;32m%s\033[0m\n" "Make $@" "OK"
 
 clean :
 	@make clean -C $(LIBFT_DIR)
-	@printf  "%-45s\033[1;33m%s\033[0m\n" "Make $@_libft" "OK"
+	@printf  "%-50s\033[1;33m%s\033[0m\n" "Make $@_libft" "OK"
 	@rm -rf $(OBJ)
-	@printf  "%-45s\033[1;32m%s\033[0m\n" "Make $@" "OK"
+	@printf  "%-50s\033[1;32m%s\033[0m\n" "Make $@" "OK"
 
 fclean : clean
 	@make fclean -C $(LIBFT_DIR)
-	@printf  "%-45s\033[1;33m%s\033[0m\n" "Make $@_libft" "OK"
+	@printf  "%-50s\033[1;33m%s\033[0m\n" "Make $@_libft" "OK"
 	@rm -rf $(NAME)
-	@printf  "%-45s\033[1;32m%s\033[0m\n" "Make $@" "OK"
+	@printf  "%-50s\033[1;32m%s\033[0m\n" "Make $@" "OK"
 
 re : fclean all
 

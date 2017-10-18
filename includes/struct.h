@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:28:05 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 12:41:24 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/18 10:36:12 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct		s_comp
 typedef struct		s_comp_ctrl
 {
 	int				status;
-	char			*to_find;
+	//char			*to_find;
 	char			*word_to_comp;
 	char			*path;
 	char			*clues;
