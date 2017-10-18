@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:07 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:53:49 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 17:48:30 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_restore_std_fd(t_ast *ast)
 	close(ast->shell->std_fd[0]);
 	close(ast->shell->std_fd[1]);
 	close(ast->shell->std_fd[2]);
-	ft_bzero(ast->shell->std_fd, sizeof(*ast->shell->std_fd));
+	ft_bzero(ast->shell->std_fd, sizeof(*ast->shell->std_fd) * 3);
 }
 
 void	ft_pre_execution(t_ast *ast)
