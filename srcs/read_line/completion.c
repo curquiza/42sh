@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/25 18:28:19 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 10:56:10 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 11:32:49 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void	ft_completion(t_tc *tool, t_comp_ctrl *ctrl)
 		}
 		ft_strdel(&match);
 	}
+	ft_reset_compl(g_shell->comp_ctrl);
 }
