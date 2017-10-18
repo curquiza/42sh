@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:19:55 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/13 11:21:11 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 16:06:49 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@
 */
 
 # define TC_SIZE 2048
-# define DEF_TERM "xterm-256color"
 # define PROMPT_DEF_SIZE 7
 
 /*
