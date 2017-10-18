@@ -6,13 +6,13 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 17:03:09 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 16:19:51 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 17:05:15 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		ft_termput(int c)
+int			ft_termput(int c)
 {
 	write(1, &c, 1);
 	return (0);
@@ -29,7 +29,7 @@ static void	ft_read_without_tc(char **line)
 	ft_strdel(&get_gnl);
 }
 
-void	ft_read_line(char **line, int prompt_len)
+void		ft_read_line(char **line, int prompt_len)
 {
 	char	little_buff[5];
 
