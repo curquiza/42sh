@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:42:46 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 11:02:37 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 16:06:52 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** init_reset.c
 */
 
-void	ft_init_tc(void);
+int		ft_init_tc(void);
 void	ft_reset_tc(t_tc *tool);
 void	ft_init_struct_tc(t_tc *tool, int prompt_len);
 

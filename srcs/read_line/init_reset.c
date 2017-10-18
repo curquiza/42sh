@@ -6,39 +6,41 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:09:42 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:38:08 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 16:09:37 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	ft_init_tc(void)
+int		ft_init_tc(void)
 {
 	char			*name_term;
 	struct termios	term;
 
-	name_term = ft_strdup(DEF_TERM);
-	if (tgetent(NULL, name_term) == 0)
-		ft_exit("init: tgetent error", 1);
-	if (tcgetattr(0, &term) == -1)
-		ft_exit("init: tcgetattr error", 1);
+	if (isatty(STDIN_FILENO) != 1)
+		ft_exit("init termcaps: stdin is not referring to a terminal", 1);
+	name_term = ft_get_varvalue(g_shell->var_env, "TERM");
+	if (!name_term || tgetent(NULL, name_term) != 1)
+		return (-1);
+	if (tcgetattr(0, &term) != 0)
+		ft_exit("init termcaps: tcgetattr error", 1);
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
-	if (tcsetattr(0, TCSANOW, &term) == -1)
-		ft_exit("init: tcsetattr error", 1);
-	ft_strdel(&name_term);
+	if (tcsetattr(0, TCSANOW, &term) != 0)
+		ft_exit("init termcaps: tcsetattr error", 1);
+	return (0);
 }
 
 void	ft_reset_tc(t_tc *tool)
 {
 	struct termios	term;
 
-	if (tcgetattr(0, &term) == -1)
-		ft_exit("reset: tcsetattr error", 1);
+	if (tcgetattr(0, &term) != 0)
+		ft_exit("reset termcaps: tcsetattr error", 1);
 	term.c_lflag |= ICANON;
 	term.c_lflag |= ECHO;
-	if (tcsetattr(0, TCSANOW, &term) == -1)
-		ft_exit("reset: tcsetattr error", 1);
+	if (tcsetattr(0, TCSANOW, &term) != 0)
+		ft_exit("reset termcaps: tcsetattr error", 1);
 	ft_bzero(tool, sizeof(*tool));
 }
 
