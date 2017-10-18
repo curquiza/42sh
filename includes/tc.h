@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:42:46 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 18:01:16 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 11:02:37 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,20 +103,38 @@ void	ft_completion(t_tc *tool, t_comp_ctrl *ctrl);
 ** compl_init_reset.c
 */
 
-char	*ft_get_comp_word(t_tc *tool);
-int		ft_get_comp_status(t_tc *tool, int status);
+void	ft_get_comp_word(t_tc *tool, t_comp_ctrl *ctrl);
+int		ft_get_comp_status(t_tc *tool, t_comp_ctrl *ctrl);
 void	ft_erase_comp(t_comp_ctrl *ctrl);
 void	ft_reset_compl(t_comp_ctrl *ctrl);
 
 /*
-** compl_get_words.c
+** compl_get_all_candidates.c
 */
 
 void	ft_complst_pushback(t_comp_ctrl *ctrl, char *word);
-int		ft_find_words_in(DIR *open, t_comp_ctrl *ctrl);
-int		ft_get_bin_words(t_comp_ctrl *ctrl);
+char	*ft_complete_name(char *word, t_comp_ctrl *ctrl);
+int		ft_check_hidden_file(t_comp_ctrl *ctrl, char *name);
+int		ft_get_all_candidates(t_comp_ctrl *ctrl, t_tc *tool);
+
+/*
+** compl_cmd_words.c
+*/
+
+int		ft_get_cmd_words(t_comp_ctrl *ctrl);
+
+/*
+** compl_file_words.c
+*/
+
 int		ft_get_file_words(t_comp_ctrl *ctrl);
-int		ft_get_all_words(t_comp_ctrl *ctrl, t_tc *tool);
+
+/*
+** compl_check.c
+*/
+
+int		ft_check_user_right(char *path, char *name);
+int		ft_check_is_dir(char *path, char *name);
 
 /*
 ** compl_matches.c
@@ -124,7 +142,7 @@ int		ft_get_all_words(t_comp_ctrl *ctrl, t_tc *tool);
 
 void	ft_put_matched_part(t_tc *tool, char *to_find, char *match);
 int		ft_check_other_words(int i, int len, t_comp *comp);
-char	*ft_get_match(t_comp_ctrl *ctrl);
+char	*ft_get_matched_part(t_comp_ctrl *ctrl);
 
 /*
 ** compl_ascii_sort.c

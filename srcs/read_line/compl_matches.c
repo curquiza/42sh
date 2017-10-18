@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 16:37:32 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:18:17 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 10:54:57 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int		ft_check_other_words(int i, int len, t_comp *comp)
 	return (1);
 }
 
-char	*ft_get_match(t_comp_ctrl *ctrl)
+char	*ft_get_matched_part(t_comp_ctrl *ctrl)
 {
 	int		len;
 	int		i;
 
-	len = ft_strlen(ctrl->to_find);
+	len = ft_strlen(ctrl->clues);
 	if (!ctrl->len || !ctrl->start || len > (int)ft_strlen(ctrl->start->word))
 		return (NULL);
 	if (ctrl->len == 1)

@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 12:03:29 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:12:30 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 11:46:16 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_ctrl_c(int sig)
 	ft_put_prompt();
 	ft_init_struct_tc(g_shell->tc_tool, PROMPT_DEF_SIZE);
 	g_shell->ctrl_c = 1;
+	g_shell->inhib = 0;
 }
 
 void	ft_cancel_ctrl_c(int sig)

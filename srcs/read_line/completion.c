@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/25 18:28:19 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:17:04 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 11:32:49 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	ft_completion(t_tc *tool, t_comp_ctrl *ctrl)
 {
 	char	*match;
 
-	ctrl->status = ft_get_comp_status(tool, ctrl->status);
-	ctrl->to_find = ft_get_comp_word(tool);
-	if (ft_get_all_words(ctrl, tool) != -1)
+	ft_get_comp_word(tool, ctrl);
+	ctrl->status = ft_get_comp_status(tool, ctrl);
+	if (ft_get_all_candidates(ctrl, tool) != -1)
 	{
-		match = ft_get_match(ctrl);
+		match = ft_get_matched_part(ctrl);
 		if (match || (ctrl->len == 1 && ctrl->start && match))
-			ft_put_matched_part(tool, ctrl->to_find, match);
+			ft_put_matched_part(tool, ctrl->clues, match);
 		else if (ctrl->len > 1 && !match && ctrl->start)
 		{
 			ft_ascii_sort_words(&ctrl->start);
@@ -31,4 +31,5 @@ void	ft_completion(t_tc *tool, t_comp_ctrl *ctrl)
 		}
 		ft_strdel(&match);
 	}
+	ft_reset_compl(g_shell->comp_ctrl);
 }
