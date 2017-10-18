@@ -6,39 +6,57 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 17:46:28 by curquiza          #+#    #+#             */
-/*   Updated: 2017/05/29 20:36:16 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/18 14:06:16 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	ft_put_lexlst_word(t_lexeme *lst)
+void	ft_padding(int padd)
 {
-	if (!lst)
-		ft_putendl("NULL");
-	while (lst)
-	{
-		ft_putendl(lst->s);
-		lst = lst->next;
-	}
+	int	i;
+
+	i = 0;
+	while (++i < padd)
+		write(1, "\t", 1);
 }
 
-void	ft_run_display_ast(t_ast *ast, int step, int move)
+void	ft_print_node(t_ast *ast, char *side, int lvl)
 {
-	step++;
+	t_lexeme *tmp;
+
+	ft_padding(lvl);
+	ft_putstr("** ");
+	ft_putstr(side);
+	ft_putnbr(lvl);
+	ft_putendl(" **");
+	ft_padding(lvl);
+	tmp = ast->lex;
+	ft_putstr(B_PINK);
+	while (tmp)
+	{
+		ft_putstr(tmp->s);
+		ft_putstr(" ");
+		tmp = tmp->next;
+	}
+	ft_putendl(DEF);
+	ft_padding(lvl);
+	ft_putendl("************");
+}
+
+void	ft_print_ast(t_ast *ast, char *side, int lvl)
+{
+	if (!ast)
+		return ;
 	if (ast->left)
-		ft_run_display_ast(ast->left, step, 1);
-	if (move == 1)
-		ft_putstr("L - ");
-	else if (move == 2)
-		ft_putstr("R - ");
+		ft_print_ast(ast->left, "left", ++lvl);
 	else
-		ft_putstr("M - ");
-	ft_putnbr_endl(step);
-	ft_put_lexlst_word(ast->lex);
-	ft_putendl("");
+		++lvl;
+	ft_print_node(ast, side, lvl);
 	if (ast->right)
-		ft_run_display_ast(ast->right, step, 2);
+		ft_print_ast(ast->right, "right", lvl--);
+	else
+		--lvl;
 }
 
 void	ft_putast(t_ast *ast)
@@ -46,7 +64,7 @@ void	ft_putast(t_ast *ast)
 	if (ast)
 	{
 		ft_putendl_col("\n---- AST -----\n", B_YELLOW, DEF);
-		ft_run_display_ast(ast, 0, 0);
+		ft_print_ast(ast, "root", 0);
 		ft_putendl_col("--------------", B_YELLOW, DEF);
 	}
 }
