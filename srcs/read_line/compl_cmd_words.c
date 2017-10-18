@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   compl_cmd_words.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/18 11:23:58 by sfranc            #+#    #+#             */
+/*   Updated: 2017/10/18 11:25:34 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell.h"
 
 static int		ft_find_exec_in_currentpath(DIR *open, t_comp_ctrl *ctrl)
@@ -23,7 +35,8 @@ static int		ft_find_exec_in_currentpath(DIR *open, t_comp_ctrl *ctrl)
 	return (0);
 }
 
-static int		ft_find_exec_in_envpath(DIR *open, t_comp_ctrl *ctrl, char *envpath)
+static int		ft_find_exec_in_envpath(DIR *open, t_comp_ctrl *ctrl,\
+		char *envpath)
 {
 	struct dirent	*dir;
 	int				len;
@@ -47,7 +60,7 @@ static int		ft_find_exec_in_envpath(DIR *open, t_comp_ctrl *ctrl, char *envpath)
 	return (0);
 }
 
-int		ft_exec_in_env_path(t_comp_ctrl *ctrl)
+int				ft_exec_in_env_path(t_comp_ctrl *ctrl)
 {
 	char	**pathtab;
 	DIR		*open;
@@ -74,7 +87,7 @@ int		ft_exec_in_env_path(t_comp_ctrl *ctrl)
 	return (0);
 }
 
-int		ft_get_cmd_words(t_comp_ctrl *ctrl)
+int				ft_get_cmd_words(t_comp_ctrl *ctrl)
 {
 	DIR		*open;
 	int		ret;
