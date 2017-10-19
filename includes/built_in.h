@@ -55,9 +55,9 @@ int				ft_builtin_echo(t_ast *ast);
 */
 
 int				ft_check_err_cd(char *path, t_shell *shell);
-int				ft_go_to_dir(t_shell *shell, char *path);
-int				ft_go_to_home(t_shell *shell);
-int				ft_go_to_oldpwd(t_shell *shell);
+int				ft_go_to_dir(t_shell *shell, char *path, char *flags);
+int				ft_go_to_home(t_shell *shell, char *flags);
+int				ft_go_to_oldpwd(t_shell *shell, char *flags);
 int				ft_builtin_cd(t_ast *ast);
 
 /*

@@ -40,11 +40,11 @@ int		ft_check_err_cd(char *path, t_shell *shell)
 	return (0);
 }
 
-char	*ft_get_modifpath(char *path, char *flags)
+char	*ft_get_modifpath(char *path, char *flags, char *pwd)
 {
-	(void)path;
-	(void)flags;
-	return (NULL);
+	if (ft_strrchr(flags, 'P') > ft_strrchr(flags, 'L'))
+		return (ft_strdup(getcwd(NULL, MAXPATHLEN)));
+	return (ft_strjoin3(pwd, "/", path));
 }
 
 int		ft_go_to_dir(t_shell *shell, char *path, char *flags)
@@ -57,20 +57,21 @@ int		ft_go_to_dir(t_shell *shell, char *path, char *flags)
 	pwd = getcwd(NULL, MAXPATHLEN);
 	if (pwd)
 		ft_chg_varval_or_add(&shell->var_env, "OLDPWD", pwd);
-	ft_strdel(&pwd);
 	if (chdir(path) == -1)
 	{
 		ft_put_errmsg(shell->name, "cd", "chdir error");
+		ft_strdel(&pwd);
 		return (CMD_FAILURE);
 	}
 	//pwd = getcwd(NULL, MAXPATHLEN);
 	//if (pwd)
 	//	ft_chg_varval_or_add(&shell->var_env, "PWD", pwd);
 	//ft_strdel(&pwd);
-	modif_path = ft_get_modifpath(path, flags);
+	modif_path = ft_get_modifpath(path, flags, pwd);
 	if (modif_path)
 		ft_chg_varval_or_add(&shell->var_env, "PWD", modif_path);
 	ft_strdel(&modif_path);
+	ft_strdel(&pwd);
 	return (CMD_SUCCESS);
 }
 
