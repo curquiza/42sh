@@ -46,7 +46,7 @@ int		ft_go_to_dir(t_shell *shell, char *path)
 
 	if (ft_check_err_cd(path, shell) == -1)
 		return (CMD_FAILURE);
-	pwd = getcwd(NULL, 0);
+	pwd = getcwd(NULL, MAXPATHLEN);
 	if (pwd)
 		ft_chg_varval_or_add(&shell->var_env, "OLDPWD", pwd);
 	if (chdir(path) == -1)
@@ -56,7 +56,7 @@ int		ft_go_to_dir(t_shell *shell, char *path)
 		return (CMD_FAILURE);
 	}
 	ft_strdel(&pwd);
-	pwd = getcwd(NULL, 0);
+	pwd = getcwd(NULL, MAXPATHLEN);
 	if (pwd)
 		ft_chg_varval_or_add(&shell->var_env, "PWD", pwd);
 	ft_strdel(&pwd);

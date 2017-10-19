@@ -20,6 +20,7 @@
 # include <term.h>
 # include <sys/ioctl.h>
 # include <dirent.h>
+# include <sys/param.h>
 
 # include "libft.h"
 # include "define.h"
