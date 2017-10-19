@@ -40,30 +40,41 @@ int		ft_check_err_cd(char *path, t_shell *shell)
 	return (0);
 }
 
-int		ft_go_to_dir(t_shell *shell, char *path)
+char	*ft_get_modifpath(char *path, char *flags)
+{
+	(void)path;
+	(void)flags;
+	return (NULL);
+}
+
+int		ft_go_to_dir(t_shell *shell, char *path, char *flags)
 {
 	char	*pwd;
+	char	*modif_path;
 
 	if (ft_check_err_cd(path, shell) == -1)
 		return (CMD_FAILURE);
 	pwd = getcwd(NULL, MAXPATHLEN);
 	if (pwd)
 		ft_chg_varval_or_add(&shell->var_env, "OLDPWD", pwd);
+	ft_strdel(&pwd);
 	if (chdir(path) == -1)
 	{
 		ft_put_errmsg(shell->name, "cd", "chdir error");
-		ft_strdel(&pwd);
 		return (CMD_FAILURE);
 	}
-	ft_strdel(&pwd);
-	pwd = getcwd(NULL, MAXPATHLEN);
-	if (pwd)
-		ft_chg_varval_or_add(&shell->var_env, "PWD", pwd);
-	ft_strdel(&pwd);
+	//pwd = getcwd(NULL, MAXPATHLEN);
+	//if (pwd)
+	//	ft_chg_varval_or_add(&shell->var_env, "PWD", pwd);
+	//ft_strdel(&pwd);
+	modif_path = ft_get_modifpath(path, flags);
+	if (modif_path)
+		ft_chg_varval_or_add(&shell->var_env, "PWD", modif_path);
+	ft_strdel(&modif_path);
 	return (CMD_SUCCESS);
 }
 
-int		ft_go_to_home(t_shell *shell)
+int		ft_go_to_home(t_shell *shell, char *flags)
 {
 	int		ret;
 	char	*path;
@@ -74,12 +85,12 @@ int		ft_go_to_home(t_shell *shell)
 		return (CMD_FAILURE);
 	}
 	path = ft_strdup(path);
-	ret = ft_go_to_dir(shell, path);
+	ret = ft_go_to_dir(shell, path, flags);
 	ft_strdel(&path);
 	return (ret);
 }
 
-int		ft_go_to_oldpwd(t_shell *shell)
+int		ft_go_to_oldpwd(t_shell *shell, char *flags)
 {
 	int		ret;
 	char	*path;
@@ -90,7 +101,7 @@ int		ft_go_to_oldpwd(t_shell *shell)
 		return (CMD_FAILURE);
 	}
 	path = ft_strdup(path);
-	ret = ft_go_to_dir(shell, path);
+	ret = ft_go_to_dir(shell, path, flags);
 	ft_strdel(&path);
 	return (ret);
 }
@@ -112,11 +123,11 @@ int		ft_builtin_cd(t_ast *ast)
 	}
 	arg = ft_get_arg(ast->argtab + 1, flag_error);
 	if (arg && !arg[0])
-		ret = ft_go_to_home(ast->shell);
+		ret = ft_go_to_home(ast->shell, flags);
 	else if (arg && !ft_strcmp(arg[0], "-"))
-		ret = ft_go_to_oldpwd(ast->shell);
+		ret = ft_go_to_oldpwd(ast->shell, flags);
 	else if (arg && arg[0])
-		ret = ft_go_to_dir(ast->shell, arg[0]);
+		ret = ft_go_to_dir(ast->shell, arg[0], flags);
 	ft_strdel(&flags);
 	return (ret);
 }
