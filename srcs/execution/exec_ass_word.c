@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:50:09 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/19 12:46:46 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/19 14:38:04 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_add_assword_var(char *assword, t_shell *shell, int mode)
 	{
 		(mode == 1) ? ft_put_readonly_errmsg(shell->name, NULL, varname) : 0;
 		ft_strdel(&varname);
-		return;
+		return ;
 	}
 	else if (mode == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 22:34:06 by curquiza          #+#    #+#             */
-/*   Updated: 2017/05/27 22:54:07 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/19 14:37:23 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int		ft_apply_hdoc(t_redir *redir, t_shell *shell)
 int		ft_do_redirection(t_redir *redir, t_shell *shell)
 {
 	int		ret;
-	int		fd;
 
 	while (redir)
 	{
@@ -108,10 +107,11 @@ int		ft_do_redirection(t_redir *redir, t_shell *shell)
 			ret = ft_apply_hdoc(redir, shell);
 		else
 		{
-			fd = ft_create_file(redir->op, redir->output, shell);
+			redir->fd = ft_create_file(redir->op, redir->output, shell);
 			ret = -1;
-			if (fd != -1)
-				ret = ft_connect_fd(redir->output, fd, redir->io_nbr, shell);
+			if (redir->fd != -1)
+				ret = ft_connect_fd(redir->output, redir->fd,
+									redir->io_nbr, shell);
 		}
 		if (ret == -1)
 			return (-1);
