@@ -43,7 +43,7 @@ int		ft_check_err_cd(char *path, t_shell *shell)
 char	*ft_get_modifpath(char *path, char *flags, char *pwd)
 {
 	if (ft_strrchr(flags, 'P') > ft_strrchr(flags, 'L'))
-		return (ft_strdup(getcwd(NULL, MAXPATHLEN)));
+		return (getcwd(NULL, MAXPATHLEN));
 	return (ft_strjoin3(pwd, "/", path));
 }
 
