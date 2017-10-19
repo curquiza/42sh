@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/15 15:33:31 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:58:39 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/19 15:28:02 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ enum	e_builtin
 	B_EXIT,
 	B_SET,
 	B_UNSET,
-	B_EXPORT
+	B_EXPORT,
+	B_HISTORY
 };
 
 /*
@@ -43,6 +44,11 @@ char			ft_check_illegal_flags(char *flags, char *legal_flags);
 char			*ft_get_flags(char **array);
 void			ft_fill_flagstab(char *s, char *flags, int *cpt_flags);
 char			**ft_get_arg(char **array, char flag_error);
+
+/*
+** built_in_history.c
+*/
+int				ft_builtin_history(t_ast *ast);
 
 /*
 ** built_in_echo.c
