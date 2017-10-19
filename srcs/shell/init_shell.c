@@ -40,7 +40,7 @@ char	**ft_init_env(char **environ)
 	intval++;
 	charval = ft_itoa(intval);
 	ft_chg_varval_or_add(&env, "SHLVL", charval);
-	pwd = getcwd(NULL, 0);
+	pwd = getcwd(NULL, MAXPATHLEN);
 	if (pwd)
 		ft_chg_varval_or_add(&env, "PWD", pwd);
 	else

@@ -18,7 +18,7 @@ void	ft_put_cut_path(void)
 	int		slash;
 	char	*path;
 
-	path = getcwd(NULL, 0);
+	path = getcwd(NULL, MAXPATHLEN);
 	if (path)
 	{
 		slash = 0;
