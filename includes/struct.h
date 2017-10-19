@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:28:05 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 17:09:19 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/19 14:13:36 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct		s_redir
 	int				io_nbr;
 	char			*output;
 	char			*hdoc;
+	int				fd;
 	struct s_redir	*next;
 }					t_redir;
 

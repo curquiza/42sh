@@ -6,31 +6,42 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:07 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:53:49 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/19 14:37:39 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	ft_save_std_fd(t_ast *ast)
+static void	ft_save_std_fd(t_ast *ast)
 {
 	ast->shell->std_fd[0] = dup(0);
 	ast->shell->std_fd[1] = dup(1);
 	ast->shell->std_fd[2] = dup(2);
 }
 
-void	ft_restore_std_fd(t_ast *ast)
+static void	ft_restore_fd(t_ast *ast)
 {
+	t_redir		*redir;
+
 	dup2(ast->shell->std_fd[0], 0);
 	dup2(ast->shell->std_fd[1], 1);
 	dup2(ast->shell->std_fd[2], 2);
 	close(ast->shell->std_fd[0]);
 	close(ast->shell->std_fd[1]);
 	close(ast->shell->std_fd[2]);
-	ft_bzero(ast->shell->std_fd, sizeof(*ast->shell->std_fd));
+	ast->shell->std_fd[0] = 0;
+	ast->shell->std_fd[1] = 0;
+	ast->shell->std_fd[2] = 0;
+	redir = ast->redir_list;
+	while (redir)
+	{
+		if (redir->fd != -1 && redir->fd != 0)
+			close(redir->fd);
+		redir = redir->next;
+	}
 }
 
-void	ft_pre_execution(t_ast *ast)
+void		ft_pre_execution(t_ast *ast)
 {
 	if (ast)
 	{
@@ -42,7 +53,7 @@ void	ft_pre_execution(t_ast *ast)
 	}
 }
 
-int		ft_execution(t_ast *ast)
+int			ft_execution(t_ast *ast)
 {
 	int		ret_cmd;
 
@@ -61,14 +72,14 @@ int		ft_execution(t_ast *ast)
 			ft_pre_execution(ast);
 			ret_cmd = ft_exec_scmd(ast);
 			ft_fill_cmd_return(ret_cmd, ast->shell);
-			ft_restore_std_fd(ast);
+			ft_restore_fd(ast);
 			return (ret_cmd);
 		}
 	}
 	return (CMD_SUCCESS);
 }
 
-void	ft_cmd_line_execution(t_ast **ast, t_shell *shell)
+void		ft_cmd_line_execution(t_ast **ast, t_shell *shell)
 {
 	if (shell->flags->token || shell->flags->ast)
 		ft_putendl_col("\n---- EXEC ----\n", B_YELLOW, DEF);
