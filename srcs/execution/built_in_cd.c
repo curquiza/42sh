@@ -97,11 +97,26 @@ int		ft_go_to_oldpwd(t_shell *shell)
 
 int		ft_builtin_cd(t_ast *ast)
 {
-	if (ast->argtab && !ast->argtab[1])
-		return (ft_go_to_home(ast->shell));
-	else if (ast->argtab && !ft_strcmp(ast->argtab[1], "-"))
-		return (ft_go_to_oldpwd(ast->shell));
-	else if (ast->argtab && ast->argtab[1])
-		return (ft_go_to_dir(ast->shell, ast->argtab[1]));
-	return (CMD_SUCCESS);
+	char	*flags;
+	char	flag_error;
+	char	**arg;
+	int		ret;
+
+	ret = CMD_SUCCESS;
+	flags = ft_get_flags(ast->argtab + 1);
+	if ((flag_error = ft_check_illegal_flags(flags, "LP")) != 0)
+	{
+		ft_put_usage("cd", flag_error, "LP");
+		ft_strdel(&flags);
+		return (CMD_FAILURE);
+	}
+	arg = ft_get_arg(ast->argtab + 1, flag_error);
+	if (arg && !arg[0])
+		ret = ft_go_to_home(ast->shell);
+	else if (arg && !ft_strcmp(arg[0], "-"))
+		ret = ft_go_to_oldpwd(ast->shell);
+	else if (arg && arg[0])
+		ret = ft_go_to_dir(ast->shell, arg[0]);
+	ft_strdel(&flags);
+	return (ret);
 }
