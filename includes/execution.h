@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:26 by curquiza          #+#    #+#             */
-/*   Updated: 2017/07/11 19:49:11 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/19 12:41:27 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int					ft_do_redirection(t_redir *redir, t_shell *shell);
 ** exec_ass_word.c
 */
 
-void				ft_add_assword_var(char *assword, t_shell *shell, int mode);
 void				ft_do_ass_word(t_ast *ast, int mode);
 
 /*
