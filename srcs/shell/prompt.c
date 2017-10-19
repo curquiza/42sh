@@ -12,13 +12,23 @@
 
 #include "shell.h"
 
+static char		*ft_get_pwd(void)
+{
+	char	*var_pwd;
+
+	var_pwd = ft_get_varvalue(g_shell->var_env, "PWD");
+	if (!var_pwd || access(var_pwd, F_OK) != 0)
+		return (getcwd(NULL, MAXPATHLEN));
+	return (ft_strdup(var_pwd));
+}
+
 void	ft_put_cut_path(void)
 {
 	int		i;
 	int		slash;
 	char	*path;
 
-	path = getcwd(NULL, MAXPATHLEN);
+	path = ft_get_pwd();
 	if (path)
 	{
 		slash = 0;
