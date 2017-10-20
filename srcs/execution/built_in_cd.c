@@ -52,16 +52,55 @@ void	ft_fill_oldpwd(char *pwd, t_shell *shell)
 		ft_suppr_var(&shell->var_env, "OLDPWD");
 }
 
+char	*ft_pass_slash(char *path)
+{
+	while (*path == '/')
+		path++;
+	return (path);
+}
+
+char	*ft_clean_path(char *path)
+{
+	char	*new;
+	int		i;
+
+	new = ft_strnew(MAXPATHLEN);
+	i = 0;
+	while (*path && i < MAXPATHLEN)
+	{
+		if (*path == '/')
+		{
+			path = ft_pass_slash(path);
+			new[i++] = '/';
+		}
+		else if (*path 
+				&& (!ft_strncmp(path, "./", 2)
+					|| (*path == '.' && *(path + 1) == '\0')))
+			path = ft_pass_slash(path + 1);
+		else
+		{
+			new[i] = *path;
+			path++;
+			i++;
+		}
+	}
+	return (new);
+}
+
 char	*ft_get_modifpath(char *path, char *flags, char *pwd)
 {
 	char	*new_path;
+	char	*rslt;
 
-	(void)new_path;
 	if (ft_strrchr(flags, 'P') > ft_strrchr(flags, 'L'))
 		return (getcwd(NULL, MAXPATHLEN));
-	if (path && path[0] == '/')
-		return (ft_strdup(path));
-	return (ft_strjoin3(pwd, "/", path));
+	new_path = ft_clean_path(path);
+	ft_putendl2_fd("new path = ", new_path, 2);
+	if (new_path && new_path[0] == '/')
+		return (new_path);
+	rslt = ft_strjoin3(pwd, "/", new_path);
+	ft_strdel(&new_path);
+	return (rslt);
 }
 
 int		ft_go_to_dir(t_shell *shell, char *path, char *flags)
