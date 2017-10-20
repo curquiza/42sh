@@ -36,20 +36,19 @@ int			ft_builtin_history(t_ast *ast)
 		return (CMD_FAILURE);
 	}
 	arg = ft_get_arg(ast->argtab + 1, flag_error);
-	ft_putendl(flags);
-	ft_puttab(arg);
 	
 	// run
 	ret = CMD_SUCCESS;	
 	// no flags
 	if (!*flags)
+	{
 		ft_print_histo(g_shell->histo_ctrl);
-
+		return (ret);
+	}
 	// delete all or one line
 	if (ft_strchr(flags, 'c'))
 	{
 		ft_putendl("** delete l'histo");
-		ft_histolst_del(ctrl);
 	}
 	else if (ft_strchr(flags, 'd'))
 	{
@@ -79,7 +78,7 @@ int			ft_builtin_history(t_ast *ast)
 		ft_putendl("** overwrite");
 	else if (r && (!a || r < a) && (!w || r < w) && arg[0])
 		ft_putendl("** read");
-	else
+	else if (a || r || w)
 	{
 		ft_putendl_fd(SHELL_NAME": history: missing filename", 2);
 		ret = CMD_FAILURE;
