@@ -54,8 +54,13 @@ void	ft_fill_oldpwd(char *pwd, t_shell *shell)
 
 char	*ft_get_modifpath(char *path, char *flags, char *pwd)
 {
+	char	*new_path;
+
+	(void)new_path;
 	if (ft_strrchr(flags, 'P') > ft_strrchr(flags, 'L'))
 		return (getcwd(NULL, MAXPATHLEN));
+	if (path && path[0] == '/')
+		return (ft_strdup(path));
 	return (ft_strjoin3(pwd, "/", path));
 }
 
