@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:43:54 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:43:55 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/20 17:46:24 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ int		ft_check_err_cd(char *path, t_shell *shell)
 	return (0);
 }
 
+void	ft_fill_oldpwd(char *pwd, t_shell *shell)
+{
+	char	*pwd_var;
+
+	if ((pwd_var = ft_get_varvalue(shell->var_env, "PWD")) != NULL)
+		ft_chg_varval_or_add(&shell->var_env, "OLDPWD", pwd_var);
+	else if (pwd)
+		ft_chg_varval_or_add(&shell->var_env, "OLDPWD", pwd);
+	else
+		ft_suppr_var(&shell->var_env, "OLDPWD");
+}
+
 char	*ft_get_modifpath(char *path, char *flags, char *pwd)
 {
 	if (ft_strrchr(flags, 'P') > ft_strrchr(flags, 'L'))
@@ -55,8 +67,9 @@ int		ft_go_to_dir(t_shell *shell, char *path, char *flags)
 	if (ft_check_err_cd(path, shell) == -1)
 		return (CMD_FAILURE);
 	pwd = getcwd(NULL, MAXPATHLEN);
-	if (pwd)
-		ft_chg_varval_or_add(&shell->var_env, "OLDPWD", pwd);
+	ft_fill_oldpwd(pwd, shell);
+//	if (pwd)
+//		ft_chg_varval_or_add(&shell->var_env, "OLDPWD", pwd);
 	if (chdir(path) == -1)
 	{
 		ft_put_errmsg(shell->name, "cd", "chdir error");
