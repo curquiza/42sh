@@ -124,7 +124,10 @@ char	*ft_get_modifpath(char *path, char *flags, char *pwd)
 		return (getcwd(NULL, MAXPATHLEN));
 	if (path && path[0] == '/')
 		return (ft_clean_path(path));
-	tmp = ft_strjoin3(pwd, "/", path);
+	if (!pwd)
+		tmp = ft_strdup(path);
+	else
+		tmp = ft_strjoin3(pwd, "/", path);
 	rslt = ft_clean_path(tmp);
 	ft_strdel(&tmp);
 	return (rslt);
