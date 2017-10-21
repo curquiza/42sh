@@ -67,21 +67,24 @@ void	ft_go_back(char *new)
 	if (len == 0)
 		return ;
 	len--;
+	new[len] = '\0';
+	if (len)
+		len--;
+	else
+		return ;
 	while (len > 0 && new[len] != '/')
 	{
 		new[len] = '\0';
 		len--;
 	}
-
 }
 
 char	*ft_clean_path(char *path)
 {
 	char	*new;
 	int		i;
-	char	*path_start;
 
-	path_start = path;
+	ft_putendl2_fd("path = ", path, 2);
 	new = ft_strnew(MAXPATHLEN);
 	i = 0;
 	while (*path && i < MAXPATHLEN)
