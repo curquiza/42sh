@@ -59,24 +59,23 @@ char	*ft_pass_slash(char *path)
 	return (path);
 }
 
-void	ft_go_back(char *new)
+void	ft_go_back(char *new, int *i)
 {
-	int		len;
-
-	len = ft_strlen(new);
-	if (len == 0)
+	if (*i == 0)
 		return ;
-	len--;
-	new[len] = '\0';
-	if (len)
-		len--;
+	ft_putendl2_fd("new = ", new, 1);
+	(*i)--;
+	new[*i] = '\0';
+	if (*i)
+		(*i)--;
 	else
 		return ;
-	while (len > 0 && new[len] != '/')
+	while (*i > 0 && new[*i] != '/')
 	{
-		new[len] = '\0';
-		len--;
+		new[*i] = '\0';
+		(*i)--;
 	}
+	ft_putendl2_fd("new = ", new, 1);
 }
 
 char	*ft_clean_path(char *path)
@@ -84,7 +83,7 @@ char	*ft_clean_path(char *path)
 	char	*new;
 	int		i;
 
-	ft_putendl2_fd("path = ", path, 2);
+	ft_putendl2_fd("path = ", path, 1);
 	new = ft_strnew(MAXPATHLEN);
 	i = 0;
 	while (*path && i < MAXPATHLEN)
@@ -101,8 +100,9 @@ char	*ft_clean_path(char *path)
 				&& (!ft_strncmp(path, "../", 3)
 					|| (*path == '.' && *(path + 1) == '.' && *(path + 2) == '\0')))
 		{
-			ft_go_back(new);
-			path = ft_pass_slash(path + 2);
+			ft_go_back(new, &i);
+			//path = ft_pass_slash(path + 2);
+			path += 2;
 		}
 		else
 		{
@@ -111,7 +111,7 @@ char	*ft_clean_path(char *path)
 			i++;
 		}
 	}
-	ft_putendl2_fd("cleaned path = ", new, 2);
+	ft_putendl2_fd("cleaned path = ", new, 1);
 	return (new);
 }
 
