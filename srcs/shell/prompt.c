@@ -6,13 +6,13 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:09:21 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:09:31 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/21 16:52:07 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static char		*ft_get_pwd(void)
+static char	*ft_get_pwd(void)
 {
 	char	*var_pwd;
 
@@ -22,7 +22,7 @@ static char		*ft_get_pwd(void)
 	return (ft_strdup(var_pwd));
 }
 
-void	ft_put_cut_path(void)
+void		ft_put_cut_path(void)
 {
 	int		i;
 	int		slash;
@@ -33,6 +33,8 @@ void	ft_put_cut_path(void)
 	{
 		slash = 0;
 		i = ft_strlen(path) - 1;
+		if (i > 0 && path[i] == '/')
+			i--;
 		while (i > 0)
 		{
 			if (path[i] == '/')
@@ -48,7 +50,7 @@ void	ft_put_cut_path(void)
 	ft_strdel(&path);
 }
 
-void	ft_put_user(void)
+void		ft_put_user(void)
 {
 	int				uid;
 	struct passwd	*pw;
@@ -61,7 +63,7 @@ void	ft_put_user(void)
 	}
 }
 
-void	ft_put_prompt(void)
+void		ft_put_prompt(void)
 {
 	ft_put_user();
 	ft_put_cut_path();
