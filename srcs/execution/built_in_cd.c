@@ -59,11 +59,29 @@ char	*ft_pass_slash(char *path)
 	return (path);
 }
 
+void	ft_go_back(char *new)
+{
+	int		len;
+
+	len = ft_strlen(new);
+	if (len == 0)
+		return ;
+	len--;
+	while (len > 0 && new[len] != '/')
+	{
+		new[len] = '\0';
+		len--;
+	}
+
+}
+
 char	*ft_clean_path(char *path)
 {
 	char	*new;
 	int		i;
+	char	*path_start;
 
+	path_start = path;
 	new = ft_strnew(MAXPATHLEN);
 	i = 0;
 	while (*path && i < MAXPATHLEN)
@@ -74,9 +92,15 @@ char	*ft_clean_path(char *path)
 			new[i++] = '/';
 		}
 		else if (*path 
-				&& (!ft_strncmp(path, "./", 2)
-					|| (*path == '.' && *(path + 1) == '\0')))
+				&& (!ft_strncmp(path, "./", 2) || (*path == '.' && *(path + 1) == '\0')))
 			path = ft_pass_slash(path + 1);
+		else if (*path
+				&& (!ft_strncmp(path, "../", 3)
+					|| (*path == '.' && *(path + 1) == '.' && *(path + 2) == '\0')))
+		{
+			ft_go_back(new);
+			path = ft_pass_slash(path + 2);
+		}
 		else
 		{
 			new[i] = *path;
@@ -84,22 +108,22 @@ char	*ft_clean_path(char *path)
 			i++;
 		}
 	}
+	ft_putendl2_fd("cleaned path = ", new, 2);
 	return (new);
 }
 
 char	*ft_get_modifpath(char *path, char *flags, char *pwd)
 {
-	char	*new_path;
+	char	*tmp;
 	char	*rslt;
 
 	if (ft_strrchr(flags, 'P') > ft_strrchr(flags, 'L'))
 		return (getcwd(NULL, MAXPATHLEN));
-	new_path = ft_clean_path(path);
-	ft_putendl2_fd("new path = ", new_path, 2);
-	if (new_path && new_path[0] == '/')
-		return (new_path);
-	rslt = ft_strjoin3(pwd, "/", new_path);
-	ft_strdel(&new_path);
+	if (path && path[0] == '/')
+		return (ft_clean_path(path));
+	tmp = ft_strjoin3(pwd, "/", path);
+	rslt = ft_clean_path(tmp);
+	ft_strdel(&tmp);
 	return (rslt);
 }
 
