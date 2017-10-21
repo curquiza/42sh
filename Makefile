@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/18 11:04:13 by curquiza         ###   ########.fr        #
+#    Updated: 2017/10/21 15:59:49 by curquiza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,6 +104,7 @@ EXEC = $(addprefix execution/, \
 	  built_in_flags.c \
 	  built_in_echo.c \
 	  built_in_cd.c \
+	  built_in_cd_tool.c \
 	  built_in_env.c \
 	  built_in_setenv.c \
 	  built_in_unsetenv.c \

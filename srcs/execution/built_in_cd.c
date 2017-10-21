@@ -6,41 +6,13 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:43:54 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/21 15:35:49 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/21 16:03:02 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		ft_check_err_cd(char *path, t_shell *shell)
-{
-	struct stat		info;
-
-	if (!path)
-		return (-1);
-	errno = 0;
-	if (stat(path, &info) == -1)
-	{
-		if (errno == 13)
-			ft_put_cd_errmsg(shell->name, path, "permission denied");
-		else
-			ft_put_cd_errmsg(shell->name, path, "no such file or directory");
-		return (-1);
-	}
-	if (!S_ISDIR(info.st_mode))
-	{
-		ft_put_cd_errmsg(shell->name, path, "not a directory");
-		return (-1);
-	}
-	if (access(path, X_OK) == -1)
-	{
-		ft_put_cd_errmsg(shell->name, path, "permission denied");
-		return (-1);
-	}
-	return (0);
-}
-
-void	ft_fill_oldpwd(char *pwd, t_shell *shell)
+static void	ft_fill_oldpwd(char *pwd, t_shell *shell)
 {
 	char	*pwd_var;
 
@@ -52,82 +24,7 @@ void	ft_fill_oldpwd(char *pwd, t_shell *shell)
 		ft_suppr_var(&shell->var_env, "OLDPWD");
 }
 
-char	*ft_pass_slash(char *path)
-{
-	while (*path == '/')
-		path++;
-	return (path);
-}
-
-void	ft_go_back(char *new, int *i)
-{
-	if (*i == 0)
-		return ;
-	(*i)--;
-	new[*i] = '\0';
-	if (*i)
-		(*i)--;
-	else
-		return ;
-	while (*i > 0 && new[*i] != '/')
-	{
-		new[*i] = '\0';
-		(*i)--;
-	}
-}
-
-char	*ft_clean_path(char *path)
-{
-	char	*new;
-	int		i;
-
-	ft_putendl2_fd("path = ", path, 1);
-	new = ft_strnew(MAXPATHLEN);
-	i = 0;
-	while (*path && i < MAXPATHLEN)
-	{
-		if (*path == '/')
-		{
-			path = ft_pass_slash(path);
-			new[i++] = '/';
-		}
-		else if (!ft_strncmp(path, "./", 2) || !ft_strcmp(path, "."))
-			path = ft_pass_slash(path + 1);
-		else if (!ft_strncmp(path, "../", 3) || !ft_strcmp(path, ".."))
-		{
-			ft_go_back(new, &i);
-			path += 2;
-		}
-		else
-		{
-			new[i] = *path;
-			path++;
-			i++;
-		}
-	}
-	ft_putendl2_fd("cleaned path = ", new, 1);
-	return (new);
-}
-
-char	*ft_get_modifpath(char *path, char *flags, char *pwd)
-{
-	char	*tmp;
-	char	*rslt;
-
-	if (ft_strrchr(flags, 'P') > ft_strrchr(flags, 'L'))
-		return (getcwd(NULL, MAXPATHLEN));
-	if (path && path[0] == '/')
-		return (ft_clean_path(path));
-	if (!pwd)
-		tmp = ft_strdup(path);
-	else
-		tmp = ft_strjoin3(pwd, "/", path);
-	rslt = ft_clean_path(tmp);
-	ft_strdel(&tmp);
-	return (rslt);
-}
-
-int		ft_go_to_dir(t_shell *shell, char *path, char *flags)
+static int	ft_go_to_dir(t_shell *shell, char *path, char *flags)
 {
 	char	*pwd;
 	char	*modif_path;
@@ -136,18 +33,12 @@ int		ft_go_to_dir(t_shell *shell, char *path, char *flags)
 		return (CMD_FAILURE);
 	pwd = getcwd(NULL, MAXPATHLEN);
 	ft_fill_oldpwd(pwd, shell);
-//	if (pwd)
-//		ft_chg_varval_or_add(&shell->var_env, "OLDPWD", pwd);
 	if (chdir(path) == -1)
 	{
 		ft_put_errmsg(shell->name, "cd", "chdir error");
 		ft_strdel(&pwd);
 		return (CMD_FAILURE);
 	}
-	//pwd = getcwd(NULL, MAXPATHLEN);
-	//if (pwd)
-	//	ft_chg_varval_or_add(&shell->var_env, "PWD", pwd);
-	//ft_strdel(&pwd);
 	modif_path = ft_get_modifpath(path, flags, pwd);
 	if (modif_path)
 		ft_chg_varval_or_add(&shell->var_env, "PWD", modif_path);
@@ -156,7 +47,7 @@ int		ft_go_to_dir(t_shell *shell, char *path, char *flags)
 	return (CMD_SUCCESS);
 }
 
-int		ft_go_to_home(t_shell *shell, char *flags)
+static int	ft_go_to_home(t_shell *shell, char *flags)
 {
 	int		ret;
 	char	*path;
@@ -172,7 +63,7 @@ int		ft_go_to_home(t_shell *shell, char *flags)
 	return (ret);
 }
 
-int		ft_go_to_oldpwd(t_shell *shell, char *flags)
+static int	ft_go_to_oldpwd(t_shell *shell, char *flags)
 {
 	int		ret;
 	char	*path;
@@ -188,7 +79,7 @@ int		ft_go_to_oldpwd(t_shell *shell, char *flags)
 	return (ret);
 }
 
-int		ft_builtin_cd(t_ast *ast)
+int			ft_builtin_cd(t_ast *ast)
 {
 	char	*flags;
 	char	flag_error;
