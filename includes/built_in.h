@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/15 15:33:31 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:58:39 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/21 16:02:46 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ int				ft_builtin_echo(t_ast *ast);
 ** built_in_cd.c
 */
 
-int				ft_check_err_cd(char *path, t_shell *shell);
-int				ft_go_to_dir(t_shell *shell, char *path);
-int				ft_go_to_home(t_shell *shell);
-int				ft_go_to_oldpwd(t_shell *shell);
 int				ft_builtin_cd(t_ast *ast);
+
+/*
+** built_in_cd_tool.c
+*/
+
+int				ft_check_err_cd(char *path, t_shell *shell);
+char			*ft_get_modifpath(char *path, char *flags, char *pwd);
 
 /*
 ** built_in_env.c
