@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/15 15:33:31 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:58:39 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/21 15:03:50 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ enum	e_builtin
 	B_EXIT,
 	B_SET,
 	B_UNSET,
-	B_EXPORT
+	B_EXPORT,
+	B_READ
 };
 
 /*
@@ -112,5 +113,11 @@ int				ft_check_name_err(t_shell *shell, char *name, char *cmd);
 int				ft_only_name_export(t_shell *shell, char *arg, char *cmd);
 int				ft_val_with_name_export(t_shell *shell, char *arg, char *cmd);
 int				ft_builtin_export(t_ast *ast);
+
+/*
+** built_in_read.c
+*/
+
+int				ft_builtin_read(t_ast *ast);
 
 #endif
