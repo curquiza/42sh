@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:43:54 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/20 17:46:24 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/21 15:35:49 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	ft_go_back(char *new, int *i)
 {
 	if (*i == 0)
 		return ;
-	ft_putendl2_fd("new = ", new, 1);
 	(*i)--;
 	new[*i] = '\0';
 	if (*i)
@@ -75,7 +74,6 @@ void	ft_go_back(char *new, int *i)
 		new[*i] = '\0';
 		(*i)--;
 	}
-	ft_putendl2_fd("new = ", new, 1);
 }
 
 char	*ft_clean_path(char *path)
@@ -93,15 +91,11 @@ char	*ft_clean_path(char *path)
 			path = ft_pass_slash(path);
 			new[i++] = '/';
 		}
-		else if (*path 
-				&& (!ft_strncmp(path, "./", 2) || (*path == '.' && *(path + 1) == '\0')))
+		else if (!ft_strncmp(path, "./", 2) || !ft_strcmp(path, "."))
 			path = ft_pass_slash(path + 1);
-		else if (*path
-				&& (!ft_strncmp(path, "../", 3)
-					|| (*path == '.' && *(path + 1) == '.' && *(path + 2) == '\0')))
+		else if (!ft_strncmp(path, "../", 3) || !ft_strcmp(path, ".."))
 		{
 			ft_go_back(new, &i);
-			//path = ft_pass_slash(path + 2);
 			path += 2;
 		}
 		else
