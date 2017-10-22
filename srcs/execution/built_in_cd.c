@@ -76,6 +76,8 @@ static int	ft_go_to_oldpwd(t_shell *shell, char *flags)
 	path = ft_strdup(path);
 	ret = ft_go_to_dir(shell, path, flags);
 	ft_strdel(&path);
+	if (ret == 0 && (path = ft_get_varvalue(shell->var_env, "PWD")))
+		ft_putendl(path);
 	return (ret);
 }
 
