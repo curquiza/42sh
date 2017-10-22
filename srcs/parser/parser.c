@@ -23,14 +23,20 @@
 
 int		ft_parser(t_lexeme **lex, t_shell *shell)
 {
-	char			*tokenerror;
+	char			*error;
 	enum e_token	new_line;
 
 	if (!lex)
 		return (0);
-	if ((tokenerror = ft_check_tokenerror(*lex)) != NULL)
+	if ((error = ft_check_histoevent_err(*lex)) != NULL)
 	{
-		ft_puterr_unexp_token(tokenerror, shell->name);
+		ft_put_eventerror(shell->name, error);
+		ft_strdel(&error);
+		return (-1);
+	}
+	if ((error = ft_check_tokenerror(*lex)) != NULL)
+	{
+		ft_puterr_unexp_token(error, shell->name);
 		return (-1);
 	}
 	if (ft_inhibitor(lex, shell) == -1)

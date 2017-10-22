@@ -63,6 +63,13 @@ t_lexeme		*ft_next_token(t_lexeme *lex);
 char			*ft_check_tokenerror(t_lexeme *lex);
 
 /*
+** histoevent_error.c
+*/
+
+void			ft_put_eventerror(char *name, char *event);
+char			*ft_check_histoevent_err(t_lexeme *lex);
+
+/*
 ** here_doc.c
 */
 
