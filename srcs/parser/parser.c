@@ -28,7 +28,7 @@ int		ft_parser(t_lexeme **lex, t_shell *shell)
 
 	if (!lex)
 		return (0);
-	if ((error = ft_check_histoevent_err(*lex)) != NULL)
+	if ((error = ft_check_histoevent_err(*lex, shell->histo_ctrl)) != NULL)
 	{
 		ft_put_eventerror(shell->name, error);
 		ft_strdel(&error);

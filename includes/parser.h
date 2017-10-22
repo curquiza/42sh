@@ -67,7 +67,7 @@ char			*ft_check_tokenerror(t_lexeme *lex);
 */
 
 void			ft_put_eventerror(char *name, char *event);
-char			*ft_check_histoevent_err(t_lexeme *lex);
+char			*ft_check_histoevent_err(t_lexeme *lex, t_histo_ctrl *ctrl);
 
 /*
 ** here_doc.c
