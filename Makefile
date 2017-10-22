@@ -81,6 +81,7 @@ LEXER = $(addprefix lexer/, \
 PARSER = $(addprefix parser/, \
 	  parser.c \
 	  syntax_error.c \
+	  histoevent_error.c \
 	  inhibitor.c \
 	  inhibitor_check.c \
 	  inhibitor_get_endoftoken.c \
