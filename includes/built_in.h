@@ -67,11 +67,14 @@ char			*ft_get_modifpath(char *path, char *flags, char *pwd);
 ** built_in_env.c
 */
 
-char			**ft_get_new_env(char **arg, char *flags, t_shell *shell);
-t_shell			*ft_get_new_shell(char **arg, char *flags, t_shell *old_shell);
 char			**ft_get_utility(char **arg);
-int				ft_exec_utility_env(t_shell *shell, char **arg);
 int				ft_builtin_env(t_ast *ast);
+
+/*
+** built_in_env.c
+*/
+
+t_shell			*ft_get_new_shell(char **arg, char *flags, t_shell *old_shell);
 
 /*
 ** built_in_setenv.c
