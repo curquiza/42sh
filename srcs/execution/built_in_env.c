@@ -69,9 +69,12 @@ t_shell		*ft_get_new_shell(char **arg, char *flags, t_shell *old_shell)
 
 	new_env = ft_get_new_env(arg, flags, old_shell);
 	new_shell = ft_init_shell(0, NULL, new_env, SHELL_NAME);
+	ft_suppr_var(&new_shell->var_env, "PWD");
+	ft_suppr_var(&new_shell->var_env, "SHLVL");
 	ft_tabdel(&new_env);
 	utility = ft_get_utility(arg);
-	if (utility && utility[0] && ft_exist_in(new_shell->var_env, "PATH") == 0)
+	if (utility && utility[0] && ft_exist_in(new_shell->var_env, "PATH") == 0
+		&& ft_is_built_in(utility[0]) == NOT_BUILTIN)
 	{
 		new_path = ft_get_new_path();
 		ft_chg_varval_or_add(&new_shell->var_env, "PATH", new_path);
