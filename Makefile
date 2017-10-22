@@ -106,6 +106,7 @@ EXEC = $(addprefix execution/, \
 	  built_in_cd.c \
 	  built_in_cd_tool.c \
 	  built_in_env.c \
+	  built_in_env_newenv.c \
 	  built_in_setenv.c \
 	  built_in_unsetenv.c \
 	  built_in_exit.c \
