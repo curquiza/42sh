@@ -69,7 +69,7 @@ void	ft_histo_inside_addline(t_histo_ctrl *ctrl, char *to_add)
 	ctrl->len++;
 	if (ctrl->len > HISTO_SIZE)
 	{
-		ft_del_old_histo(ctrl);
+		ft_histo_inside_delone(ctrl, ctrl->len);
 		ctrl->len--;
 	}
 }

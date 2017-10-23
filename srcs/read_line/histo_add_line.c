@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 16:47:21 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/23 17:54:33 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/23 18:29:32 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_histolst_del(t_histo **alst)
 	{
 		if (*alst)
 			ft_strdel(&(*alst)->line);
+		free(*alst);
 		(*alst)->next = NULL;
 		(*alst)->prev = NULL;
-		free(*alst);
 		*alst = NULL;
 	}
 }

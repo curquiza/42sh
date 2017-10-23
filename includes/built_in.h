@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/15 15:33:31 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/23 15:23:14 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/23 18:19:53 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void			ft_histo_inside_clearall(t_histo_ctrl *ctrl);
 int				ft_histo_inside_delone(t_histo_ctrl *ctrl, int offset);
 void			ft_histo_inside_addline(t_histo_ctrl *ctrl, char *to_add);
 int				ft_histo_file_read(t_histo_ctrl *ctrl, char *file_name);
+int				ft_histo_file_write(t_histo_ctrl *ctrl, char *file_name,\
+		int mode);
 
 /*
 ** built_in_echo.c

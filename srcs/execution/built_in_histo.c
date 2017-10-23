@@ -43,6 +43,8 @@ int			ft_builtin_history(t_ast *ast)
 	if (!*flags)
 	{
 		ft_print_histo(g_shell->histo_ctrl);
+	//	ft_strdel(&flags);
+	//	ft_tabdel(&arg);
 		return (ret);
 	}
 	// delete all or one line
@@ -81,10 +83,12 @@ int			ft_builtin_history(t_ast *ast)
 	if (a && (!r || a < r) && (!w || a < w) && arg[0])
 	{
 		ft_putendl("** append");
+		ret = ft_histo_file_write(g_shell->histo_ctrl, arg[0], HISTO_APPEND);
 	}
 	else if (w && (!a || w < a) && (!r || w < r) && arg[0])
 	{
 		ft_putendl("** overwrite");
+		ret = ft_histo_file_write(g_shell->histo_ctrl, arg[0], HISTO_WRITE);
 	}
 	else if (r && (!a || r < a) && (!w || r < w) && arg[0])
 	{
@@ -97,5 +101,7 @@ int			ft_builtin_history(t_ast *ast)
 		ret = CMD_FAILURE;
 	}
 	// dell flags + arg.
+	ft_tabdel(&arg);
+	ft_strdel(&flags);
 	return (ret);
 }

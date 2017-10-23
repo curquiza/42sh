@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:19:55 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/23 11:49:48 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/23 18:19:11 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@
 ** historic
 */
 
+# define HISTO_WRITE 1
+# define HISTO_APPEND 2
 # define HISTO_SIZE 10
 # define HISTO_S_PROMPT "histo_search> "
 # define HISTO_ERR_MSG "No match found"
