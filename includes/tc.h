@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:42:46 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/23 12:20:16 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:44:14 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,12 @@ void	ft_histo_down(t_tc *tool, t_histo_ctrl *ctrl);
 */
 
 void	ft_histo_event(t_tc *tool, t_histo_ctrl *ctrl);
+
+/*
+** histo_put_eventerr.c
+*/
+
+void	ft_put_eventerror(char *name, char *event);
 
 /*
 ** ctrl_r.c

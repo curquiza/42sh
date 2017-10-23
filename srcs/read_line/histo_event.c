@@ -1,20 +1,16 @@
-#include "shell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   histo_event.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/23 17:51:02 by curquiza          #+#    #+#             */
+/*   Updated: 2017/10/23 17:53:32 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void	ft_put_eventerror(char *name, char *event)
-{
-	ft_putendl_fd("", 2);
-	if (name)
-	{
-		ft_putstr_fd(name, 2);
-		ft_putstr_fd(": ", 2);
-	}
-	if (event)
-	{
-		ft_putstr_fd("!", 2);
-		ft_putstr_fd(event, 2);
-	}
-	ft_putendl_fd(": event not found", 2);
-}
+#include "shell.h"
 
 static char	*ft_get_eventname(char *s)
 {
@@ -87,7 +83,7 @@ static int	ft_check_and_expand(char *buff, t_histo_ctrl *ctrl, int *i)
 	return (1);
 }
 
-void	ft_histo_event(t_tc *tool, t_histo_ctrl *ctrl)
+void		ft_histo_event(t_tc *tool, t_histo_ctrl *ctrl)
 {
 	int		i;
 	int		ret;
