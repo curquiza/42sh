@@ -61,20 +61,39 @@ static int	ft_expand_event(char *s, char *eventname, t_histo_ctrl *ctrl)
 	histo = ctrl->end;
 	cnt = 1;
 	while (histo && cnt != num_event)
+	{
+		histo = histo->prev;
 		cnt++;
+	}
 	ft_strcpy(s, histo->line);
 	ft_strcat(s, tmp);
 	ft_strdel(&tmp);
 	return (ft_strlen(histo->line));
 }
 
+static int	ft_check_and_expand(char *buff, t_histo_ctrl *ctrl, int *i)
+{
+	char	*eventname;
+
+	eventname = ft_get_eventname(buff + *i);
+	if (ft_check_eventname(eventname, ctrl->len) == -1)
+	{
+		ft_put_eventerror(g_shell->name, eventname);
+		ft_strdel(&eventname);
+		return (-1);
+	}
+	*i = *i + ft_expand_event(buff + *i, eventname, ctrl);
+	ft_strdel(&eventname);
+	return (1);
+}
+
 void	ft_histo_event(t_tc *tool, t_histo_ctrl *ctrl)
 {
 	int		i;
-	char	*eventname;
+	int		ret;
 
-	(void)ctrl;
 	i = 0;
+	ret = 0;
 	while (tool->buff[i])
 	{
 		if (tool->buff[i] == 39)
@@ -82,17 +101,27 @@ void	ft_histo_event(t_tc *tool, t_histo_ctrl *ctrl)
 		if (tool->buff[i] == '!'
 			&& tool->buff[i + 1] && ft_is_separator(tool->buff[i + 1]) == 0)
 		{
-			eventname = ft_get_eventname(tool->buff + i);
-			if (ft_check_eventname(eventname, ctrl->len) == -1)
+			if ((ret = ft_check_and_expand(tool->buff, ctrl, &i)) == -1)
 			{
-				ft_put_eventerror(g_shell->name, eventname);
-				ft_strdel(&eventname);
+				//allumer
 				break ;
 			}
-			i = i + ft_expand_event(tool->buff + i, eventname, ctrl);
-			ft_strdel(&eventname);
+			//eventname = ft_get_eventname(tool->buff + i);
+			//if (ft_check_eventname(eventname, ctrl->len) == -1)
+			//{
+			//	ft_put_eventerror(g_shell->name, eventname);
+			//	ft_strdel(&eventname);
+			//	break ;
+			//}
+			//i = i + ft_expand_event(tool->buff + i, eventname, ctrl);
+			//ft_strdel(&eventname);
 		}
 		i++;
 	}
 	tool->nbr_char = ft_strlen(tool->buff);
+	if (ret == 1)
+	{
+		ft_putstr("\n");
+		ft_putstr(tool->buff);
+	}
 }
