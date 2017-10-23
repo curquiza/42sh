@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:41:52 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 11:32:48 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/23 12:04:05 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_eol_interpreter(char *buff, t_tc *tool)
 	{
 		if (tool->ctrl_r == 0)
 		{
+			ft_histo_event(tool, g_shell->histo_ctrl);
 			ft_add_histo_line(tool, &g_shell->histo_ctrl->start,
 									g_shell->histo_ctrl);
 			ft_insert_eol(tool);
