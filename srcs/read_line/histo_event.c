@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 17:51:02 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/23 18:01:21 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/23 18:09:01 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*ft_get_eventname(char *s)
 	}
 	else
 	{
-		while (s[len] && ft_is_separator(s[len]) == 0)
+		while (s[len] && ft_isalnum(s[len]) == 1)
 			len++;
 	}
 	return (ft_strsub(s, 0, len));
@@ -95,7 +95,7 @@ void		ft_histo_event(t_tc *tool, t_histo_ctrl *ctrl)
 		if (tool->buff[i] == 39)
 			i = ft_next_squote(i, tool->buff);
 		if (tool->buff[i] == '!'
-			&& tool->buff[i + 1] && ft_is_separator(tool->buff[i + 1]) == 0)
+			&& tool->buff[i + 1] && ft_isalnum(tool->buff[i + 1]) == 1)
 		{
 			if ((ret = ft_check_and_expand(tool->buff, ctrl, &i)) == -1)
 				break ;
