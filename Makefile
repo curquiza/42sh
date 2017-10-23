@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/19 15:28:54 by sfranc           ###   ########.fr        #
+#    Updated: 2017/10/23 15:21:20 by sfranc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,6 +112,8 @@ EXEC = $(addprefix execution/, \
 	  built_in_unset.c \
 	  built_in_export.c \
 	  built_in_histo.c \
+	  built_in_histo_inside.c \
+	  built_in_histo_file.c \
 	  execution.c \
 	  exec_apply_ctrl_op.c \
 	  exec_simple_cmd.c \

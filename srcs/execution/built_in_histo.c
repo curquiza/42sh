@@ -49,6 +49,7 @@ int			ft_builtin_history(t_ast *ast)
 	if (ft_strchr(flags, 'c'))
 	{
 		ft_putendl("** delete l'histo");
+		ft_histo_inside_clearall(g_shell->histo_ctrl);
 	}
 	else if (ft_strchr(flags, 'd'))
 	{
@@ -58,14 +59,19 @@ int			ft_builtin_history(t_ast *ast)
 			ret = CMD_FAILURE;
 		}
 		else
+		{
 			// check is offset not out of range
 			ft_putendl("** delete offset");
+			ret = ft_histo_inside_delone(g_shell->histo_ctrl, ft_atoi(arg[0]));
+		}
 	}
 
 	// add one line
 	if (ft_strchr(flags, 's'))
 	{
 		ft_putendl("** add string");
+		if (arg && arg[0])
+			ft_histo_inside_addline(g_shell->histo_ctrl, arg[0]);
 	}
 	// file write or read
 	a = ft_strchr(flags, 'a');
@@ -73,16 +79,23 @@ int			ft_builtin_history(t_ast *ast)
 	w = ft_strchr(flags, 'w');
 
 	if (a && (!r || a < r) && (!w || a < w) && arg[0])
+	{
 		ft_putendl("** append");
+	}
 	else if (w && (!a || w < a) && (!r || w < r) && arg[0])
+	{
 		ft_putendl("** overwrite");
+	}
 	else if (r && (!a || r < a) && (!w || r < w) && arg[0])
+	{
 		ft_putendl("** read");
+		ret = ft_histo_file_read(g_shell->histo_ctrl, arg[0]);
+	}
 	else if (a || r || w)
 	{
 		ft_putendl_fd(SHELL_NAME": history: missing filename", 2);
 		ret = CMD_FAILURE;
 	}
-
+	// dell flags + arg.
 	return (ret);
 }
