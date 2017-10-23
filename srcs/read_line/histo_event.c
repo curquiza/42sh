@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 17:51:02 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/23 17:53:32 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/23 18:01:21 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	ft_check_and_expand(char *buff, t_histo_ctrl *ctrl, int *i)
 		ft_strdel(&eventname);
 		return (-1);
 	}
-	*i = *i + ft_expand_event(buff + *i, eventname, ctrl);
+	*i = *i + ft_expand_event(buff + *i, eventname, ctrl) - 1;
 	ft_strdel(&eventname);
 	return (1);
 }
