@@ -6,13 +6,13 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:44:40 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:09:09 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:17:14 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
+static int		ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 {
 	if (g_shell->ctrl_c == 0)
 	{
@@ -22,6 +22,12 @@ void	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 		ft_read_line(line, PROMPT_DEF_SIZE);
 	}
 	g_shell->ctrl_c = 0;
+	if (g_shell->event_err == 1)
+	{
+		g_shell->event_err =0;
+		return (-1);
+	}
+	return (0);
 }
 
 /*
@@ -55,7 +61,8 @@ int		main(int ac, char **av, char **environ)
 	ft_catch_signals(SIGINT_ON);
 	while (g_shell->run == 1)
 	{
-		ft_start_shell_loop(&g_shell->lex, &g_shell->ast, &g_shell->line);
+		if (ft_start_shell_loop(&g_shell->lex, &g_shell->ast, &g_shell->line) == -1)
+			continue ;
 		ft_lexer(&g_shell->lex, g_shell->line);
 		if (ft_parser(&g_shell->lex, g_shell) == 0)
 		{

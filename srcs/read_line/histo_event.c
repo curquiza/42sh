@@ -13,7 +13,7 @@ static void	ft_put_eventerror(char *name, char *event)
 		ft_putstr_fd("!", 2);
 		ft_putstr_fd(event, 2);
 	}
-	ft_putstr_fd(": event not found", 2);
+	ft_putendl_fd(": event not found", 2);
 }
 
 static char	*ft_get_eventname(char *s)
@@ -102,19 +102,7 @@ void	ft_histo_event(t_tc *tool, t_histo_ctrl *ctrl)
 			&& tool->buff[i + 1] && ft_is_separator(tool->buff[i + 1]) == 0)
 		{
 			if ((ret = ft_check_and_expand(tool->buff, ctrl, &i)) == -1)
-			{
-				//allumer
 				break ;
-			}
-			//eventname = ft_get_eventname(tool->buff + i);
-			//if (ft_check_eventname(eventname, ctrl->len) == -1)
-			//{
-			//	ft_put_eventerror(g_shell->name, eventname);
-			//	ft_strdel(&eventname);
-			//	break ;
-			//}
-			//i = i + ft_expand_event(tool->buff + i, eventname, ctrl);
-			//ft_strdel(&eventname);
 		}
 		i++;
 	}
@@ -124,4 +112,6 @@ void	ft_histo_event(t_tc *tool, t_histo_ctrl *ctrl)
 		ft_putstr("\n");
 		ft_putstr(tool->buff);
 	}
+	else if (ret == -1)
+		g_shell->event_err = 1;
 }
