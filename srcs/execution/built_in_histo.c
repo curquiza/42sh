@@ -37,8 +37,16 @@ static int	ft_histo_delete_lines(char *flags, char **arg)
 
 static void	ft_histo_add_lines(char *flags, char **arg)
 {
+	char	*line;
+
 	if (ft_strchr(flags, 's') && arg && arg[0])
-		ft_histo_inside_addline(g_shell->histo_ctrl, arg[0]);
+	{
+		if ((line = ft_tab_to_str(arg)))
+		{
+			ft_histo_inside_addline(g_shell->histo_ctrl, line);
+			ft_strdel(&line);
+		}
+	}
 }
 
 static int	ft_manage_histo_file(char *flags, char **arg)
