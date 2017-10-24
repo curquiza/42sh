@@ -55,21 +55,16 @@ void	ft_histo_inside_addline(t_histo_ctrl *ctrl, char *to_add)
 	new = ft_memalloc(sizeof(*new));
 	new->line = ft_strdup(to_add);
 	if (!ctrl->start)
-	{
-		ctrl->start = new;
 		ctrl->end = new;
-	}
 	else
 	{
 		tmp = ctrl->start;
-		ctrl->start = new;
 		new->next = tmp;
 		tmp->prev = new;
 	}
+	ctrl->start = new;
 	ctrl->len++;
+	ft_putnbr(ctrl->len);
 	if (ctrl->len > HISTO_SIZE)
-	{
-		ft_histo_inside_delone(ctrl, ctrl->len);
-		ctrl->len--;
-	}
+		ft_histo_inside_delone(ctrl, 1);
 }
