@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:28:05 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/19 14:13:36 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:00:55 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct		s_shell
 	int				ctrl_d;
 	int				ctrl_c;
 	int				inhib;
+	int				event_err;
 }					t_shell;
 
 #endif

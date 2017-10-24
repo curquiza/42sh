@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:56:25 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 18:00:56 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:09:08 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,5 @@ void		ft_catch_signals(int mode);
 void		ft_del_histo(t_histo_ctrl **ctrl);
 void		ft_del_shell(t_shell **shell);
 int			ft_exit_shell(void);
-
-/*
-** main.c
-*/
-
-void		ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line);
 
 #endif

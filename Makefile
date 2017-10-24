@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/21 15:59:49 by curquiza         ###   ########.fr        #
+#    Updated: 2017/10/23 17:44:33 by curquiza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,8 @@ READLINE = $(addprefix read_line/, \
 		   compl_display.c \
 		   histo_add_line.c \
 		   histo_up_down.c \
+		   histo_event.c \
+		   histo_put_eventerr.c \
 		   ctrl_r.c \
 		   interpreter.c \
 		   read_line.c)

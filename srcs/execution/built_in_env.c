@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:45:26 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/21 11:41:42 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:55:51 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		**ft_get_utility(char **arg)
 	return (arg + i);
 }
 
-static int			ft_exec_utility_env(t_shell *shell, char **arg)
+static int	ft_exec_utility_env(t_shell *shell, char **arg)
 {
 	char		*line;
 	char		*tmp;

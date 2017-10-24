@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_in_env_newenv.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/23 17:54:08 by curquiza          #+#    #+#             */
+/*   Updated: 2017/10/23 17:54:39 by curquiza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell.h"
 
 static char	**ft_get_new_env(char **arg, char *flags, t_shell *shell)
@@ -42,8 +54,8 @@ static char	*ft_get_new_path(void)
 			path = ft_strjoin3(tmp, ":", line);
 		else
 			path = ft_strdup(line);
-		ft_strdel(&tmp);	
-		ft_strdel(&line);	
+		ft_strdel(&tmp);
+		ft_strdel(&line);
 	}
 	return (path);
 }
