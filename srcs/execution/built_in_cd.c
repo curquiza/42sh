@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:43:54 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/21 16:03:02 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/24 14:12:54 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,24 @@ static void	ft_fill_oldpwd(char *pwd, t_shell *shell)
 
 static int	ft_go_to_dir(t_shell *shell, char *path, char *flags)
 {
-	char	*pwd;
+	char	*oldpwd;
 	char	*modif_path;
 
 	if (ft_check_err_cd(path, shell) == -1)
 		return (CMD_FAILURE);
-	pwd = getcwd(NULL, MAXPATHLEN);
-	ft_fill_oldpwd(pwd, shell);
+	oldpwd = getcwd(NULL, MAXPATHLEN);
+	ft_fill_oldpwd(oldpwd, shell);
 	if (chdir(path) == -1)
 	{
 		ft_put_errmsg(shell->name, "cd", "chdir error");
-		ft_strdel(&pwd);
+		ft_strdel(&oldpwd);
 		return (CMD_FAILURE);
 	}
-	modif_path = ft_get_modifpath(path, flags, pwd);
+	modif_path = ft_get_modifpath(path, flags, oldpwd);
 	if (modif_path)
 		ft_chg_varval_or_add(&shell->var_env, "PWD", modif_path);
 	ft_strdel(&modif_path);
-	ft_strdel(&pwd);
+	ft_strdel(&oldpwd);
 	return (CMD_SUCCESS);
 }
 
