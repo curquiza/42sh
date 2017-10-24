@@ -7,7 +7,7 @@ static void	ft_clean_tab(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '\t')
+		if (line[i] == '\t' || !ft_isprint(line[i]))
 			line[i] = ' ';
 		++i;
 	}

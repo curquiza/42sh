@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:28:05 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 17:09:19 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/24 17:00:52 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_histo_ctrl
 	char			*current;
 	int				len;
 	int				pos;
+	int				max_reach;
 }					t_histo_ctrl;
 
 typedef struct		s_comp

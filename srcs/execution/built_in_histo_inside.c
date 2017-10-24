@@ -30,22 +30,9 @@ int		ft_histo_inside_delone(t_histo_ctrl *ctrl, int offset)
 	}
 	tmp = ctrl->end;
 	i = 1;
-
-	ft_putnbr2("ctrl->len :", ctrl->len);
-	ft_putnbr2("HISTO_SIZE:", HISTO_SIZE);
-	if (ctrl->len >= HISTO_SIZE)
-	{
-		//if (offset == 1)
-		//	return (CMD_SUCCESS);
-		offset--;
-	}
-	while (i < offset && tmp)
-	{
+	ctrl->max_reach ? offset-- : 0;
+	while (i++ < offset && tmp)
 		tmp = tmp->prev;
-		++i;
-		ft_putnbr2("i :", i);
-	}
-	
 	if (tmp->prev)
 		tmp->prev->next = tmp->next;
 	else
@@ -65,6 +52,7 @@ void	ft_histo_inside_addline(t_histo_ctrl *ctrl, char *to_add)
 	t_histo	*new;
 	t_histo	*tmp;
 
+	ctrl->max_reach = 0;
 	new = ft_memalloc(sizeof(*new));
 	new->line = ft_strdup(to_add);
 	if (!ctrl->start)
@@ -77,8 +65,9 @@ void	ft_histo_inside_addline(t_histo_ctrl *ctrl, char *to_add)
 	}
 	ctrl->start = new;
 	ctrl->len++;
-	ft_putnbr(ctrl->len);
-	ft_putendl(ctrl->end->line);
 	if (ctrl->len > HISTO_SIZE)
+	{
 		ft_histo_inside_delone(ctrl, 1);
+		ctrl->max_reach = 1;
+	}
 }
