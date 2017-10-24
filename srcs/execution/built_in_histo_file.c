@@ -13,7 +13,7 @@ static void	ft_clean_tab(char *line)
 	}
 }
 
-int		ft_histo_file_read(t_histo_ctrl *ctrl, char *file_name)
+int			ft_histo_file_read(t_histo_ctrl *ctrl, char *file_name)
 {
 	int		fd;
 	char	*line;
@@ -35,7 +35,7 @@ int		ft_histo_file_read(t_histo_ctrl *ctrl, char *file_name)
 	return (CMD_SUCCESS);
 }
 
-int		ft_histo_file_write(t_histo_ctrl *ctrl, char *file_name, int mode)
+int			ft_histo_file_write(t_histo_ctrl *ctrl, char *file_name, int mode)
 {
 	int		fd;
 	t_histo	*tmp;

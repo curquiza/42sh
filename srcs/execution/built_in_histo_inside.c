@@ -20,7 +20,7 @@ void	ft_histo_inside_clearall(t_histo_ctrl *ctrl)
 
 int		ft_histo_inside_delone(t_histo_ctrl *ctrl, int offset)
 {
-	int	i;
+	int		i;
 	t_histo	*tmp;
 
 	if (!offset || offset > ctrl->len)
@@ -28,15 +28,28 @@ int		ft_histo_inside_delone(t_histo_ctrl *ctrl, int offset)
 		ft_putendl_fd(SHELL_NAME": history: offset out of range", 2);
 		return (CMD_FAILURE);
 	}
-	i = 1;
 	tmp = ctrl->end;
-	while (i++ != offset && tmp)
+	i = 1;
+
+	ft_putnbr2("ctrl->len :", ctrl->len);
+	ft_putnbr2("HISTO_SIZE:", HISTO_SIZE);
+	if (ctrl->len >= HISTO_SIZE)
+	{
+		//if (offset == 1)
+		//	return (CMD_SUCCESS);
+		offset--;
+	}
+	while (i < offset && tmp)
+	{
 		tmp = tmp->prev;
+		++i;
+		ft_putnbr2("i :", i);
+	}
+	
 	if (tmp->prev)
 		tmp->prev->next = tmp->next;
 	else
 		ctrl->start = tmp->next;
-	
 	if (tmp->next)
 		tmp->next->prev = tmp->prev;
 	else
@@ -65,6 +78,7 @@ void	ft_histo_inside_addline(t_histo_ctrl *ctrl, char *to_add)
 	ctrl->start = new;
 	ctrl->len++;
 	ft_putnbr(ctrl->len);
+	ft_putendl(ctrl->end->line);
 	if (ctrl->len > HISTO_SIZE)
 		ft_histo_inside_delone(ctrl, 1);
 }
