@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 16:02:20 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/21 16:02:30 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/24 14:30:07 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*ft_clean_path(char *path)
 	return (new);
 }
 
-char		*ft_get_modifpath(char *path, char *flags, char *pwd)
+char		*ft_get_modifpath(char *path, char *flags, char *oldpwd)
 {
 	char	*tmp;
 	char	*rslt;
@@ -72,10 +72,10 @@ char		*ft_get_modifpath(char *path, char *flags, char *pwd)
 		return (getcwd(NULL, MAXPATHLEN));
 	if (path && path[0] == '/')
 		return (ft_clean_path(path));
-	if (!pwd)
+	if (!oldpwd)
 		tmp = ft_strdup(path);
 	else
-		tmp = ft_strjoin3(pwd, "/", path);
+		tmp = ft_strjoin3(oldpwd, "/", path);
 	rslt = ft_clean_path(tmp);
 	ft_strdel(&tmp);
 	return (rslt);
