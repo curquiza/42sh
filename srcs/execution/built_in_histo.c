@@ -25,8 +25,6 @@ int			ft_builtin_history(t_ast *ast)
 	char	*r;
 	char	*w;
 
-	(void)ast;
-	
 	flags = ft_get_flags(ast->argtab + 1);
 	if ((flag_error = ft_check_illegal_flags(flags, "acdrsw")) != 0)
 	{
@@ -43,8 +41,7 @@ int			ft_builtin_history(t_ast *ast)
 	if (!*flags)
 	{
 		ft_print_histo(g_shell->histo_ctrl);
-	//	ft_strdel(&flags);
-	//	ft_tabdel(&arg);
+		ft_strdel(&flags);
 		return (ret);
 	}
 	// delete all or one line
@@ -101,7 +98,6 @@ int			ft_builtin_history(t_ast *ast)
 		ret = CMD_FAILURE;
 	}
 	// dell flags + arg.
-	ft_tabdel(&arg);
 	ft_strdel(&flags);
 	return (ret);
 }
