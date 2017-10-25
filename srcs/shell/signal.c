@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 12:03:29 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 11:46:16 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/25 18:39:49 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	ft_ctrl_c(int sig)
 {
 	(void)sig;
 	ft_fill_cmd_return(CMD_FAILURE, g_shell);
-	ft_lexlstdel(&g_shell->lex);
-	ft_putendl("\n");
-	ft_put_prompt();
+	//ft_lexlstdel(&g_shell->lex);
+	//ft_putendl("\n");
+	//ft_put_prompt();
 	ft_init_struct_tc(g_shell->tc_tool, PROMPT_DEF_SIZE);
-	g_shell->ctrl_c = 1;
+	//g_shell->ctrl_c = 1;
 	g_shell->inhib = 0;
 }
 
@@ -68,16 +68,41 @@ void	ft_redim_window(int sig)
 							% (g_shell->tc_tool->x_max + 1);
 }
 
-void	ft_catch_signals(int mode)
+//void	ft_catch_signals(int mode)
+//{
+//	signal(SIGQUIT, SIG_IGN);
+//	signal(SIGTERM, SIG_IGN);
+//	signal(SIGTSTP, SIG_IGN);
+//	signal(SIGTTIN, SIG_IGN);
+//	signal(SIGTTOU, SIG_IGN);
+//	signal(SIGWINCH, ft_redim_window);
+//	if (mode == 1)
+//		signal(SIGINT, ft_ctrl_c);
+//	else
+//		signal(SIGINT, ft_cancel_ctrl_c);
+//}
+
+
+void	ft_catch_signal_parent(void)
 {
+	ft_putendl("parent sig");
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTERM, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
 	signal(SIGWINCH, ft_redim_window);
-	if (mode == 1)
-		signal(SIGINT, ft_ctrl_c);
-	else
-		signal(SIGINT, ft_cancel_ctrl_c);
+	signal(SIGINT, ft_ctrl_c);
+}
+
+void	ft_catch_signal_child(void)
+{
+	ft_putendl("child sig");
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGTERM, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+	signal(SIGTTIN, SIG_DFL);
+	signal(SIGTTOU, SIG_DFL);
+	signal(SIGWINCH, ft_redim_window);
+	signal(SIGINT, SIG_DFL);
 }

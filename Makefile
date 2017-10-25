@@ -6,14 +6,14 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/23 18:15:13 by sfranc           ###   ########.fr        #
+#    Updated: 2017/10/25 18:34:10 by curquiza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 42sh
 
-CC = gcc -g -Wall -Wextra -Werror
-#CC = gcc -Wall -Wextra -Werror -fsanitize=address
+#CC = gcc -g -Wall -Wextra -Werror
+CC = gcc -Wall -Wextra -Werror -fsanitize=address
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a

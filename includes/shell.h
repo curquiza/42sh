@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:56:25 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/24 18:02:54 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/25 18:29:49 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ int			ft_check_ctrl_c(char **line, t_shell *shell);
 void		ft_ctrl_c(int sig);
 void		ft_cancel_ctrl_c(int sig);
 void		ft_redim_window(int sig);
-void		ft_catch_signals(int mode);
+void		ft_catch_signal_parent(void);
+void		ft_catch_signal_child(void);
 
 /*
 ** exit_shell.c

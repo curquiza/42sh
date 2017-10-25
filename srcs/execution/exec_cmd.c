@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 21:28:24 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:53:15 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/25 18:26:20 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int					ft_do_cmd(t_ast *ast)
 
 	if (ast && ast->cmd && ast->cmd->s)
 	{
+		ft_catch_signal_child();
 		if (ft_strchr(ast->cmd->s, '/'))
 			error_ret = ft_check_cmd_slash(ast);
 		else if ((builtin_ret = ft_is_built_in(ast->cmd->s)) != NOT_BUILTIN)
