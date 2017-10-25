@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:04:56 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:04:59 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/25 16:33:50 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,29 @@ void	ft_del_shell(t_shell **shell)
 	*shell = NULL;
 }
 
+static void	ft_save_history_in_file(t_shell	*shell)
+{
+	char	*histo_file;
+
+	if ((histo_file = ft_get_varvalue(shell->var_priv, "42SH_HISTO_FILE")))
+	{
+		if (ft_histo_file_write(shell->histo_ctrl, histo_file, HISTO_WRITE)\
+				== CMD_SUCCESS)
+			ft_putendl("History saved.");
+		else
+			ft_putendl("No save for history...");
+	}
+	else
+		ft_putendl("No private var 42SH_HISTO_FILE.");
+
+}
+
 int		ft_exit_shell(void)
 {
 	int		i;
 	int		exit_status;
 
+	ft_save_history_in_file(g_shell);
 	i = 0;
 	while (++i < 32)
 		signal(i, SIG_DFL);
