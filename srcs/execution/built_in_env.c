@@ -6,46 +6,11 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:45:26 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/21 11:41:42 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:55:51 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-char		**ft_get_new_env(char **arg, char *flags, t_shell *shell)
-{
-	char	**new_env;
-	int		i;
-
-	if (ft_strchr(flags, 'i'))
-	{
-		if (!(new_env = (char **)malloc(sizeof(**new_env))))
-			ft_exit("malloc error", 1);
-		new_env[0] = NULL;
-	}
-	else
-		new_env = ft_tabdup(shell->var_env);
-	i = 0;
-	while (arg[i])
-	{
-		if (!ft_strchr(arg[i], '='))
-			break ;
-		ft_chg_varval_or_add(&new_env, arg[i], NULL);
-		i++;
-	}
-	return (new_env);
-}
-
-t_shell		*ft_get_new_shell(char **arg, char *flags, t_shell *old_shell)
-{
-	t_shell	*new_shell;
-	char	**new_env;
-
-	new_env = ft_get_new_env(arg, flags, old_shell);
-	new_shell = ft_init_shell(0, NULL, new_env, SHELL_NAME);
-	ft_tabdel(&new_env);
-	return (new_shell);
-}
 
 char		**ft_get_utility(char **arg)
 {
@@ -63,7 +28,7 @@ char		**ft_get_utility(char **arg)
 	return (arg + i);
 }
 
-int			ft_exec_utility_env(t_shell *shell, char **arg)
+static int	ft_exec_utility_env(t_shell *shell, char **arg)
 {
 	char		*line;
 	char		*tmp;

@@ -90,6 +90,7 @@ typedef struct		s_redir
 	int				io_nbr;
 	char			*output;
 	char			*hdoc;
+	int				fd;
 	struct s_redir	*next;
 }					t_redir;
 
@@ -125,6 +126,7 @@ typedef struct		s_shell
 	int				ctrl_d;
 	int				ctrl_c;
 	int				inhib;
+	int				event_err;
 }					t_shell;
 
 #endif

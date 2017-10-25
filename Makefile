@@ -67,6 +67,8 @@ READLINE = $(addprefix read_line/, \
 		   compl_display.c \
 		   histo_add_line.c \
 		   histo_up_down.c \
+		   histo_event.c \
+		   histo_put_eventerr.c \
 		   ctrl_r.c \
 		   interpreter.c \
 		   read_line.c)
@@ -104,7 +106,9 @@ EXEC = $(addprefix execution/, \
 	  built_in_flags.c \
 	  built_in_echo.c \
 	  built_in_cd.c \
+	  built_in_cd_tool.c \
 	  built_in_env.c \
+	  built_in_env_newenv.c \
 	  built_in_setenv.c \
 	  built_in_unsetenv.c \
 	  built_in_exit.c \

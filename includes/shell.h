@@ -20,6 +20,7 @@
 # include <term.h>
 # include <sys/ioctl.h>
 # include <dirent.h>
+# include <sys/param.h>
 
 # include "libft.h"
 # include "define.h"
@@ -113,11 +114,5 @@ void		ft_catch_signals(int mode);
 void		ft_del_histo(t_histo_ctrl **ctrl);
 void		ft_del_shell(t_shell **shell);
 int			ft_exit_shell(void);
-
-/*
-** main.c
-*/
-
-void		ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line);
 
 #endif

@@ -66,21 +66,27 @@ int				ft_builtin_echo(t_ast *ast);
 ** built_in_cd.c
 */
 
-int				ft_check_err_cd(char *path, t_shell *shell);
-int				ft_go_to_dir(t_shell *shell, char *path);
-int				ft_go_to_home(t_shell *shell);
-int				ft_go_to_oldpwd(t_shell *shell);
 int				ft_builtin_cd(t_ast *ast);
+
+/*
+** built_in_cd_tool.c
+*/
+
+int				ft_check_err_cd(char *path, t_shell *shell);
+char			*ft_get_modifpath(char *path, char *flags, char *pwd);
 
 /*
 ** built_in_env.c
 */
 
-char			**ft_get_new_env(char **arg, char *flags, t_shell *shell);
-t_shell			*ft_get_new_shell(char **arg, char *flags, t_shell *old_shell);
 char			**ft_get_utility(char **arg);
-int				ft_exec_utility_env(t_shell *shell, char **arg);
 int				ft_builtin_env(t_ast *ast);
+
+/*
+** built_in_env.c
+*/
+
+t_shell			*ft_get_new_shell(char **arg, char *flags, t_shell *old_shell);
 
 /*
 ** built_in_setenv.c

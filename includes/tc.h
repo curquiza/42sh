@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 16:42:46 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 16:06:52 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/23 17:44:14 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,18 @@ void	ft_add_histo_line(t_tc *tool, t_histo **histo, t_histo_ctrl *ctrl);
 char	*ft_get_line_with_pos(t_histo *histo, int n);
 void	ft_histo_up(t_tc *tool, t_histo_ctrl *ctrl);
 void	ft_histo_down(t_tc *tool, t_histo_ctrl *ctrl);
+
+/*
+** histo_event.c
+*/
+
+void	ft_histo_event(t_tc *tool, t_histo_ctrl *ctrl);
+
+/*
+** histo_put_eventerr.c
+*/
+
+void	ft_put_eventerror(char *name, char *event);
 
 /*
 ** ctrl_r.c
