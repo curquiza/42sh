@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 23:01:06 by curquiza          #+#    #+#             */
-/*   Updated: 2017/07/26 15:08:47 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/25 15:42:56 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,21 @@ char	**ft_init_priv(void)
 {
 	char	**priv;
 	char	*uid_char;
+	char	*pwd;
+	char	*tmp;
 
 	priv = NULL;
 	ft_add_var(&priv, "?", "0");
 	uid_char = ft_itoa(getuid());
 	ft_add_var(&priv, "UID", uid_char);
 	ft_strdel(&uid_char);
+	if ((pwd = getcwd(NULL, MAXPATHLEN)))
+	{
+		tmp = ft_strjoin3(pwd, "/", HISTO_FILE_NAME);
+		ft_add_var(&priv, "42SH_HISTO_FILE", tmp);
+		ft_strdel(&tmp);
+		ft_strdel(&pwd);
+	}
 	return (priv);
 }
 

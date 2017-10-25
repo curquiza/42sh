@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:19:55 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/24 17:34:04 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/25 15:40:15 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@
 # define HISTO_ERR_MSG "No match found"
 # define HISTO_OK_MSG "Match found"
 # define HISTO_USAGE "c] or [-d] [offset] or one of [-arw] [filename] or [-s"
+# define HISTO_FILE_NAME ".42sh_history"
+
 /*
 ** completion
 */
