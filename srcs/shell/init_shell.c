@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 23:01:06 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/25 16:30:06 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/25 16:56:44 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,7 @@ static void	ft_fill_history_from_file(t_shell *shell)
 	char	*histo_file;
 
 	if ((histo_file = ft_get_varvalue(shell->var_priv, "42SH_HISTO_FILE")))
-	{
-		if (ft_histo_file_read(shell->histo_ctrl, histo_file) == CMD_SUCCESS)
-			ft_putendl("History filled.");
-		else
-			ft_putendl("No file history...");
-	}
-	else
-		ft_putendl("No private var 42SH_HISTO_FILE.");
+		ft_histo_file_read(shell->histo_ctrl, histo_file);
 }
 
 t_shell	*ft_init_shell(int ac, char **av, char **environ, char *name)
