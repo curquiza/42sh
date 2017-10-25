@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:19:55 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 16:06:49 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/24 17:34:04 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,13 @@
 ** historic
 */
 
-# define HISTO_SIZE 50
+# define HISTO_WRITE 1
+# define HISTO_APPEND 2
+# define HISTO_SIZE 10
 # define HISTO_S_PROMPT "histo_search> "
 # define HISTO_ERR_MSG "No match found"
 # define HISTO_OK_MSG "Match found"
-
+# define HISTO_USAGE "c] or [-d] [offset] or one of [-arw] [filename] or [-s"
 /*
 ** completion
 */

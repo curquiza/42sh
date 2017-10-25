@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:04:37 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 11:51:04 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/24 18:04:37 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,30 @@ int		ft_is_uns_nbr(char *s)
 		return (1);
 	}
 	return (0);
+}
+
+/*
+** ft_tab_to_str :
+** prends un tableau et le tranforme en une chaine, charque argument du tableau
+** est séparé par un espace.
+*/
+
+char	*ft_tab_to_str(char **array)
+{
+	char	*str;
+	char	*tmp;
+	int		i;
+
+	if (!array || !array[0])
+		return (NULL);
+	str = ft_strdup(array[0]);
+	i = 1;
+	while (array[i])
+	{
+		tmp = str;
+		str = ft_strjoin3(str, " ", array[i]);
+		free(tmp);
+		++i;
+	}
+	return (str);
 }

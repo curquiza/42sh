@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 16:47:21 by curquiza          #+#    #+#             */
-/*   Updated: 2017/07/25 17:45:53 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/24 17:06:20 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_add_histo_line(t_tc *tool, t_histo **histo, t_histo_ctrl *ctrl)
 
 	if (!histo || tool->nbr_char == 0)
 		return ;
+	ctrl->max_reach = 0;
 	new = ft_memalloc(sizeof(*new));
 	new->line = ft_strdup(tool->buff);
 	if (!(*histo))
@@ -52,13 +53,13 @@ void	ft_add_histo_line(t_tc *tool, t_histo **histo, t_histo_ctrl *ctrl)
 		*histo = new;
 	}
 	ctrl->start = *histo;
-	if (!ctrl->end)
-		ctrl->end = *histo;
+	!ctrl->end ? ctrl->end = *histo : 0;
 	ctrl->len++;
 	if (ctrl->len > HISTO_SIZE)
 	{
 		ft_del_old_histo(ctrl);
 		ctrl->len--;
+		ctrl->max_reach = 1;
 	}
 	ft_strdel(&ctrl->current);
 }
