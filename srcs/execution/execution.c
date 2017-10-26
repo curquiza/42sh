@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "shell.h"
-#include <errno.h>
-#include <stdio.h>
 
 static void	ft_save_std_fd(t_ast *ast)
 {
@@ -23,8 +21,7 @@ static void	ft_save_std_fd(t_ast *ast)
 	i = 0;
 	while (i < 10)
 	{
-		ast->shell->std_fd[i] = dup(i);
-		//perror("");
+		ast->shell->std_fd[i] = fcntl(i, F_DUPFD_CLOEXEC, 10);
 		ft_putnbr2("i = ", i);
 		ft_putnbr2("std_fd = ", ast->shell->std_fd[i]);
 		i++;
@@ -45,7 +42,8 @@ static void	ft_restore_fd(t_ast *ast)
 	i = 0;
 	while (i < 10)
 	{
-		close(ast->shell->std_fd[i]);
+		if (ast->shell->std_fd[i] != -1)
+			close(ast->shell->std_fd[i]);
 		i++;
 	}
 	i = 0;

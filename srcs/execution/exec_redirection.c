@@ -14,19 +14,14 @@
 
 int		ft_connect_fd(char *output, int to, int from, t_shell *shell)
 {
-	int	ret;
-	if ((ret = dup2(to, from)) == -1)
+	if (dup2(to, from) == -1)
 	{
 		if (errno == EBADF)
 			ft_put_errmsg(shell->name, output, "Bad file descriptor");
 		else
 			ft_put_errmsg(shell->name, output, "dup error");
 		return (-1);
-		ft_putendl_fd("coco", 2);
 	}
-	ft_putnbr2("ret dup= ", ret);
-		ft_putstr_fd("ret dup = ", 2);
-		ft_putnbr_fd(ret, 2);
 	return (0);
 }
 
@@ -100,12 +95,34 @@ int		ft_apply_hdoc(t_redir *redir, t_shell *shell)
 	return (ret);
 }
 
+int		ft_check_fd(t_redir *redir, t_shell *shell)
+{
+	char	*tmp;
+
+	if (redir->io_nbr > FD_MAX - 1)
+	{
+		tmp = ft_itoa(redir->io_nbr);
+		ft_put_errmsg(shell->name, tmp, "Not a valid file descriptor");
+		ft_strdel(&tmp);
+		return (-1);
+	}
+	if ((redir->op == GREATAND || redir->op == LESSAND)
+		&& (ft_atoi(redir->output) > FD_MAX - 1))
+	{
+		ft_put_errmsg(shell->name, redir->output, "Invalid file descriptor");
+		return (-1);
+	}
+	return (0);
+}
+
 int		ft_do_redirection(t_redir *redir, t_shell *shell)
 {
 	int		ret;
 
 	while (redir)
 	{
+		if (ft_check_fd(redir, shell) == -1)
+			return (-1);
 		if (redir->op == GREATAND || redir->op == LESSAND)
 			ret = ft_apply_fd_aggr(redir, shell);
 		else if (redir->op == DLESS)

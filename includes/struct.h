@@ -118,8 +118,7 @@ typedef struct		s_shell
 	char			**var_loc;
 	char			**var_env;
 	char			**var_priv;
-	//int				std_fd[3];
-	int				std_fd[10];
+	int				std_fd[FD_MAX];
 	t_tc			*tc_tool;
 	t_flag			*flags;
 	t_histo_ctrl	*histo_ctrl;
