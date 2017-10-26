@@ -95,26 +95,6 @@ int		ft_apply_hdoc(t_redir *redir, t_shell *shell)
 	return (ret);
 }
 
-int		ft_check_fd(t_redir *redir, t_shell *shell)
-{
-	char	*tmp;
-
-	if (redir->io_nbr > FD_MAX - 1)
-	{
-		tmp = ft_itoa(redir->io_nbr);
-		ft_put_errmsg(shell->name, tmp, "Not a valid file descriptor");
-		ft_strdel(&tmp);
-		return (-1);
-	}
-	if ((redir->op == GREATAND || redir->op == LESSAND)
-		&& (ft_atoi(redir->output) > FD_MAX - 1))
-	{
-		ft_put_errmsg(shell->name, redir->output, "Invalid file descriptor");
-		return (-1);
-	}
-	return (0);
-}
-
 int		ft_do_redirection(t_redir *redir, t_shell *shell)
 {
 	int		ret;
@@ -130,7 +110,7 @@ int		ft_do_redirection(t_redir *redir, t_shell *shell)
 		else
 		{
 			redir->fd = ft_create_file(redir->op, redir->output, shell);
-			ft_putnbr2("redir->fd = ", redir->fd);
+			ft_putnbr2("fd ouvert pour creation de file = ", redir->fd);
 			ret = -1;
 			if (redir->fd != -1)
 				ret = ft_connect_fd(redir->output, redir->fd,

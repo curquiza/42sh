@@ -12,65 +12,6 @@
 
 #include "shell.h"
 
-static void	ft_save_std_fd(t_ast *ast)
-{
-	//ast->shell->std_fd[0] = dup(0);
-	//ast->shell->std_fd[1] = dup(1);
-	//ast->shell->std_fd[2] = dup(2);
-	int			i;
-	i = 0;
-	while (i < 10)
-	{
-		ast->shell->std_fd[i] = fcntl(i, F_DUPFD_CLOEXEC, 10);
-		ft_putnbr2("i = ", i);
-		ft_putnbr2("std_fd = ", ast->shell->std_fd[i]);
-		i++;
-	}
-}
-
-static void	ft_restore_fd(t_ast *ast)
-{
-	t_redir		*redir;
-	int			i;
-
-	i = 0;
-	while (i < 10)
-	{
-		dup2(ast->shell->std_fd[i], i);
-		i++;
-	}
-	i = 0;
-	while (i < 10)
-	{
-		if (ast->shell->std_fd[i] != -1)
-			close(ast->shell->std_fd[i]);
-		i++;
-	}
-	i = 0;
-	while (i < 10)
-	{
-		ast->shell->std_fd[i] = 0;
-		i++;
-	}
-
-	//dup2(ast->shell->std_fd[0], 0);
-	//dup2(ast->shell->std_fd[1], 1);
-	//dup2(ast->shell->std_fd[2], 2);
-	//close(ast->shell->std_fd[0]);
-	//close(ast->shell->std_fd[1]);
-	//close(ast->shell->std_fd[2]);
-	//ast->shell->std_fd[0] = 0;
-	//ast->shell->std_fd[1] = 0;
-	//ast->shell->std_fd[2] = 0;
-	redir = ast->redir_list;
-	while (redir)
-	{
-		if (redir->fd != -1 && redir->fd != 0)
-			close(redir->fd);
-		redir = redir->next;
-	}
-}
-
 void		ft_pre_execution(t_ast *ast)
 {
 	if (ast)

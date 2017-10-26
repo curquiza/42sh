@@ -119,6 +119,7 @@ EXEC = $(addprefix execution/, \
 	  built_in_histo_inside.c \
 	  built_in_histo_file.c \
 	  execution.c \
+	  fd.c \
 	  exec_apply_ctrl_op.c \
 	  exec_simple_cmd.c \
 	  exec_error_msg.c \

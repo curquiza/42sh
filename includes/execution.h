@@ -84,6 +84,14 @@ int					ft_apply_hdoc(t_redir *redir, t_shell *shell);
 int					ft_do_redirection(t_redir *redir, t_shell *shell);
 
 /*
+** fd.c
+*/
+
+void				ft_save_std_fd(t_ast *ast);
+void				ft_restore_fd(t_ast *ast);
+int					ft_check_fd(t_redir *redir, t_shell *shell);
+
+/*
 ** exec_ass_word.c
 */
 
