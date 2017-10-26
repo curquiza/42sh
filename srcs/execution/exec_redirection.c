@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 22:34:06 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/19 14:37:23 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/26 17:00:05 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,19 @@
 
 int		ft_connect_fd(char *output, int to, int from, t_shell *shell)
 {
-	if (dup2(to, from) == -1)
+	int	ret;
+	if ((ret = dup2(to, from)) == -1)
 	{
 		if (errno == EBADF)
 			ft_put_errmsg(shell->name, output, "Bad file descriptor");
 		else
 			ft_put_errmsg(shell->name, output, "dup error");
 		return (-1);
+		ft_putendl_fd("coco", 2);
 	}
+	ft_putnbr2("ret dup= ", ret);
+		ft_putstr_fd("ret dup = ", 2);
+		ft_putnbr_fd(ret, 2);
 	return (0);
 }
 
@@ -108,6 +113,7 @@ int		ft_do_redirection(t_redir *redir, t_shell *shell)
 		else
 		{
 			redir->fd = ft_create_file(redir->op, redir->output, shell);
+			ft_putnbr2("redir->fd = ", redir->fd);
 			ret = -1;
 			if (redir->fd != -1)
 				ret = ft_connect_fd(redir->output, redir->fd,
