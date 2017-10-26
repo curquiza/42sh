@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:44:40 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/25 18:30:01 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/26 12:17:20 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static int	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 {
-	if (g_shell->ctrl_c == 0)
-	{
+	//if (g_shell->ctrl_c == 0)
+	//{
 		*lex = NULL;
 		*ast = NULL;
 		ft_put_prompt();
 		ft_read_line(line, PROMPT_DEF_SIZE);
-	}
-	g_shell->ctrl_c = 0;
+	//}
+	//g_shell->ctrl_c = 0;
 	if (g_shell->event_err == 1)
 	{
 		g_shell->event_err = 0;
