@@ -105,4 +105,5 @@ void	ft_catch_signal_child(void)
 	signal(SIGTTOU, SIG_DFL);
 	signal(SIGWINCH, ft_redim_window);
 	signal(SIGINT, SIG_DFL);
+	signal(SIGCHLD, SIG_DFL);
 }

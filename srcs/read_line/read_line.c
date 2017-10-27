@@ -49,4 +49,5 @@ void		ft_read_line(char **line, int prompt_len)
 		*line = ft_strdup(g_shell->tc_tool->buff);
 		ft_reset_tc(g_shell->tc_tool);
 	}
+	g_shell->ctrl_c = 0;
 }
