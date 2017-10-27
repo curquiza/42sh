@@ -127,6 +127,7 @@ typedef struct		s_shell
 	int				ctrl_c;
 	int				inhib;
 	int				event_err;
+	pid_t			gpid;
 }					t_shell;
 
 #endif

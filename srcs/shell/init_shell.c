@@ -99,5 +99,7 @@ t_shell	*ft_init_shell(int ac, char **av, char **environ, char *name)
 	shell->histo_ctrl = ft_memalloc(sizeof(*shell->histo_ctrl));
 	shell->comp_ctrl = ft_memalloc(sizeof(*shell->comp_ctrl));
 	ft_fill_history_from_file(shell);
+	shell->gpid = getpid();
+	ft_putnbr2("shell->gpid = ", shell->gpid);
 	return (shell);
 }
