@@ -11,19 +11,56 @@ static char	**ft_read_get_fields(char *r)
 	{
 		field = ft_strsplit(line, ' ');
 	}
+	ft_strdel(&line);
 	return (field);
 }
 
 static void	ft_read_assign_field_to_var(char **var, char **field)
 {
+	char	*tmp;
+	int		nb_var;
+	int		nb_field;
 	int		i;
+	
+	if (!*var)
+	{
+		tmp = ft_tab_to_str(field);
+		ft_putendl2_fd("add ", "REPLY", 1);
+		ft_chg_varval_or_add(&g_shell->var_loc, "REPLY", tmp);
+		free (tmp);
+		return ;
+	}
 	i = 0;
+	nb_var = ft_tablen(var);
+	nb_field = ft_tablen(field);
 	while (var[i])
 	{
-		var[i] ? ft_putstr(var[i]) : 0;
-		var[i] ? ft_putstr("=") : 0;
-		field[i] ? ft_putstr(field[i]) : 0;
-		write(1, "\n", 1);
+		if (!ft_is_valid_name(var[i]))
+		{
+			ft_putendl("ERROR");
+			return ;
+		}
+		if (nb_var == 1 && nb_field > 1)
+		{
+			tmp = ft_tab_to_str(field + i);
+			ft_putendl2_fd("add ", var[i], 1);
+			ft_chg_varval_or_add(&g_shell->var_loc, var[i], tmp);
+			free (tmp);
+			break ;
+		}
+		else if (nb_var && !nb_field)
+		{
+			ft_putendl2_fd("add ", var[i], 1);
+			ft_chg_varval_or_add(&g_shell->var_loc, var[i], "");
+			nb_var--;
+		}
+		else
+		{
+			ft_putendl2_fd("add ", var[i], 1);
+			ft_chg_varval_or_add(&g_shell->var_loc, var[i], field[i]);
+			nb_var--;
+			nb_field--;
+		}
 		++i;
 	}
 }
@@ -48,6 +85,8 @@ int		ft_builtin_read(t_ast *ast)
 	field = ft_read_get_fields(flags);
 
 	ft_read_assign_field_to_var(var, field);
-
+	
+	ft_tabdel(&field);
+	ft_strdel(&flags);
 	return (CMD_SUCCESS);
 }
