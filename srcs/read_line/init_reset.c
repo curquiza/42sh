@@ -38,7 +38,7 @@ void	ft_reset_tc(t_tc *tool)
 	struct termios	term;
 
 	if (tcgetattr(0, &term) != 0)
-		ft_exit("reset termcaps: tcsetattr error", 1);
+		ft_exit("reset termcaps: tcgetattr error", 1);
 	term.c_lflag |= ICANON;
 	term.c_lflag |= ECHO;
 	if (tcsetattr(0, TCSANOW, &term) != 0)
