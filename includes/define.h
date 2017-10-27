@@ -41,6 +41,12 @@
 # define CMD_SUCCESS 0
 
 /*
+** redirection
+*/
+
+# define FD_MAX 10
+
+/*
 ** termcaps
 */
 

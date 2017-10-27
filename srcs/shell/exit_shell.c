@@ -6,13 +6,13 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:04:56 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/25 16:57:21 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/27 12:49:43 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	ft_del_histo(t_histo_ctrl **ctrl)
+void		ft_del_histo(t_histo_ctrl **ctrl)
 {
 	t_histo		*tmp;
 	t_histo		*suppr;
@@ -36,7 +36,7 @@ void	ft_del_histo(t_histo_ctrl **ctrl)
 	*ctrl = NULL;
 }
 
-void	ft_del_shell(t_shell **shell)
+void		ft_del_shell(t_shell **shell)
 {
 	ft_strdel(&(*shell)->name);
 	ft_strdel(&(*shell)->line);
@@ -53,7 +53,7 @@ void	ft_del_shell(t_shell **shell)
 	*shell = NULL;
 }
 
-static void	ft_save_history_in_file(t_shell	*shell)
+static void	ft_save_history_in_file(t_shell *shell)
 {
 	char	*histo_file;
 
@@ -61,7 +61,7 @@ static void	ft_save_history_in_file(t_shell	*shell)
 		ft_histo_file_write(shell->histo_ctrl, histo_file, HISTO_WRITE);
 }
 
-int		ft_exit_shell(void)
+int			ft_exit_shell(void)
 {
 	int		i;
 	int		exit_status;

@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 22:34:06 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/19 14:37:23 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/27 12:52:12 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int		ft_do_redirection(t_redir *redir, t_shell *shell)
 
 	while (redir)
 	{
+		if (ft_check_fd(redir, shell) == -1)
+			return (-1);
 		if (redir->op == GREATAND || redir->op == LESSAND)
 			ret = ft_apply_fd_aggr(redir, shell);
 		else if (redir->op == DLESS)

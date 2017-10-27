@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:28:05 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/24 17:00:52 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/26 16:50:08 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct		s_shell
 	char			**var_loc;
 	char			**var_env;
 	char			**var_priv;
-	int				std_fd[3];
+	int				std_fd[FD_MAX];
 	t_tc			*tc_tool;
 	t_flag			*flags;
 	t_histo_ctrl	*histo_ctrl;

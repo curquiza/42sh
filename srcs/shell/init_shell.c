@@ -6,13 +6,13 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 23:01:06 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/25 16:56:44 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/27 12:54:53 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char	**ft_init_priv(void)
+char		**ft_init_priv(void)
 {
 	char	**priv;
 	char	*uid_char;
@@ -34,7 +34,7 @@ char	**ft_init_priv(void)
 	return (priv);
 }
 
-char	**ft_init_env(char **environ)
+char		**ft_init_env(char **environ)
 {
 	char	**env;
 	char	*charval;
@@ -59,7 +59,7 @@ char	**ft_init_env(char **environ)
 	return (env);
 }
 
-t_flag	*ft_init_flags(int ac, char **av)
+t_flag		*ft_init_flags(int ac, char **av)
 {
 	int		i;
 	t_flag	*new;
@@ -85,7 +85,7 @@ static void	ft_fill_history_from_file(t_shell *shell)
 		ft_histo_file_read(shell->histo_ctrl, histo_file);
 }
 
-t_shell	*ft_init_shell(int ac, char **av, char **environ, char *name)
+t_shell		*ft_init_shell(int ac, char **av, char **environ, char *name)
 {
 	t_shell		*shell;
 

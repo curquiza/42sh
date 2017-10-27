@@ -6,40 +6,11 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:07 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/19 14:37:39 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/26 17:17:31 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-static void	ft_save_std_fd(t_ast *ast)
-{
-	ast->shell->std_fd[0] = dup(0);
-	ast->shell->std_fd[1] = dup(1);
-	ast->shell->std_fd[2] = dup(2);
-}
-
-static void	ft_restore_fd(t_ast *ast)
-{
-	t_redir		*redir;
-
-	dup2(ast->shell->std_fd[0], 0);
-	dup2(ast->shell->std_fd[1], 1);
-	dup2(ast->shell->std_fd[2], 2);
-	close(ast->shell->std_fd[0]);
-	close(ast->shell->std_fd[1]);
-	close(ast->shell->std_fd[2]);
-	ast->shell->std_fd[0] = 0;
-	ast->shell->std_fd[1] = 0;
-	ast->shell->std_fd[2] = 0;
-	redir = ast->redir_list;
-	while (redir)
-	{
-		if (redir->fd != -1 && redir->fd != 0)
-			close(redir->fd);
-		redir = redir->next;
-	}
-}
 
 void		ft_pre_execution(t_ast *ast)
 {
