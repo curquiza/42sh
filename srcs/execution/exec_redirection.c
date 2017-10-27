@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 22:34:06 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/26 17:00:05 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/27 12:52:12 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int		ft_do_redirection(t_redir *redir, t_shell *shell)
 		else
 		{
 			redir->fd = ft_create_file(redir->op, redir->output, shell);
-			ft_putnbr2("fd ouvert pour creation de file = ", redir->fd);
 			ret = -1;
 			if (redir->fd != -1)
 				ret = ft_connect_fd(redir->output, redir->fd,

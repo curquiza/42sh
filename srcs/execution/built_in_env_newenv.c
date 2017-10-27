@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 17:54:08 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/24 13:59:20 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/27 12:47:39 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,6 @@ t_shell		*ft_get_new_shell(char **arg, char *flags, t_shell *old_shell)
 	new_shell = ft_init_shell(0, NULL, new_env, SHELL_NAME);
 	ft_tabdel(&new_shell->var_env);
 	new_shell->var_env = ft_tabdup(new_env);
-	//if (ft_strchr(flags, 'i') != NULL)
-	//{
-	//	ft_suppr_var(&new_shell->var_env, "PWD");
-	//	ft_suppr_var(&new_shell->var_env, "SHLVL");
-	//}
 	ft_tabdel(&new_env);
 	utility = ft_get_utility(arg);
 	if (utility && utility[0] && ft_exist_in(new_shell->var_env, "PATH") == 0
