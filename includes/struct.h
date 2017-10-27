@@ -107,6 +107,13 @@ typedef struct		s_ast
 	struct s_ast	*right;
 }					t_ast;
 
+typedef struct		s_job
+{
+	char			*cmd_name;
+	int				pgid;
+	struct s_job	*next;
+}					t_job;
+
 typedef struct		s_shell
 {
 	char			*name;
