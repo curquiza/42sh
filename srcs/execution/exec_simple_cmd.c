@@ -39,7 +39,8 @@ int		ft_fork_and_exec(t_ast *ast)
 		exit(ft_do_cmd(ast));
 	}
 	else if (pid > 0)
-		wait(&ret);
+		//wait(&ret);
+		waitpid(pid, &ret, WUNTRACED);
 	return (ft_get_cmdret(ret));
 }
 

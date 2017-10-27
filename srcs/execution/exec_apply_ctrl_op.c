@@ -66,8 +66,10 @@ int		ft_right_pipe(int pfd[2], int left, t_ast *ast_right)
 	else if (right > 0)
 	{
 		waitpid(left, NULL, WNOHANG);
+		//waitpid(left, NULL, WNOHANG | WUNTRACED);
 		close(pfd[1]);
-		waitpid(right, &ret, 0);
+		//waitpid(right, &ret, 0);
+		waitpid(right, &ret, WUNTRACED);
 		close(pfd[0]);
 	}
 	return (ret);
@@ -96,7 +98,8 @@ int		ft_apply_pipe(t_ast *ast)
 		else if (left > 0)
 		{
 			ret = ft_right_pipe(pfd, left, ast->right);
-			wait(NULL);
+			//wait(NULL);
+			waitpid(left, 0, WUNTRACED);
 		}
 	}
 	return (ft_get_cmdret(ret));
