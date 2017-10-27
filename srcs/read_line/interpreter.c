@@ -84,7 +84,7 @@ void	ft_histo_interpreter(char *buff, t_tc *tool)
 			ft_histo_up(tool, g_shell->histo_ctrl);
 		else if (buff[0] == 27 && buff[1] == 91 && buff[2] == 66)
 			ft_histo_down(tool, g_shell->histo_ctrl);
-		else
+		else if (buff[0])
 			g_shell->histo_ctrl->pos = 0;
 	}
 }
