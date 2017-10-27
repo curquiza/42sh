@@ -12,8 +12,8 @@
 
 NAME = 42sh
 
-#CC = gcc -g -Wall -Wextra -Werror
-CC = gcc -Wall -Wextra -Werror -fsanitize=address
+CC = gcc -g -Wall -Wextra -Werror
+#CC = gcc -Wall -Wextra -Werror -fsanitize=address
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a

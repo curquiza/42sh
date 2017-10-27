@@ -79,7 +79,8 @@ int			main(int ac, char **av, char **environ)
 				ft_fill_cmd_return(258, g_shell);
 			ft_lexlstdel(&g_shell->lex);
 		}
-		g_shell->run == 1 && g_shell->ctrl_c == 0 ? ft_putendl("") : 0;
+		//g_shell->run == 1 && g_shell->ctrl_c == 0 ? ft_putendl("") : 0;
+		g_shell->run == 1 ? ft_putendl("") : 0;
 	}
 	return (ft_exit_shell());
 }
