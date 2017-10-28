@@ -59,6 +59,8 @@ int		ft_exec_scmd(t_ast *ast, t_job *current_job)
 		if (ast->redir_list
 			&& ft_do_redirection(ast->redir_list, ast->shell) == -1)
 			return (CMD_FAILURE);
+		if (!ast->cmd)
+			return (CMD_SUCCESS);
 		if (ast->cmd &&
 			(builtin_ret = ft_is_built_in(ast->cmd->s)) != NOT_BUILTIN)
 			return (ft_exec_built_in(ast, builtin_ret));
