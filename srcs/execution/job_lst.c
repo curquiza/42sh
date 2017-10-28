@@ -32,35 +32,35 @@ t_job	*ft_joblst_new(char *cmdname, int pgid)
 	return (new);
 }
 
-t_job	*ft_joblst_last(t_job *lst)
-{
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-void	ft_job_suppr_elem(t_job **elem)
-{
-	t_job	*suppr;
-
-	suppr = *elem;
-	*elem = (*elem)->next;
-	ft_strdel(&suppr->cmd_name);
-	suppr->pgid = 0;
-	suppr->next = NULL;
-	free(suppr);
-}
-
-void	ft_joblstdel(t_job **alst)
-{
-	t_job	*current;
-
-	if (!alst)
-		return ;
-	current = *alst;
-	while (current)
-		ft_job_suppr_elem(&(current));
-	*alst = NULL;
-}
+//t_job	*ft_joblst_last(t_job *lst)
+//{
+//	if (lst == NULL)
+//		return (NULL);
+//	while (lst->next)
+//		lst = lst->next;
+//	return (lst);
+//}
+//
+//void	ft_job_suppr_elem(t_job **elem)
+//{
+//	t_job	*suppr;
+//
+//	suppr = *elem;
+//	*elem = (*elem)->next;
+//	ft_strdel(&suppr->cmd_name);
+//	suppr->pgid = 0;
+//	suppr->next = NULL;
+//	free(suppr);
+//}
+//
+//void	ft_joblstdel(t_job **alst)
+//{
+//	t_job	*current;
+//
+//	if (!alst)
+//		return ;
+//	current = *alst;
+//	while (current)
+//		ft_job_suppr_elem(&(current));
+//	*alst = NULL;
+//}

@@ -40,10 +40,11 @@ int		ft_fork_and_exec(t_ast *ast, t_job *current_job)
 	}
 	else if (pid > 0)
 	{
-		//wait(&ret);
-		waitpid(pid, &ret, WUNTRACED);
 		current_job->pgid = pid;
 		//setpgid(pid, pid);
+		//wait(&ret);
+		//waitpid(pid, &ret, WUNTRACED);
+		ret = ft_wait_for_job(current_job);
 	}
 	return (ft_get_cmdret(ret));
 }
