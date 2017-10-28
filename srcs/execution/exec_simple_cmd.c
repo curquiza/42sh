@@ -25,7 +25,7 @@ int		ft_exec_scmd_pipeline(t_ast *ast)
 	return (CMD_SUCCESS);
 }
 
-int		ft_fork_and_exec(t_ast *ast)
+int		ft_fork_and_exec(t_ast *ast, t_job *current_job)
 {
 	pid_t	pid;
 	int		ret;
@@ -39,12 +39,16 @@ int		ft_fork_and_exec(t_ast *ast)
 		exit(ft_do_cmd(ast));
 	}
 	else if (pid > 0)
+	{
 		//wait(&ret);
 		waitpid(pid, &ret, WUNTRACED);
+		current_job->pgid = pid;
+		//setpgid(pid, pid);
+	}
 	return (ft_get_cmdret(ret));
 }
 
-int		ft_exec_scmd(t_ast *ast)
+int		ft_exec_scmd(t_ast *ast, t_job *current_job)
 {
 	int		builtin_ret;
 
@@ -58,7 +62,7 @@ int		ft_exec_scmd(t_ast *ast)
 		if (ast->cmd &&
 			(builtin_ret = ft_is_built_in(ast->cmd->s)) != NOT_BUILTIN)
 			return (ft_exec_built_in(ast, builtin_ret));
-		return (ft_fork_and_exec(ast));
+		return (ft_fork_and_exec(ast, current_job));
 	}
 	return (CMD_SUCCESS);
 }

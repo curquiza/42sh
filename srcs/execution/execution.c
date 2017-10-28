@@ -56,6 +56,7 @@ void		ft_pre_execution(t_ast *ast)
 int			ft_execution(t_ast *ast)
 {
 	int		ret_cmd;
+	t_job	*current_job;
 
 	if (ast)
 	{
@@ -70,7 +71,8 @@ int			ft_execution(t_ast *ast)
 		else
 		{
 			ft_pre_execution(ast);
-			ret_cmd = ft_exec_scmd(ast);
+			current_job = ast->argtab ? ft_joblst_new(ast->argtab[0], 0) : NULL;
+			ret_cmd = ft_exec_scmd(ast, current_job);
 			ft_fill_cmd_return(ret_cmd, ast->shell);
 			ft_restore_fd(ast);
 			return (ret_cmd);

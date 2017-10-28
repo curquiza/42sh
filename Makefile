@@ -118,6 +118,7 @@ EXEC = $(addprefix execution/, \
 	  built_in_histo.c \
 	  built_in_histo_inside.c \
 	  built_in_histo_file.c \
+	  job_lst.c \
 	  execution.c \
 	  exec_apply_ctrl_op.c \
 	  exec_simple_cmd.c \

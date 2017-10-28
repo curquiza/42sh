@@ -47,8 +47,10 @@ int					ft_apply_pipe(t_ast *ast);
 */
 
 int					ft_exec_scmd_pipeline(t_ast *ast);
-int					ft_fork_and_exec(t_ast *ast);
-int					ft_exec_scmd(t_ast *ast);
+//int					ft_fork_and_exec(t_ast *ast);
+int					ft_fork_and_exec(t_ast *ast, t_job *current_job);
+//int					ft_exec_scmd(t_ast *ast);
+int					ft_exec_scmd(t_ast *ast, t_job *current_job);
 
 /*
 ** exec_error_msg.c
@@ -95,5 +97,12 @@ void				ft_do_ass_word(t_ast *ast, int mode);
 
 int					ft_get_cmdret(int status);
 void				ft_fill_cmd_return(int ret, t_shell *shell);
+
+/*
+** job_lst.c
+*/
+
+t_job				*ft_joblst_new(char *cmdname, int pgid);
+
 
 #endif
