@@ -30,6 +30,22 @@ static int	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 	return (0);
 }
 
+void	ft_putjobs(t_job *job)
+{
+	ft_putendl("JOBS : ");
+	while (job)
+	{
+		ft_putstr("cmd_name = ");
+		if (job->cmd_name)
+			ft_putendl(job->cmd_name);
+		else
+			ft_putendl("NULL");
+		ft_putnbr2("gpid = ", job->pgid);
+		ft_putendl("----");
+		job = job->next;
+	}
+}
+
 /*
 ** DEROULEMENT DU SHELL :
 ** 1) lexer : on sépare la chaine de char envoyée par l'utilisateur en token
@@ -81,6 +97,7 @@ int			main(int ac, char **av, char **environ)
 		}
 		//g_shell->run == 1 && g_shell->ctrl_c == 0 ? ft_putendl("") : 0;
 		g_shell->run == 1 ? ft_putendl("") : 0;
+		ft_putjobs(g_shell->job_lst);
 	}
 	return (ft_exit_shell());
 }
