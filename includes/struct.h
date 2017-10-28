@@ -136,6 +136,7 @@ typedef struct		s_shell
 	int				event_err;
 	pid_t			gpid;
 	t_job			*job_lst;
+	struct termios	dfl_term;
 }					t_shell;
 
 #endif

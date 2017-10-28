@@ -4,7 +4,8 @@ static int	ft_job_exists(t_job *job_lst, t_job *current)
 {
 	while (job_lst)
 	{
-		if (current->pgid == job_lst->pgid)
+		//if (current->pgid == job_lst->pgid)
+		if (current == job_lst)
 			return (1);
 		job_lst = job_lst->next;
 	}
@@ -96,6 +97,13 @@ int		ft_wait_for_job(t_job **job)
 			free(*job);
 			*job = NULL;
 		}
+		//if (WIFSIGNALED(ret))
+		//{
+		//	ft_putnbr((int)pid);
+		//	ft_putstr(" : Terminated by signal ");
+		//	ft_putnbr(WTERMSIG(ret));
+		//	ft_putchar('\n');
+		//}
 	}
 	return (ret);
 }

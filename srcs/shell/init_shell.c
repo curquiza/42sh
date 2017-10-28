@@ -101,5 +101,7 @@ t_shell	*ft_init_shell(int ac, char **av, char **environ, char *name)
 	ft_fill_history_from_file(shell);
 	shell->gpid = getpid();
 	ft_putnbr2("shell->gpid = ", shell->gpid);
+	if (tcgetattr(1, &shell->dfl_term) != 0)
+		ft_exit("Shell init : imposible to get the termios structure", 1);
 	return (shell);
 }
