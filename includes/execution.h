@@ -48,9 +48,9 @@ int					ft_apply_pipe(t_ast *ast);
 
 int					ft_exec_scmd_pipeline(t_ast *ast);
 //int					ft_fork_and_exec(t_ast *ast);
-int					ft_fork_and_exec(t_ast *ast, t_job *current_job);
+int					ft_fork_and_exec(t_ast *ast, t_job **current_job);
 //int					ft_exec_scmd(t_ast *ast);
-int					ft_exec_scmd(t_ast *ast, t_job *current_job);
+int					ft_exec_scmd(t_ast *ast, t_job **current_job);
 
 /*
 ** exec_error_msg.c
@@ -109,6 +109,6 @@ void				ft_joblst_addback(t_job **alst, t_job *new);
 ** job_lst.c
 */
 
-int					ft_wait_for_job(t_job *job);
+int					ft_wait_for_job(t_job **job);
 
 #endif

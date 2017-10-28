@@ -72,7 +72,7 @@ int			ft_execution(t_ast *ast)
 		{
 			ft_pre_execution(ast);
 			current_job = ft_joblst_new(ast->argtab[0], 0);
-			ret_cmd = ft_exec_scmd(ast, current_job);
+			ret_cmd = ft_exec_scmd(ast, &current_job);
 			ft_fill_cmd_return(ret_cmd, ast->shell);
 			ft_restore_fd(ast);
 			return (ret_cmd);
