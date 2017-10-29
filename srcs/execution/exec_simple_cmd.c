@@ -25,11 +25,27 @@ int		ft_exec_scmd_pipeline(t_ast *ast)
 	return (CMD_SUCCESS);
 }
 
-int		ft_fork_and_exec(t_ast *ast)
+int				ft_process_controller(pid_t pid, t_ast *ast)
+{
+	int		ret;
+	t_job	*current_job;
+
+	current_job = ft_joblst_new(ast->argtab[0], pid);
+	//(*current_job)->pgid = pid;
+	//setpgid(pid, pid);
+	ret = ft_wait_for_job(&current_job);
+	//if (tree->fg)
+		tcsetpgrp(g_shell->terminal, g_shell->pgid);
+	//if (tree->fg)
+		tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
+	return (ret);
+}
+
+static int		ft_fork_and_exec(t_ast *ast)
 {
 	pid_t	pid;
 	int		ret;
-	t_job	*current_job;
+	//t_job	*current_job;
 
 	ret = CMD_SUCCESS;
 	if ((pid = fork()) == -1)
@@ -40,18 +56,7 @@ int		ft_fork_and_exec(t_ast *ast)
 		exit(ft_do_cmd(ast));
 	}
 	else if (pid > 0)
-	{
-		current_job = ft_joblst_new(ast->argtab[0], pid);
-		//(*current_job)->pgid = pid;
-		//setpgid(pid, pid);
-		//wait(&ret);
-		//waitpid(pid, &ret, WUNTRACED);
-		ret = ft_wait_for_job(&current_job);
-		//if (tree->fg)
-			tcsetpgrp(g_shell->terminal, g_shell->pgid);
-		//if (tree->fg)
-			tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
-	}
+		ret = ft_process_controller(pid, ast);
 	return (ft_get_cmdret(ret));
 }
 

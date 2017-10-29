@@ -47,10 +47,8 @@ int					ft_apply_pipe(t_ast *ast);
 */
 
 int					ft_exec_scmd_pipeline(t_ast *ast);
-int					ft_fork_and_exec(t_ast *ast);
-//int					ft_fork_and_exec(t_ast *ast, t_job **current_job);
 int					ft_exec_scmd(t_ast *ast);
-//int					ft_exec_scmd(t_ast *ast, t_job **current_job);
+int					ft_process_controller(pid_t pid, t_ast *ast);
 
 /*
 ** exec_error_msg.c
