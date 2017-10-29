@@ -94,11 +94,9 @@ static void	ft_init_for_job_ctrl(t_shell *shell)
 	if (setpgid (shell->pgid, shell->pgid) < 0)
 		ft_exit("Shell init : couldn't put the shell in its own process group",
 				1);
-	ft_putendl("mimi");
 	if (tcsetpgrp(shell->terminal, shell->pgid) == -1)
 		ft_exit("Shell init : impossible to grab the control of the terminal",
 				1);
-	ft_putendl("mimi");
 	if (tcgetattr(shell->terminal, &shell->dfl_term) != 0)
 		ft_exit("Shell init : imposible to get the termios structure", 1);
 	ft_putnbr2("shell->pgid = ", shell->pgid);
