@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <stdio.h>
 
 static int	ft_check_arg(t_job *job_lst, char **arg, char *builtin)
 {
@@ -27,9 +28,10 @@ static int	ft_check_arg(t_job *job_lst, char **arg, char *builtin)
 
 static t_job	*ft_get_job(t_job *lst, char *job_pos)
 {
-	(void)lst;
-	(void)job_pos;
-	return (NULL);
+	if (!job_pos)
+		return (ft_joblst_last(lst));
+	else
+		return (ft_joblst_at(lst, ft_atoi(job_pos)));
 }
 
 int		ft_builtin_fg(t_ast *ast)
@@ -39,6 +41,25 @@ int		ft_builtin_fg(t_ast *ast)
 	if (ft_check_arg(g_shell->job_lst, ast->argtab + 1, "fg") == -1)
 		return (CMD_FAILURE);
 	curr_job = ft_get_job(g_shell->job_lst, ast->argtab[1]);
+	if (curr_job)
+		ft_putendl2_fd("curr_job name = ", curr_job->cmd_name, 1);
+	if (!curr_job)
+		return (CMD_FAILURE);
+	ft_putnbr2("pgid du job = ", curr_job->pgid);
+
+	tcsetpgrp(g_shell->terminal, curr_job->pgid);
+	if (kill(-curr_job->pgid, SIGCONT) < 0)
+	//if (kill(-10, SIGCONT) < 0)
+	{
+		ft_put_errmsg(g_shell->name, "kill", "error");
+		perror("kill error");
+	}
+	//tcsetpgrp(1, curr_job->pgid);
+	ft_wait_for_job(&curr_job);
+	//tcsetpgrp(1, g_shell->pgid);
+	tcsetpgrp(g_shell->terminal, g_shell->pgid);
+	//tcsetattr(1, TCSADRAIN, &(g_shell->dfl_term));
+	tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
 	return (CMD_SUCCESS);
 }
 

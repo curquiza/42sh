@@ -45,15 +45,32 @@ int		ft_joblst_len(t_job *lst)
 	return (cpt);
 }
 
-//t_job	*ft_joblst_last(t_job *lst)
-//{
-//	if (lst == NULL)
-//		return (NULL);
-//	while (lst->next)
-//		lst = lst->next;
-//	return (lst);
-//}
-//
+t_job	*ft_joblst_last(t_job *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+t_job	*ft_joblst_at(t_job *lst, size_t n)
+{
+	size_t	i;
+
+	if (!lst)
+		return (NULL);
+	i = 1;
+	while (lst)
+	{
+		if (i == n)
+			return (lst);
+		lst = lst->next;
+		i++;
+	}
+	return (NULL);
+}
+
 //void	ft_job_suppr_elem(t_job **elem)
 //{
 //	t_job	*suppr;

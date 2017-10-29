@@ -97,13 +97,13 @@ int		ft_wait_for_job(t_job **job)
 			free(*job);
 			*job = NULL;
 		}
-		//if (WIFSIGNALED(ret))
-		//{
-		//	ft_putnbr((int)pid);
-		//	ft_putstr(" : Terminated by signal ");
-		//	ft_putnbr(WTERMSIG(ret));
-		//	ft_putchar('\n');
-		//}
+		if (WIFSIGNALED(ret))
+		{
+			ft_putnbr((int)pid);
+			ft_putstr(" : Terminated by signal ");
+			ft_putnbr(WTERMSIG(ret));
+			ft_putchar('\n');
+		}
 	}
 	return (ret);
 }
