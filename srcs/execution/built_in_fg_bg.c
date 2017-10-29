@@ -49,16 +49,12 @@ int		ft_builtin_fg(t_ast *ast)
 
 	tcsetpgrp(g_shell->terminal, curr_job->pgid);
 	if (kill(-curr_job->pgid, SIGCONT) < 0)
-	//if (kill(-10, SIGCONT) < 0)
 	{
 		ft_put_errmsg(g_shell->name, "kill", "error");
 		perror("kill error");
 	}
-	//tcsetpgrp(1, curr_job->pgid);
 	ft_wait_for_job(&curr_job);
-	//tcsetpgrp(1, g_shell->pgid);
 	tcsetpgrp(g_shell->terminal, g_shell->pgid);
-	//tcsetattr(1, TCSADRAIN, &(g_shell->dfl_term));
 	tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
 	return (CMD_SUCCESS);
 }

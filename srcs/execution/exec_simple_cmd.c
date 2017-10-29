@@ -47,6 +47,10 @@ int		ft_fork_and_exec(t_ast *ast)
 		//wait(&ret);
 		//waitpid(pid, &ret, WUNTRACED);
 		ret = ft_wait_for_job(&current_job);
+		//if (tree->fg)
+			tcsetpgrp(1, g_shell->pgid);
+		//if (tree->fg)
+			tcsetattr(1, TCSADRAIN, &(g_shell->dfl_term));
 	}
 	return (ft_get_cmdret(ret));
 }

@@ -73,11 +73,6 @@ int			ft_execution(t_ast *ast)
 			ret_cmd = ft_exec_scmd(ast);
 			ft_fill_cmd_return(ret_cmd, ast->shell);
 			ft_restore_fd(ast);
-			//if (tree->fg)
-				tcsetpgrp(1, g_shell->pgid);
-			//if (tree->fg)
-				tcsetattr(1, TCSADRAIN, &(g_shell->dfl_term));
-
 			return (ret_cmd);
 		}
 	}
