@@ -116,7 +116,7 @@ int		ft_apply_pipe(t_ast *ast)
 		}
 		else if (left > 0)
 		{
-			ft_manage_main_job_pipe(0, ast->left);
+			ft_manage_main_job_pipe(left, ast->left);
 			ret = ft_right_pipe(pfd, left, ast->right);
 			//wait(NULL);
 			//waitpid(left, 0, WUNTRACED);
