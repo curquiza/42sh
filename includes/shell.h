@@ -21,6 +21,7 @@
 # include <sys/ioctl.h>
 # include <dirent.h>
 # include <sys/param.h>
+# include <signal.h>
 
 # include "libft.h"
 # include "define.h"

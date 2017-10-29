@@ -134,7 +134,8 @@ typedef struct		s_shell
 	int				ctrl_c;
 	int				inhib;
 	int				event_err;
-	pid_t			gpid;
+	pid_t			pgid;
+	int				terminal;
 	t_job			*job_lst;
 	struct termios	dfl_term;
 }					t_shell;

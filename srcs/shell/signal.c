@@ -103,7 +103,7 @@ void	ft_catch_signal_child(void)
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, SIG_DFL);
-	signal(SIGWINCH, ft_redim_window);
+	signal(SIGWINCH, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGCHLD, SIG_DFL);
 }
