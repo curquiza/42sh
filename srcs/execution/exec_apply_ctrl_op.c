@@ -44,6 +44,24 @@ int		ft_apply_d_and(t_ast *ast)
 	return (ret);
 }
 
+int		ft_manage_main_job_pipe(pid_t pid, t_ast *ast)
+{
+	int		ret;
+	t_job	*current_job;
+
+	current_job = ft_joblst_new(ast->argtab[0], pid);
+	//(*current_job)->pgid = pid;
+	//setpgid(pid, pid);
+	//wait(&ret);
+	//waitpid(pid, &ret, WUNTRACED);
+	ret = ft_wait_for_job(&current_job);
+	//if (tree->fg)
+		tcsetpgrp(g_shell->terminal, g_shell->pgid);
+	//if (tree->fg)
+		tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
+	return (ret);
+}
+
 int		ft_right_pipe(int pfd[2], int left, t_ast *ast_right)
 {
 	int		right;
@@ -84,6 +102,7 @@ int		ft_apply_pipe(t_ast *ast)
 	ret = CMD_SUCCESS;
 	if (ast)
 	{
+		ft_pre_execution(ast->left);
 		if (pipe(pfd) == -1)
 			ft_put_errmsg(ast->shell->name, NULL, "pipe error");
 		if ((left = fork()) == -1)
@@ -92,14 +111,15 @@ int		ft_apply_pipe(t_ast *ast)
 		{
 			close(pfd[0]);
 			dup2(pfd[1], 1);
-			ft_pre_execution(ast->left);
+			//ft_pre_execution(ast->left);
 			exit(ft_exec_scmd_pipeline(ast->left));
 		}
 		else if (left > 0)
 		{
+			ft_manage_main_job_pipe(0, ast->left);
 			ret = ft_right_pipe(pfd, left, ast->right);
 			//wait(NULL);
-			waitpid(left, 0, WUNTRACED);
+			//waitpid(left, 0, WUNTRACED);
 		}
 	}
 	return (ft_get_cmdret(ret));

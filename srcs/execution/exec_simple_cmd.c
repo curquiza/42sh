@@ -25,7 +25,7 @@ int		ft_exec_scmd_pipeline(t_ast *ast)
 	return (CMD_SUCCESS);
 }
 
-int		ft_manage_main_job(pid_t pid)
+int		ft_manage_main_job(pid_t pid, t_ast *ast)
 {
 	int		ret;
 	t_job	*current_job;
@@ -47,7 +47,7 @@ static int	ft_fork_and_exec(t_ast *ast)
 {
 	pid_t	pid;
 	int		ret;
-	t_job	*current_job;
+	//t_job	*current_job;
 
 	ret = CMD_SUCCESS;
 	if ((pid = fork()) == -1)
@@ -59,7 +59,7 @@ static int	ft_fork_and_exec(t_ast *ast)
 	}
 	else if (pid > 0)
 	{
-		ret = ft_manage_main_job(pid);
+		ret = ft_manage_main_job(pid, ast);
 	}
 	return (ft_get_cmdret(ret));
 }
