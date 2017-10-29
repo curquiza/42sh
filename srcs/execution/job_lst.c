@@ -32,6 +32,19 @@ t_job	*ft_joblst_new(char *cmdname, int pgid)
 	return (new);
 }
 
+int		ft_joblst_len(t_job *lst)
+{
+	int		cpt;
+
+	cpt = 0;
+	while (lst)
+	{
+		cpt++;
+		lst = lst->next;
+	}
+	return (cpt);
+}
+
 //t_job	*ft_joblst_last(t_job *lst)
 //{
 //	if (lst == NULL)

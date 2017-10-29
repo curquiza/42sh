@@ -40,7 +40,7 @@ void	ft_putjobs(t_job *job)
 			ft_putendl(job->cmd_name);
 		else
 			ft_putendl("NULL");
-		ft_putnbr2("gpid = ", job->pgid);
+		ft_putnbr2("pgid = ", job->pgid);
 		ft_putendl("----");
 		job = job->next;
 	}

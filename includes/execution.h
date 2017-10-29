@@ -104,9 +104,10 @@ void				ft_fill_cmd_return(int ret, t_shell *shell);
 
 t_job				*ft_joblst_new(char *cmdname, int pgid);
 void				ft_joblst_addback(t_job **alst, t_job *new);
+int					ft_joblst_len(t_job *lst);
 
 /*
-** job_lst.c
+** job_controller.c
 */
 
 int					ft_wait_for_job(t_job **job);
