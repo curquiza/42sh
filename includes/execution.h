@@ -113,5 +113,6 @@ t_job				*ft_joblst_at(t_job *lst, size_t n);
 */
 
 int					ft_wait_for_job(t_job **job);
+void				ft_exit_job(int sig);
 
 #endif

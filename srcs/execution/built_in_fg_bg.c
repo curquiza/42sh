@@ -38,6 +38,7 @@ int		ft_builtin_fg(t_ast *ast)
 {
 	t_job	*curr_job;
 
+	ft_exit_job(1);
 	if (ft_check_arg(g_shell->job_lst, ast->argtab + 1, "fg") == -1)
 		return (CMD_FAILURE);
 	curr_job = ft_get_job(g_shell->job_lst, ast->argtab[1]);
@@ -60,6 +61,7 @@ int		ft_builtin_bg(t_ast *ast)
 {
 	t_job	*curr_job;
 
+	ft_exit_job(1);
 	if (ft_check_arg(g_shell->job_lst, ast->argtab + 1, "bg") == -1)
 		return (CMD_FAILURE);
 	curr_job = ft_get_job(g_shell->job_lst, ast->argtab[1]);

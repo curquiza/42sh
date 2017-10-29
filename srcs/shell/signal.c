@@ -93,6 +93,7 @@ void	ft_catch_signal_parent(void)
 	signal(SIGTTOU, SIG_IGN);
 	signal(SIGWINCH, ft_redim_window);
 	signal(SIGINT, ft_ctrl_c);
+	signal(SIGCHLD, ft_exit_job);
 }
 
 void	ft_catch_signal_child(void)
@@ -106,11 +107,4 @@ void	ft_catch_signal_child(void)
 	signal(SIGWINCH, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGCHLD, SIG_DFL);
-
-	signal (SIGINT, SIG_DFL);
-      signal (SIGQUIT, SIG_DFL);
-      signal (SIGTSTP, SIG_DFL);
-      signal (SIGTTIN, SIG_DFL);
-      signal (SIGTTOU, SIG_DFL);
-      signal (SIGCHLD, SIG_DFL);
 }

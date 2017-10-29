@@ -12,32 +12,6 @@ static int	ft_job_exists(t_job *job_lst, t_job *current)
 	return (0);
 }
 
-//void	ft_lexlst_remove_if(t_lexeme **begin_list, void *ref, int mode)
-//{
-//	t_lexeme	*current;
-//
-//	if (*begin_list)
-//	{
-//		current = *begin_list;
-//		while (current->next)
-//		{
-//			if (mode == 0 && ft_strcmp(current->next->s, ref) == 0)
-//				ft_lex_suppr_elem(&(current->next));
-//			else if (mode == 1 && current->next->token == *(int *)ref)
-//				ft_lex_suppr_elem(&(current->next));
-//			else
-//				current = current->next;
-//		}
-//		if (*begin_list)
-//		{
-//			if (mode == 0 && ft_strcmp((*begin_list)->s, ref) == 0)
-//				ft_lex_suppr_elem(begin_list);
-//			else if (mode == 1 && (*begin_list)->token == *(int *)ref)
-//				ft_lex_suppr_elem(begin_list);
-//		}
-//	}
-//}
-
 static void	ft_job_suppr_elem(t_job **elem)
 {
 	t_job	*suppr;
@@ -50,23 +24,21 @@ static void	ft_job_suppr_elem(t_job **elem)
 	free(suppr);
 }
 
-static void	ft_del_job(t_job **lst, t_job **current)
+static void	ft_del_job(t_job *current)
 {
-	t_job 	*prev;
 	t_job	*tmp;
 
-	if (!lst)
+	if (!g_shell->job_lst)
 		return ;
-	if (*lst && *lst == *current)
+	if (g_shell->job_lst == current)
 	{
-		ft_job_suppr_elem(lst);
+		ft_job_suppr_elem(&g_shell->job_lst);
 		return ;
 	}
-	tmp = *lst;
+	tmp = g_shell->job_lst;
 	while (tmp)
 	{
-		prev = tmp;
-		if (tmp == *current)
+		if (tmp == current)
 		{
 			ft_job_suppr_elem(&tmp);
 			return ;
@@ -74,6 +46,31 @@ static void	ft_del_job(t_job **lst, t_job **current)
 		tmp = tmp->next;
 	}
 }
+
+//static void	ft_del_job(t_job **lst, t_job **current)
+//{
+//	t_job 	*prev;
+//	t_job	*tmp;
+//
+//	if (!lst)
+//		return ;
+//	if (*lst && *lst == *current)
+//	{
+//		ft_job_suppr_elem(lst);
+//		return ;
+//	}
+//	tmp = *lst;
+//	while (tmp)
+//	{
+//		prev = tmp;
+//		if (tmp == *current)
+//		{
+//			ft_job_suppr_elem(&tmp);
+//			return ;
+//		}
+//		tmp = tmp->next;
+//	}
+//}
 
 int		ft_wait_for_job(t_job **job)
 {
@@ -90,7 +87,8 @@ int		ft_wait_for_job(t_job **job)
 	else
 	{
 		if (ft_job_exists(g_shell->job_lst, *job) == 1)
-			ft_del_job(&g_shell->job_lst, job);
+			//ft_del_job(&g_shell->job_lst, job);
+			ft_del_job(*job);
 		else
 		{
 			ft_strdel(&(*job)->cmd_name);
@@ -108,3 +106,32 @@ int		ft_wait_for_job(t_job **job)
 	return (ret);
 }
 
+void		ft_exit_job(int sig)
+{
+	t_job	*tmp;
+	t_job	*supp;
+	int		i;
+
+	i = 1;
+	tmp = g_shell->job_lst;
+	while (tmp)
+	{
+		if (waitpid(tmp->pgid, &i, WNOHANG | WCONTINUED | WUNTRACED) == -1
+			&& errno == 10 && sig)
+		{
+			ft_putchar('[');
+			ft_putnbr(i);
+			ft_putstr("]  +  ");
+			ft_putnbr(tmp->pgid);
+			ft_putstr(" done	");
+			ft_putendl(tmp->cmd_name);
+			supp = tmp;
+			ft_del_job(supp);
+			tmp = tmp->next;
+		}
+		else
+			tmp = tmp->next;
+		i++;
+	}
+	signal(SIGCHLD, SIG_DFL);
+}

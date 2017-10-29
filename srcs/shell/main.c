@@ -96,8 +96,9 @@ int			main(int ac, char **av, char **environ)
 			ft_lexlstdel(&g_shell->lex);
 		}
 		//g_shell->run == 1 && g_shell->ctrl_c == 0 ? ft_putendl("") : 0;
-		g_shell->run == 1 ? ft_putendl("") : 0;
+		ft_exit_job(1);
 		ft_putjobs(g_shell->job_lst);
+		g_shell->run == 1 ? ft_putendl("") : 0;
 	}
 	return (ft_exit_shell());
 }
