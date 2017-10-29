@@ -41,18 +41,15 @@ int		ft_builtin_fg(t_ast *ast)
 	if (ft_check_arg(g_shell->job_lst, ast->argtab + 1, "fg") == -1)
 		return (CMD_FAILURE);
 	curr_job = ft_get_job(g_shell->job_lst, ast->argtab[1]);
-	if (curr_job)
-		ft_putendl2_fd("curr_job name = ", curr_job->cmd_name, 1);
 	if (!curr_job)
+	{
+		ft_put_errmsg(g_shell->name, "fg", "no such job");
 		return (CMD_FAILURE);
-	ft_putnbr2("pgid du job = ", curr_job->pgid);
+	}
 
 	tcsetpgrp(g_shell->terminal, curr_job->pgid);
 	if (kill(-curr_job->pgid, SIGCONT) < 0)
-	{
 		ft_put_errmsg(g_shell->name, "kill", "error");
-		perror("kill error");
-	}
 	ft_wait_for_job(&curr_job);
 	tcsetpgrp(g_shell->terminal, g_shell->pgid);
 	tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
@@ -61,8 +58,18 @@ int		ft_builtin_fg(t_ast *ast)
 
 int		ft_builtin_bg(t_ast *ast)
 {
-	(void)ast;
-	ft_putendl("BUILTIN BG");
+	t_job	*curr_job;
+
+	if (ft_check_arg(g_shell->job_lst, ast->argtab + 1, "bg") == -1)
+		return (CMD_FAILURE);
+	curr_job = ft_get_job(g_shell->job_lst, ast->argtab[1]);
+	if (!curr_job)
+	{
+		ft_put_errmsg(g_shell->name, "bg", "no such job");
+		return (CMD_FAILURE);
+	}
+	if (kill(-curr_job->pgid, SIGCONT) < 0)
+		ft_put_errmsg(g_shell->name, "kill", "error");
 	return (CMD_SUCCESS);
 }
 

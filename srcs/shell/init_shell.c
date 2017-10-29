@@ -99,7 +99,6 @@ static void	ft_init_for_job_ctrl(t_shell *shell)
 				1);
 	if (tcgetattr(shell->terminal, &shell->dfl_term) != 0)
 		ft_exit("Shell init : imposible to get the termios structure", 1);
-	ft_putnbr2("shell->pgid = ", shell->pgid);
 }
 
 t_shell	*ft_init_shell(int ac, char **av, char **environ, char *name)
