@@ -11,7 +11,6 @@ static char	**ft_read_get_fields(char *r)
 	line = NULL;
 	if (*r == 'r')
 	{
-		ft_putendl("** NO ** backslash processing");
 		if (get_next_line(STDIN_FILENO, &line) == 1)
 		{
 			ft_clean_tab(line);
@@ -20,23 +19,20 @@ static char	**ft_read_get_fields(char *r)
 	}
 	else
 	{
-		ft_putendl("read with backslash processing");
 		while (get_next_line(STDIN_FILENO, &next_line) == 1)
 		{
 			tmp = line;
 			line = ft_strjoin(line, next_line);
-			free(tmp);
-			if (next_line[ft_strlen(next_line) - 1] != '\\')
-			{
-				ft_strdel(&next_line);
-				break ;
-			}
 			ft_strdel(&next_line);
+			free(tmp);
+			if (line[ft_strlen(line) - 1] != '\\')
+				break ;
+			else
+				line[ft_strlen(line) - 1] = '\0';
 			ft_putstr("> ");
 		}
 		ft_clean_tab(line);
-		ft_escape_removal_only(&line);
-		field = ft_strsplit(line, ' ');
+		field = ft_strsplit_escape(line);
 	}
 	ft_strdel(&line);
 	return (field);
@@ -64,9 +60,10 @@ static int	ft_read_assign_field_to_var(char **var, char **field)
 	{
 		if (!ft_is_valid_name(var[i]))
 		{
-			tmp = ft_strjoin3("`", var[i], "'");
-			ft_put_errmsg(SHELL_NAME": read", tmp, "not a valid identifier");
-			free(tmp);
+	//		tmp = ft_strjoin3("`", var[i], "'");
+	//		ft_put_errmsg(SHELL_NAME": read", tmp, "not a valid identifier");
+	//		free(tmp);
+			ft_put_errmsg(SHELL_NAME": read", var[i], "not a valid identifier");
 			return (CMD_FAILURE);
 		}
 		if (nb_var == 1 && nb_field > 1)

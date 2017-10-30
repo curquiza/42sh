@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/30 12:03:43 by sfranc           ###   ########.fr        #
+#    Updated: 2017/10/30 15:16:35 by sfranc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,6 +119,7 @@ EXEC = $(addprefix execution/, \
 	  built_in_histo_inside.c \
 	  built_in_histo_file.c \
 	  built_in_read.c \
+	  built_in_read_optr.c \
 	  execution.c \
 	  fd.c \
 	  exec_apply_ctrl_op.c \

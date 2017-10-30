@@ -17,6 +17,10 @@ void	ft_clean_tab(char *line)
 	}
 }
 
+/*
+**	remove only the escape char
+*/
+
 void	ft_escape_removal_only(char **s)
 {
 	int		i;

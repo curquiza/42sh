@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/15 15:33:31 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/27 13:52:58 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/30 15:12:21 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char			**ft_get_arg(char **array, char flag_error);
 ** built_in_read.c
 */ 
 int		ft_builtin_read(t_ast *ast);
+char	**ft_strsplit_escape(char *s);
 
 /*
 ** built_in_history.c
