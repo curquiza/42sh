@@ -74,12 +74,24 @@ static int	ft_launch_pipeline(t_ast *ast)
 	return (ret);
 }
 
+static void	ft_pre_execution_pipeline(t_ast *ast)
+{
+	while (ast && ast->lex && ast->lex->op == PIPE)
+	{
+		ft_pre_execution(ast->left);
+		ast = ast->right;
+	}
+	if (ast)
+		ft_pre_execution(ast);
+}
+
 int		ft_apply_pipe(t_ast *ast)
 {
 	pid_t	pid;
 	int		ret;
 
 	ret = CMD_SUCCESS;
+	ft_pre_execution_pipeline(ast);
 	if ((pid = fork()) == -1)
 		ft_put_errmsg(ast->shell->name, NULL, "fork error");
 	else if (pid == 0)

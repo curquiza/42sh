@@ -16,7 +16,6 @@ int		ft_exec_scmd_pipeline(t_ast *ast)
 {
 	if (ast)
 	{
-		ft_pre_execution(ast);
 		ft_do_ass_word(ast, 1);
 		if (ast->redir_list
 			&& ft_do_redirection(ast->redir_list, ast->shell) == -1)
@@ -35,19 +34,21 @@ static char		*ft_get_pipeline_name(t_ast *ast)
 	rslt = NULL;
 	while (ast && ast->lex && ast->lex->op == PIPE)
 	{
-		ft_pre_execution(ast->left);
 		cmd = NULL;
 		if (ast && ast->left && ast->left->argtab)
 			cmd = ft_tab_to_str(ast->left->argtab);
+		else
+			cmd = ft_strdup("");
 		tmp = rslt;
 		rslt = tmp ? ft_strjoin3(tmp, " | ", cmd) : ft_strdup(cmd);
 		ft_strdel(&tmp);
 		ft_strdel(&cmd);
 		ast = ast->right;
 	}
-	ft_pre_execution(ast);
 	if (ast && ast->argtab)
 		cmd = ft_tab_to_str(ast->argtab);
+	else
+		cmd = ft_strdup("");
 	tmp = rslt;
 	rslt = tmp ? ft_strjoin3(tmp, " | ", cmd) : ft_strdup(cmd);
 	ft_strdel(&tmp);

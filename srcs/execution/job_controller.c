@@ -81,13 +81,11 @@ int		ft_wait_for_job(t_job **job)
 	pid = waitpid((*job)->pgid, &ret, WUNTRACED);
 	if (WIFSTOPPED(ret))
 	{
-		ft_putendl_fd("wifstopped", 2);
 		if (ft_job_exists(g_shell->job_lst, *job) == 0)
 			ft_joblst_addback(&g_shell->job_lst, *job);
 	}
 	else
 	{
-		ft_putendl_fd("else wifstopped", 2);
 		if (ft_job_exists(g_shell->job_lst, *job) == 1)
 			//ft_del_job(&g_shell->job_lst, job);
 			ft_del_job(*job);
