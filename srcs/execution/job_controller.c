@@ -36,11 +36,11 @@ static void	ft_del_job(t_job *current)
 		return ;
 	}
 	tmp = g_shell->job_lst;
-	while (tmp)
+	while (tmp->next)
 	{
-		if (tmp == current)
+		if (tmp->next == current)
 		{
-			ft_job_suppr_elem(&tmp);
+			ft_job_suppr_elem(&tmp->next);
 			return ;
 		}
 		tmp = tmp->next;
