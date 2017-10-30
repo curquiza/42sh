@@ -16,6 +16,8 @@ enum e_cmd_search	ft_check_cmd_slash(t_ast *ast)
 {
 	struct stat	buff;
 
+	if (!ast || !ast->cmd)
+		return (NOTFOUND);
 	errno = 0;
 	if (stat(ast->cmd->s, &buff) == -1)
 	{
@@ -94,9 +96,6 @@ int					ft_do_cmd(t_ast *ast)
 
 	if (ast && ast->cmd && ast->cmd->s)
 	{
-		ft_putstr_fd("pid do_cmd = ", 2);
-		ft_putnbr_fd(getpid(), 2);
-		ft_putchar_fd('\n',2);
 		setpgid(getpid(), getpid());
 		//if (bg)
 		//tcsetpgrp(1, g_shell->pgid);
