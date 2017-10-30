@@ -24,7 +24,7 @@ static int	ft_launch_pipeline(t_ast *ast)
 	else if (pid == 0)
 	{
 		close(pfd[0]);
-		dup2(pfd[1], 1);
+		dup2(pfd[1], STDOUT_FILENO);
 		exit(ft_exec_scmd_pipeline(ast->left));
 	}
 	else if (pid > 0)
@@ -33,7 +33,7 @@ static int	ft_launch_pipeline(t_ast *ast)
 				&& ft_check_cmd_noslash(ast->left) != FOUND)
 			waitpid(pid, NULL, WUNTRACED);
 		close(pfd[1]);
-		dup2(pfd[0], 0);
+		dup2(pfd[0], STDIN_FILENO);
 		if (ast && ast->right && ast->right->lex && ast->right->lex->op == PIPE)
 			exit(ft_launch_pipeline(ast->right));
 		exit(ft_exec_scmd_pipeline(ast->right));

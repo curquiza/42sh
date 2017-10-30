@@ -96,6 +96,14 @@ int					ft_do_cmd(t_ast *ast)
 
 	if (ast && ast->cmd && ast->cmd->s)
 	{
+		if (ft_strchr(ast->cmd->s, '/'))
+			error_ret = ft_check_cmd_slash(ast);
+		else if ((builtin_ret = ft_is_built_in(ast->cmd->s)) != NOT_BUILTIN)
+			return (ft_exec_built_in(ast, builtin_ret));
+		else
+			error_ret = ft_check_cmd_noslash(ast);
+		if (error_ret != FOUND)
+			return (ft_putmsg_cmderr(ast->cmd->s, error_ret, ast->shell));
 		setpgid(getpid(), getpid());
 		//if (bg)
 		//tcsetpgrp(1, g_shell->pgid);
@@ -105,14 +113,6 @@ int					ft_do_cmd(t_ast *ast)
 		tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
 		//}
 		ft_catch_signal_child();
-		if (ft_strchr(ast->cmd->s, '/'))
-			error_ret = ft_check_cmd_slash(ast);
-		else if ((builtin_ret = ft_is_built_in(ast->cmd->s)) != NOT_BUILTIN)
-			return (ft_exec_built_in(ast, builtin_ret));
-		else
-			error_ret = ft_check_cmd_noslash(ast);
-		if (error_ret != FOUND)
-			return (ft_putmsg_cmderr(ast->cmd->s, error_ret, ast->shell));
 		execve(ast->cmd->s, ast->argtab, ast->shell->var_env);
 	}
 	return (CMD_SUCCESS);
