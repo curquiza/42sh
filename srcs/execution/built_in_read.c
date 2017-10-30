@@ -7,11 +7,20 @@ static char	**ft_read_get_fields(char *r)
 
 	(void)r;
 	field = NULL;
-	if (get_next_line(STDIN_FILENO, &line) == 1)
+	if (*r == 'r')
 	{
-		field = ft_strsplit(line, ' ');
+		ft_putendl("** NO ** baskslash processing");
+		if (get_next_line(STDIN_FILENO, &line) == 1)
+		{
+			ft_clean_tab(line);
+			field = ft_strsplit(line, ' ');
+		}
+		ft_strdel(&line);
 	}
-	ft_strdel(&line);
+	else
+	{
+		ft_putendl("baskslash processing");
+	}
 	return (field);
 }
 
@@ -21,7 +30,7 @@ static int	ft_read_assign_field_to_var(char **var, char **field)
 	int		nb_var;
 	int		nb_field;
 	int		i;
-	
+
 	if (!*var)
 	{
 		tmp = ft_tab_to_str(field);
@@ -89,7 +98,7 @@ int		ft_builtin_read(t_ast *ast)
 	field = ft_read_get_fields(flags);
 
 	ret = ft_read_assign_field_to_var(var, field);
-	
+
 	ft_tabdel(&field);
 	ft_strdel(&flags);
 	return (ret);
