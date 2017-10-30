@@ -61,13 +61,13 @@ static int	ft_is_end_of_fields(char *line)
 		if (*line == '\\' && !escape)
 		{
 			line++;
-			if (*line == '\n')
-			{
-				ft_putchar('A');
-				line++;
-			}
-			else
-				escape = 1;
+//			if (*line == '\n')
+//			{
+//				ft_putchar('A');
+//				line++;
+//			}
+//			else
+			escape = 1;
 		}
 		else
 		{
@@ -93,7 +93,7 @@ char	**ft_read_get_fields_no_opt(void)
 		tmp = line;
 		line = ft_strjoin3(line, next_line,"\n");
 		free(tmp);
-		if (ft_is_end_of_fields(next_line) == 1)
+		if (ft_is_end_of_fields(line) == 1)
 		{
 			ft_strdel(&next_line);
 			break ;
