@@ -97,10 +97,9 @@ int					ft_do_cmd(t_ast *ast)
 		//setpgid(getpid(), getpid());
 		//tcsetpgrp(g_shell->terminal, getpid());
 		//tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
-		int		pid;
-		pid = getpid();
-      	setpgid (pid, pid);
-		tcsetpgrp(g_shell->terminal, pid);
+		setpgid(getpid(), getpid());
+		tcsetpgrp(g_shell->terminal, getpid());
+		tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
 
 		ft_catch_signal_child();
 		if (ft_strchr(ast->cmd->s, '/'))

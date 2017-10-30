@@ -87,7 +87,7 @@ static void	ft_fill_history_from_file(t_shell *shell)
 
 static void	ft_init_for_job_ctrl(t_shell *shell)
 {
-	shell->terminal = STDIN_FILENO;
+	shell->terminal = STDOUT_FILENO;
 	while (tcgetpgrp(shell->terminal) != (shell->pgid = getpgrp()))
 		kill(- shell->pgid, SIGTTIN);
 	shell->pgid = getpid();
