@@ -15,7 +15,7 @@ static char	**ft_read_get_fields(char *r)
 	return (field);
 }
 
-static void	ft_read_assign_field_to_var(char **var, char **field)
+static int	ft_read_assign_field_to_var(char **var, char **field)
 {
 	char	*tmp;
 	int		nb_var;
@@ -28,7 +28,7 @@ static void	ft_read_assign_field_to_var(char **var, char **field)
 		ft_putendl2_fd("add ", "REPLY", 1);
 		ft_chg_varval_or_add(&g_shell->var_loc, "REPLY", tmp);
 		free (tmp);
-		return ;
+		return (CMD_SUCCESS);
 	}
 	i = 0;
 	nb_var = ft_tablen(var);
@@ -37,8 +37,10 @@ static void	ft_read_assign_field_to_var(char **var, char **field)
 	{
 		if (!ft_is_valid_name(var[i]))
 		{
-			ft_putendl("ERROR");
-			return ;
+			tmp = ft_strjoin3("`", var[i], "'");
+			ft_put_errmsg(SHELL_NAME": read", tmp, "not a valid identifier");
+			free(tmp);
+			return (CMD_FAILURE);
 		}
 		if (nb_var == 1 && nb_field > 1)
 		{
@@ -63,6 +65,7 @@ static void	ft_read_assign_field_to_var(char **var, char **field)
 		}
 		++i;
 	}
+	return (CMD_SUCCESS);
 }
 
 int		ft_builtin_read(t_ast *ast)
@@ -71,6 +74,7 @@ int		ft_builtin_read(t_ast *ast)
 	char	**var;
 	int		flag_error;
 	char	**field;
+	int		ret;
 
 
 	flags = ft_get_flags(ast->argtab + 1);
@@ -84,9 +88,9 @@ int		ft_builtin_read(t_ast *ast)
 
 	field = ft_read_get_fields(flags);
 
-	ft_read_assign_field_to_var(var, field);
+	ret = ft_read_assign_field_to_var(var, field);
 	
 	ft_tabdel(&field);
 	ft_strdel(&flags);
-	return (CMD_SUCCESS);
+	return (ret);
 }
