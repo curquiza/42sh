@@ -9,7 +9,7 @@ static int	ft_read_assign_field_to_var(char **var, char **field)
 
 	if (!*var)
 	{
-		tmp = ft_tab_to_str(field);
+		tmp = field ? ft_tab_to_str(field) : NULL;
 		ft_putendl2_fd("add ", "REPLY", 1);
 		ft_chg_varval_or_add(&g_shell->var_loc, "REPLY", tmp);
 		free (tmp);

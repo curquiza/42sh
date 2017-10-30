@@ -8,6 +8,8 @@ void	ft_clean_tab(char *line)
 {
 	int	i;
 
+	if (!line)
+		return ;
 	i = 0;
 	while (line[i])
 	{
