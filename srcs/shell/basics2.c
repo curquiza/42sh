@@ -17,3 +17,19 @@ void	ft_clean_tab(char *line)
 	}
 }
 
+void	ft_escape_removal_only(char **s)
+{
+	int		i;
+
+	if (!*s)
+		return ;
+	i = 0;
+	while ((*s)[i])
+	{
+		if ((*s)[i] == 92 && (*s)[i + 1])
+			ft_escape_char(s, &i, (*s)[i + 1]);
+		else
+			i++;
+	}
+}
+

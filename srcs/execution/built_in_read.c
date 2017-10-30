@@ -3,24 +3,42 @@
 static char	**ft_read_get_fields(char *r)
 {
 	char	*line;
+	char	*next_line;
+	char	*tmp;
 	char	**field;
 
-	(void)r;
 	field = NULL;
+	line = NULL;
 	if (*r == 'r')
 	{
-		ft_putendl("** NO ** baskslash processing");
+		ft_putendl("** NO ** backslash processing");
 		if (get_next_line(STDIN_FILENO, &line) == 1)
 		{
 			ft_clean_tab(line);
 			field = ft_strsplit(line, ' ');
 		}
-		ft_strdel(&line);
 	}
 	else
 	{
-		ft_putendl("baskslash processing");
+		ft_putendl("read with backslash processing");
+		while (get_next_line(STDIN_FILENO, &next_line) == 1)
+		{
+			tmp = line;
+			line = ft_strjoin(line, next_line);
+			free(tmp);
+			if (next_line[ft_strlen(next_line) - 1] != '\\')
+			{
+				ft_strdel(&next_line);
+				break ;
+			}
+			ft_strdel(&next_line);
+			ft_putstr("> ");
+		}
+		ft_clean_tab(line);
+		ft_escape_removal_only(&line);
+		field = ft_strsplit(line, ' ');
 	}
+	ft_strdel(&line);
 	return (field);
 }
 
