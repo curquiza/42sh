@@ -29,8 +29,16 @@ int				ft_process_controller(pid_t pid, t_ast *ast)
 {
 	int		ret;
 	t_job	*current_job;
+	char	*cmd_name;
 
-	current_job = ft_joblst_new(ast->argtab[0], pid);
+	if (ast->lex && ast->lex->op == PIPE && ast->left && ast->left->lex)
+		cmd_name = ft_strdup(ast->left->lex->s);
+	else if (ast->argtab)
+		cmd_name = ft_tab_to_str(ast->argtab);
+	else
+		cmd_name = ft_strdup("");
+	current_job = ft_joblst_new(cmd_name, pid);
+	ft_strdel(&cmd_name);
 	//(*current_job)->pgid = pid;
 	//setpgid(pid, pid);
 	ret = ft_wait_for_job(&current_job);
