@@ -1,6 +1,6 @@
 #include "shell.h"
 
-char	**ft_strsplit_escape(char *s)
+static char	**ft_strsplit_escape(char *s)
 {
 	char	**field;
 	char	*tmp;
@@ -33,3 +33,45 @@ char	**ft_strsplit_escape(char *s)
 	return (field);
 }
 
+char	**ft_read_get_fields_opt_r(void)
+{
+	char	*line;
+	char	**field;
+
+	field = NULL;
+	line = NULL;
+	if (get_next_line(STDIN_FILENO, &line) == 1)
+	{
+		ft_clean_tab(line);
+		field = ft_strsplit(line, ' ');
+	}
+	ft_strdel(&line);
+	return (field);
+}
+
+char	**ft_read_get_fields_no_opt(void)
+{
+	char	*line;
+	char	*next_line;
+	char	*tmp;
+	char	**field;
+
+	field = NULL;
+	line = NULL;
+	while (get_next_line(STDIN_FILENO, &next_line) == 1)
+	{
+		tmp = line;
+		line = ft_strjoin(line, next_line);
+		ft_strdel(&next_line);
+		free(tmp);
+		if (line[ft_strlen(line) - 1] != '\\')
+			break ;
+		else
+			line[ft_strlen(line) - 1] = '\0';
+		ft_putstr("> ");
+	}
+	ft_clean_tab(line);
+	field = ft_strsplit_escape(line);
+	ft_strdel(&line);
+	return (field);
+}

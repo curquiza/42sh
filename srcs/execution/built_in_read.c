@@ -1,43 +1,5 @@
 #include "shell.h"
 
-static char	**ft_read_get_fields(char *r)
-{
-	char	*line;
-	char	*next_line;
-	char	*tmp;
-	char	**field;
-
-	field = NULL;
-	line = NULL;
-	if (*r == 'r')
-	{
-		if (get_next_line(STDIN_FILENO, &line) == 1)
-		{
-			ft_clean_tab(line);
-			field = ft_strsplit(line, ' ');
-		}
-	}
-	else
-	{
-		while (get_next_line(STDIN_FILENO, &next_line) == 1)
-		{
-			tmp = line;
-			line = ft_strjoin(line, next_line);
-			ft_strdel(&next_line);
-			free(tmp);
-			if (line[ft_strlen(line) - 1] != '\\')
-				break ;
-			else
-				line[ft_strlen(line) - 1] = '\0';
-			ft_putstr("> ");
-		}
-		ft_clean_tab(line);
-		field = ft_strsplit_escape(line);
-	}
-	ft_strdel(&line);
-	return (field);
-}
-
 static int	ft_read_assign_field_to_var(char **var, char **field)
 {
 	char	*tmp;
@@ -60,9 +22,9 @@ static int	ft_read_assign_field_to_var(char **var, char **field)
 	{
 		if (!ft_is_valid_name(var[i]))
 		{
-	//		tmp = ft_strjoin3("`", var[i], "'");
-	//		ft_put_errmsg(SHELL_NAME": read", tmp, "not a valid identifier");
-	//		free(tmp);
+			//		tmp = ft_strjoin3("`", var[i], "'");
+			//		ft_put_errmsg(SHELL_NAME": read", tmp, "not a valid identifier");
+			//		free(tmp);
 			ft_put_errmsg(SHELL_NAME": read", var[i], "not a valid identifier");
 			return (CMD_FAILURE);
 		}
@@ -100,7 +62,6 @@ int		ft_builtin_read(t_ast *ast)
 	char	**field;
 	int		ret;
 
-
 	flags = ft_get_flags(ast->argtab + 1);
 	if ((flag_error = ft_check_illegal_flags(flags, "r")) != 0)
 	{
@@ -109,11 +70,11 @@ int		ft_builtin_read(t_ast *ast)
 		return (CMD_FAILURE);
 	}
 	var = ft_get_arg(ast->argtab + 1, flag_error);
-
-	field = ft_read_get_fields(flags);
-
+	if (*flags == 'r')
+		field = ft_read_get_fields_opt_r();
+	else
+		field = ft_read_get_fields_no_opt();
 	ret = ft_read_assign_field_to_var(var, field);
-
 	ft_tabdel(&field);
 	ft_strdel(&flags);
 	return (ret);
