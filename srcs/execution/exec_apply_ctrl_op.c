@@ -63,8 +63,8 @@ static int	ft_launch_pipeline(t_ast *ast)
 	}
 	else if (pid > 0)
 	{
-		//if (ft_check_cmd_slash(ast->left) != FOUND || ft_check_cmd_noslash(ast->left) != FOUND)
-		//	waitpid(pid, &ret, WUNTRACED);
+		if (ft_check_cmd_slash(ast->left) != FOUND || ft_check_cmd_noslash(ast->left) != FOUND)
+			waitpid(pid, &ret, WUNTRACED);
 		close(pfd[1]);
 		dup2(pfd[0], 0);
 		if (ast && ast->right && ast->right->lex && ast->right->lex->op == PIPE)
