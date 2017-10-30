@@ -49,7 +49,7 @@ void		ft_pre_execution(t_ast *ast)
 		ft_expansion(ast);
 		ft_get_argtab(ast);
 		ft_build_redir_list(ast);
-		ft_save_std_fd(ast);
+		//ft_save_std_fd(ast);
 	}
 }
 
@@ -69,6 +69,7 @@ int			ft_execution(t_ast *ast)
 			return (ft_apply_pipe(ast));
 		else
 		{
+			ft_save_std_fd(ast);
 			ft_pre_execution(ast);
 			ret_cmd = ft_exec_scmd(ast);
 			ft_fill_cmd_return(ret_cmd, ast->shell);

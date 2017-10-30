@@ -16,6 +16,8 @@ enum e_cmd_search	ft_check_cmd_slash(t_ast *ast)
 {
 	struct stat	buff;
 
+	if (!ast || !ast->cmd)
+		return (NOTFOUND);
 	errno = 0;
 	if (stat(ast->cmd->s, &buff) == -1)
 	{
@@ -94,15 +96,6 @@ int					ft_do_cmd(t_ast *ast)
 
 	if (ast && ast->cmd && ast->cmd->s)
 	{
-		//setpgid(getpid(), getpid());
-		//tcsetpgrp(g_shell->terminal, getpid());
-		//tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
-		int		pid;
-		pid = getpid();
-      	setpgid (pid, pid);
-		tcsetpgrp(g_shell->terminal, pid);
-
-		ft_catch_signal_child();
 		if (ft_strchr(ast->cmd->s, '/'))
 			error_ret = ft_check_cmd_slash(ast);
 		else if ((builtin_ret = ft_is_built_in(ast->cmd->s)) != NOT_BUILTIN)
@@ -111,6 +104,15 @@ int					ft_do_cmd(t_ast *ast)
 			error_ret = ft_check_cmd_noslash(ast);
 		if (error_ret != FOUND)
 			return (ft_putmsg_cmderr(ast->cmd->s, error_ret, ast->shell));
+		setpgid(getpid(), getpid());
+		//if (bg)
+		//tcsetpgrp(1, g_shell->pgid);
+		//else
+		//{
+		tcsetpgrp(g_shell->terminal, getpid());
+		tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
+		//}
+		ft_catch_signal_child();
 		execve(ast->cmd->s, ast->argtab, ast->shell->var_env);
 	}
 	return (CMD_SUCCESS);

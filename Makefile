@@ -124,6 +124,7 @@ EXEC = $(addprefix execution/, \
 	  job_controller.c \
 	  execution.c \
 	  exec_apply_ctrl_op.c \
+	  exec_pipeline.c \
 	  exec_simple_cmd.c \
 	  exec_error_msg.c \
 	  exec_cmd.c \

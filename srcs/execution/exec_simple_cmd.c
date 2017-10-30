@@ -12,24 +12,65 @@
 
 #include "shell.h"
 
-int		ft_exec_scmd_pipeline(t_ast *ast)
+static char		*ft_get_pipeline_name(t_ast *ast)
 {
-	if (ast)
+	char	*rslt;
+	char	*cmd;
+	char	*tmp;
+
+	rslt = NULL;
+	while (ast && ast->lex && ast->lex->op == PIPE)
 	{
-		ft_do_ass_word(ast, 1);
-		if (ast->redir_list
-			&& ft_do_redirection(ast->redir_list, ast->shell) == -1)
-			return (CMD_FAILURE);
-		return (ft_do_cmd(ast));
+		cmd = NULL;
+		if (ast && ast->left && ast->left->argtab)
+			cmd = ft_tab_to_str(ast->left->argtab);
+		else
+			cmd = ft_strdup("");
+		tmp = rslt;
+		rslt = tmp ? ft_strjoin3(tmp, " | ", cmd) : ft_strdup(cmd);
+		ft_strdel(&tmp);
+		ft_strdel(&cmd);
+		ast = ast->right;
 	}
-	return (CMD_SUCCESS);
+	if (ast && ast->argtab)
+		cmd = ft_tab_to_str(ast->argtab);
+	else
+		cmd = ft_strdup("");
+	tmp = rslt;
+	rslt = tmp ? ft_strjoin3(tmp, " | ", cmd) : ft_strdup(cmd);
+	ft_strdel(&tmp);
+	ft_strdel(&cmd);
+	return (rslt);
 }
 
-int		ft_fork_and_exec(t_ast *ast)
+int				ft_process_controller(pid_t pid, t_ast *ast)
+{
+	int		ret;
+	t_job	*current_job;
+	char	*cmd_name;
+
+	if (ast->lex && ast->lex->op == PIPE)
+		cmd_name = ft_get_pipeline_name(ast);
+	else if (ast->argtab)
+		cmd_name = ft_tab_to_str(ast->argtab);
+	else
+		cmd_name = ft_strdup("");
+	current_job = ft_joblst_new(cmd_name, pid);
+	ft_strdel(&cmd_name);
+	setpgid(pid, pid);
+	ret = ft_wait_for_job(&current_job);
+	//if (tree->fg)
+		tcsetpgrp(g_shell->terminal, g_shell->pgid);
+	//if (tree->fg)
+		tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
+	return (ret);
+}
+
+static int		ft_fork_and_exec(t_ast *ast)
 {
 	pid_t	pid;
 	int		ret;
-	t_job	*current_job;
+	//t_job	*current_job;
 
 	ret = CMD_SUCCESS;
 	if ((pid = fork()) == -1)
@@ -40,18 +81,7 @@ int		ft_fork_and_exec(t_ast *ast)
 		exit(ft_do_cmd(ast));
 	}
 	else if (pid > 0)
-	{
-		current_job = ft_joblst_new(ast->argtab[0], pid);
-		//(*current_job)->pgid = pid;
-		//setpgid(pid, pid);
-		//wait(&ret);
-		//waitpid(pid, &ret, WUNTRACED);
-		ret = ft_wait_for_job(&current_job);
-		//if (tree->fg)
-			tcsetpgrp(g_shell->terminal, g_shell->pgid);
-		//if (tree->fg)
-			tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
-	}
+		ret = ft_process_controller(pid, ast);
 	return (ft_get_cmdret(ret));
 }
 
