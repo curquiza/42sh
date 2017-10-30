@@ -39,7 +39,6 @@ void				ft_cmd_line_execution(t_ast **ast, t_shell *shell);
 int					ft_apply_semic(t_ast *ast);
 int					ft_apply_d_pipe(t_ast *ast);
 int					ft_apply_d_and(t_ast *ast);
-int					ft_right_pipe(int pfd[2], int left, t_ast *ast_right);
 int					ft_apply_pipe(t_ast *ast);
 
 /*

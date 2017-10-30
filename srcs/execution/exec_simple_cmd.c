@@ -16,6 +16,7 @@ int		ft_exec_scmd_pipeline(t_ast *ast)
 {
 	if (ast)
 	{
+		ft_pre_execution(ast);
 		ft_do_ass_word(ast, 1);
 		if (ast->redir_list
 			&& ft_do_redirection(ast->redir_list, ast->shell) == -1)
