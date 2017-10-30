@@ -25,6 +25,35 @@ int		ft_exec_scmd_pipeline(t_ast *ast)
 	return (CMD_SUCCESS);
 }
 
+static char		*ft_get_pipeline_name(t_ast *ast)
+{
+	char	*rslt;
+	char	*cmd;
+	char	*tmp;
+
+	rslt = NULL;
+	while (ast && ast->lex && ast->lex->op == PIPE)
+	{
+		ft_pre_execution(ast->left);
+		cmd = NULL;
+		if (ast && ast->left && ast->left->argtab)
+			cmd = ft_tab_to_str(ast->left->argtab);
+		tmp = rslt;
+		rslt = tmp ? ft_strjoin3(tmp, " | ", cmd) : ft_strdup(cmd);
+		ft_strdel(&tmp);
+		ft_strdel(&cmd);
+		ast = ast->right;
+	}
+	ft_pre_execution(ast);
+	if (ast && ast->argtab)
+		cmd = ft_tab_to_str(ast->argtab);
+	tmp = rslt;
+	rslt = tmp ? ft_strjoin3(tmp, " | ", cmd) : ft_strdup(cmd);
+	ft_strdel(&tmp);
+	ft_strdel(&cmd);
+	return (rslt);
+}
+
 int				ft_process_controller(pid_t pid, t_ast *ast)
 {
 	int		ret;
@@ -32,7 +61,7 @@ int				ft_process_controller(pid_t pid, t_ast *ast)
 	char	*cmd_name;
 
 	if (ast->lex && ast->lex->op == PIPE && ast->left && ast->left->lex)
-		cmd_name = ft_strdup(ast->left->lex->s);
+		cmd_name = ft_get_pipeline_name(ast);
 	else if (ast->argtab)
 		cmd_name = ft_tab_to_str(ast->argtab);
 	else
