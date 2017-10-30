@@ -94,13 +94,17 @@ int					ft_do_cmd(t_ast *ast)
 
 	if (ast && ast->cmd && ast->cmd->s)
 	{
-		//setpgid(getpid(), getpid());
-		//tcsetpgrp(g_shell->terminal, getpid());
-		//tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
+		ft_putstr_fd("pid do_cmd = ", 2);
+		ft_putnbr_fd(getpid(), 2);
+		ft_putchar_fd('\n',2);
 		setpgid(getpid(), getpid());
+		//if (bg)
+		//tcsetpgrp(1, g_shell->pgid);
+		//else
+		//{
 		tcsetpgrp(g_shell->terminal, getpid());
 		tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
-
+		//}
 		ft_catch_signal_child();
 		if (ft_strchr(ast->cmd->s, '/'))
 			error_ret = ft_check_cmd_slash(ast);

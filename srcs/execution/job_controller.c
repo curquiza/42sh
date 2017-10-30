@@ -47,31 +47,6 @@ static void	ft_del_job(t_job *current)
 	}
 }
 
-//static void	ft_del_job(t_job **lst, t_job **current)
-//{
-//	t_job 	*prev;
-//	t_job	*tmp;
-//
-//	if (!lst)
-//		return ;
-//	if (*lst && *lst == *current)
-//	{
-//		ft_job_suppr_elem(lst);
-//		return ;
-//	}
-//	tmp = *lst;
-//	while (tmp)
-//	{
-//		prev = tmp;
-//		if (tmp == *current)
-//		{
-//			ft_job_suppr_elem(&tmp);
-//			return ;
-//		}
-//		tmp = tmp->next;
-//	}
-//}
-
 int		ft_wait_for_job(t_job **job)
 {
 	int		ret;
@@ -87,7 +62,6 @@ int		ft_wait_for_job(t_job **job)
 	else
 	{
 		if (ft_job_exists(g_shell->job_lst, *job) == 1)
-			//ft_del_job(&g_shell->job_lst, job);
 			ft_del_job(*job);
 		else
 		{

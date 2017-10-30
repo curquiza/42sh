@@ -12,19 +12,6 @@
 
 #include "shell.h"
 
-int		ft_exec_scmd_pipeline(t_ast *ast)
-{
-	if (ast)
-	{
-		ft_do_ass_word(ast, 1);
-		if (ast->redir_list
-			&& ft_do_redirection(ast->redir_list, ast->shell) == -1)
-			return (CMD_FAILURE);
-		return (ft_do_cmd(ast));
-	}
-	return (CMD_SUCCESS);
-}
-
 static char		*ft_get_pipeline_name(t_ast *ast)
 {
 	char	*rslt;
@@ -70,6 +57,7 @@ int				ft_process_controller(pid_t pid, t_ast *ast)
 		cmd_name = ft_strdup("");
 	current_job = ft_joblst_new(cmd_name, pid);
 	ft_strdel(&cmd_name);
+	ft_putnbr2("pid = ", pid);
 	setpgid(pid, pid);
 	ret = ft_wait_for_job(&current_job);
 	//if (tree->fg)

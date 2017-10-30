@@ -39,13 +39,17 @@ void				ft_cmd_line_execution(t_ast **ast, t_shell *shell);
 int					ft_apply_semic(t_ast *ast);
 int					ft_apply_d_pipe(t_ast *ast);
 int					ft_apply_d_and(t_ast *ast);
+
+/*
+** exec_pipeline.c
+*/
+
 int					ft_apply_pipe(t_ast *ast);
 
 /*
 ** exec_simple_cmd.c
 */
 
-int					ft_exec_scmd_pipeline(t_ast *ast);
 int					ft_exec_scmd(t_ast *ast);
 int					ft_process_controller(pid_t pid, t_ast *ast);
 
