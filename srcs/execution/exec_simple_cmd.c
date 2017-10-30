@@ -60,7 +60,7 @@ int				ft_process_controller(pid_t pid, t_ast *ast)
 	t_job	*current_job;
 	char	*cmd_name;
 
-	if (ast->lex && ast->lex->op == PIPE && ast->left && ast->left->lex)
+	if (ast->lex && ast->lex->op == PIPE)
 		cmd_name = ft_get_pipeline_name(ast);
 	else if (ast->argtab)
 		cmd_name = ft_tab_to_str(ast->argtab);
@@ -68,7 +68,6 @@ int				ft_process_controller(pid_t pid, t_ast *ast)
 		cmd_name = ft_strdup("");
 	current_job = ft_joblst_new(cmd_name, pid);
 	ft_strdel(&cmd_name);
-	//(*current_job)->pgid = pid;
 	//setpgid(pid, pid);
 	ret = ft_wait_for_job(&current_job);
 	//if (tree->fg)
