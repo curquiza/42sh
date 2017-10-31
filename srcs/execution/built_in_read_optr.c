@@ -1,11 +1,41 @@
 #include "shell.h"
 
+/*
+** ft_gen_len_field: when read with no option
+** Get the len of a field, which is a word that can include escape spaces.
+*/
+
+static int	ft_get_len_field(char *s)
+{
+	int	len;
+	int	escape;
+
+	len = 0;
+	escape = 0;
+	while (*(s + len) && (*(s + len) != ' ' || (*(s + len) == ' ' && escape)))
+	{
+		escape = 0;
+		++len;
+		if (*(s + len) == '\\')
+		{
+			escape = 1;
+			++len;
+		}
+	}
+	return (len);
+}
+
+/*
+** ft_strsplit_escape: when read with no option
+** Split a string into an array of strings, using spaces as separator
+** (tab and \n have previously been cleaned) BUT spaces can be escaped.
+*/
+
 static char	**ft_strsplit_escape(char *s)
 {
 	char	**field;
 	char	*tmp;
 	int		len;
-	int		escape;
 
 	if (!s)
 		return (NULL);
@@ -14,18 +44,7 @@ static char	**ft_strsplit_escape(char *s)
 	{
 		while (*s == ' ')
 			++s;
-		len = 0;
-		escape = 0;
-		while (*(s + len) && (*(s + len) != ' ' || (*(s + len) == ' ' && escape)))
-		{
-			escape = 0;
-			++len;
-			if (*(s + len) == '\\')
-			{
-				escape = 1;
-				++len;
-			}
-		}
+		len = ft_get_len_field(s);
 		tmp = ft_strsub(s, 0, len);
 		ft_escape_removal_only(&tmp);
 		ft_add_var(&field, tmp, NULL);
@@ -35,21 +54,11 @@ static char	**ft_strsplit_escape(char *s)
 	return (field);
 }
 
-char	**ft_read_get_fields_opt_r(void)
-{
-	char	*line;
-	char	**field;
-
-	field = NULL;
-	line = NULL;
-	if (get_next_line(STDIN_FILENO, &line) == 1)
-	{
-		ft_clean_tab(line);
-		field = ft_strsplit(line, ' ');
-	}
-	ft_strdel(&line);
-	return (field);
-}
+/*
+** ft_is_end_of_fields: when read with no option
+** Check if the \n is not escaped to mark end of user input
+** when backslash processing is activated.
+*/
 
 static int	ft_is_end_of_fields(char *test)
 {
@@ -78,7 +87,12 @@ static int	ft_is_end_of_fields(char *test)
 	return (escape ? 0 : 1);
 }
 
-char	**ft_read_get_fields_no_opt(void)
+/*
+** ft_read_get_fields_no_opt: read mode with no option
+** get next line for read with no option, meaning WITH backslash processing.
+*/
+
+char		**ft_read_get_fields_no_opt(void)
 {
 	char	*line;
 	char	*next_line;
@@ -102,6 +116,27 @@ char	**ft_read_get_fields_no_opt(void)
 	}
 	ft_clean_tab(line);
 	field = ft_strsplit_escape(line);
+	ft_strdel(&line);
+	return (field);
+}
+
+/*
+** ft_read_get_fields_opt_r: read mode with option r
+** get next line for read with NO backslash processing.
+*/
+
+char		**ft_read_get_fields_opt_r(void)
+{
+	char	*line;
+	char	**field;
+
+	field = NULL;
+	line = NULL;
+	if (get_next_line(STDIN_FILENO, &line) == 1)
+	{
+		ft_clean_tab(line);
+		field = ft_strsplit(line, ' ');
+	}
 	ft_strdel(&line);
 	return (field);
 }

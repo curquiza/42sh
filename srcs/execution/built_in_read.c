@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/*
+** ft_read_assign_to_reply:
+** When no var name is specified, REPLY is used as the only var name.
+*/
+
 static int	ft_read_assign_to_reply(char **field)
 {
 	char	*tmp;
@@ -20,6 +25,12 @@ static int	ft_read_put_invalid_identifier(char *var)
 	return (CMD_FAILURE);
 }
 
+/*
+** ft_join_field_and_add:
+** When ther is more fields than variables,
+** last fields are gather and assigned to the last variable.
+*/
+
 static void	ft_join_field_and_add(char *var, char **field, int i)
 {
 	char	*tmp;
@@ -28,6 +39,13 @@ static void	ft_join_field_and_add(char *var, char **field, int i)
 	ft_chg_varval_or_add(&g_shell->var_loc, var, tmp);
 	free(tmp);
 }
+
+/*
+** ft_read_assign_field_to_var:
+** If there is more fields than variables, read above,
+** and if there is less fields than variables, last variables are assigned
+** empty string as value.
+*/
 
 static int	ft_read_assign_field_to_var(char **var, int nb_var, char **field,\
 		int nb_field)
