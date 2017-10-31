@@ -17,7 +17,7 @@
 ** init_reset.c
 */
 
-int		ft_init_tc(void);
+void	ft_init_tc(void);
 void	ft_reset_tc(t_tc *tool);
 void	ft_init_struct_tc(t_tc *tool, int prompt_len);
 

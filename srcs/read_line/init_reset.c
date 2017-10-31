@@ -12,23 +12,23 @@
 
 #include "shell.h"
 
-int		ft_init_tc(void)
+void	ft_init_tc(void)
 {
 	char			*name_term;
 	struct termios	term;
 
 	if (isatty(STDIN_FILENO) != 1)
-		ft_exit("init termcaps: stdin is not referring to a terminal", 1);
+		ft_exit("Init termcaps: stdin is not referring to a terminal", 1);
 	name_term = ft_get_varvalue(g_shell->var_env, "TERM");
 	if (!name_term || tgetent(NULL, name_term) != 1)
-		return (-1);
+		ft_exit("\ninit termcaps: not a valid terminal name,\
+ can't get the terminal informations.\nShell closing...", 1);
 	if (tcgetattr(0, &term) != 0)
-		ft_exit("init termcaps: tcgetattr error", 1);
+		ft_exit("Init termcaps: tcgetattr error", 1);
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
 	if (tcsetattr(0, TCSANOW, &term) != 0)
-		ft_exit("init termcaps: tcsetattr error", 1);
-	return (0);
+		ft_exit("Init termcaps: tcsetattr error", 1);
 }
 
 void	ft_reset_tc(t_tc *tool)
@@ -36,11 +36,11 @@ void	ft_reset_tc(t_tc *tool)
 	struct termios	term;
 
 	if (tcgetattr(0, &term) != 0)
-		ft_exit("reset termcaps: tcsetattr error", 1);
+		ft_exit("Reset termcaps: tcsetattr error", 1);
 	term.c_lflag |= ICANON;
 	term.c_lflag |= ECHO;
 	if (tcsetattr(0, TCSANOW, &term) != 0)
-		ft_exit("reset termcaps: tcsetattr error", 1);
+		ft_exit("Reset termcaps: tcsetattr error", 1);
 	ft_bzero(tool, sizeof(*tool));
 }
 
