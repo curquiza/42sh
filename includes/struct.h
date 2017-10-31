@@ -105,6 +105,7 @@ typedef struct		s_ast
 	struct s_shell	*shell;
 	struct s_ast	*left;
 	struct s_ast	*right;
+	int				bg;
 }					t_ast;
 
 typedef struct		s_job

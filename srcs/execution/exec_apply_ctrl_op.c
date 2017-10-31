@@ -24,6 +24,21 @@ int		ft_apply_semic(t_ast *ast)
 	return (ret);
 }
 
+int		ft_apply_and(t_ast *ast)
+{
+	int		ret;
+
+	ret = CMD_SUCCESS;
+	if (ast->left)
+	{
+		ast->left->bg = 1;
+		ret = ft_execution(ast->left);
+	}
+	if (ast->right)
+		ret = ft_execution(ast->right);
+	return (ret);
+}
+
 int		ft_apply_d_pipe(t_ast *ast)
 {
 	int		ret;
