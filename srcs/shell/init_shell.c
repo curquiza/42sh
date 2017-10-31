@@ -91,7 +91,7 @@ static void	ft_init_for_job_ctrl(t_shell *shell)
 	while (tcgetpgrp(shell->terminal) != (shell->pgid = getpgrp()))
 		kill(- shell->pgid, SIGTTIN);
 	shell->pgid = getpid();
-	if (setpgid (shell->pgid, shell->pgid) < 0)
+	if (setpgid(shell->pgid, shell->pgid) < 0)
 		ft_exit("Shell init : couldn't put the shell in its own process group",
 				1);
 	if (tcsetpgrp(shell->terminal, shell->pgid) == -1)
