@@ -86,17 +86,17 @@ void		ft_exit_job(int sig)
 			&& errno == 10 && sig)
 		{
 			ft_putchar('[');
-			ft_putnbr(i++);
+			ft_putnbr(i);
 			ft_putstr("]    ");
 			ft_putnbr(tmp->pgid);
-			ft_putstr(" Done	");
-			ft_putendl(tmp->cmd_name);
+			ft_putendl2_fd(" Done    ", tmp->cmd_name, 1);
 			supp = tmp;
 			tmp = tmp->next;
 			ft_del_job(supp);
 		}
 		else
 			tmp = tmp->next;
+		i++;
 	}
 	signal(SIGCHLD, SIG_DFL);
 }
