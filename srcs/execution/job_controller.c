@@ -95,13 +95,13 @@ void		ft_exit_job(int sig)
 		{
 			ft_putchar('[');
 			ft_putnbr(i);
-			ft_putstr("]  +  ");
+			ft_putstr("]    ");
 			ft_putnbr(tmp->pgid);
 			ft_putstr(" done	");
 			ft_putendl(tmp->cmd_name);
 			supp = tmp;
-			ft_del_job(supp);
 			tmp = tmp->next;
+			ft_del_job(supp);
 		}
 		else
 			tmp = tmp->next;

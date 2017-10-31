@@ -61,6 +61,8 @@ int			ft_execution(t_ast *ast)
 	{
 		if (ast->lex && ast->lex->op == SEMIC)
 			return (ft_apply_semic(ast));
+		else if (ast->lex && ast->lex->op == AND)
+			return (ft_apply_and(ast));
 		else if (ast->lex && ast->lex->op == DPIPE)
 			return (ft_apply_d_pipe(ast));
 		else if (ast->lex && ast->lex->op == DAND)

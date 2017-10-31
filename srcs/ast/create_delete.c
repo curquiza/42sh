@@ -32,6 +32,7 @@ t_ast	*ft_ast_newnode(t_lexeme *lex, t_shell *shell)
 	new->shell = shell;
 	new->left = NULL;
 	new->right = NULL;
+	new->bg = 0;
 	return (new);
 }
 

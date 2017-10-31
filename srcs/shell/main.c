@@ -75,9 +75,9 @@ int			main(int ac, char **av, char **environ)
 {
 	g_shell = ft_init_shell(ac, av, environ, SHELL_NAME);
 	//ft_catch_signals(SIGINT_ON);
+	ft_catch_signal_parent();
 	while (g_shell->run == 1)
 	{
-		ft_catch_signal_parent();
 		if (ft_start_shell_loop(&g_shell->lex,
 								&g_shell->ast, &g_shell->line) == -1)
 			continue ;

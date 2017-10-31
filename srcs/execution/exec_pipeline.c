@@ -45,6 +45,10 @@ static void	ft_pre_execution_pipeline(t_ast *ast)
 {
 	while (ast && ast->lex && ast->lex->op == PIPE)
 	{
+		if (ast->bg == 1 && ast->left)
+			ast->left->bg = 1;
+		if (ast->bg == 1 && ast->right)
+			ast->right->bg = 1;
 		ft_pre_execution(ast->left);
 		ast = ast->right;
 	}
