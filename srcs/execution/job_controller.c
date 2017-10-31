@@ -46,6 +46,27 @@ static void	ft_del_job(t_job *current)
 	}
 }
 
+void	ft_stopped_msg(t_job *job)
+{
+	int		i;
+	t_job	*tmp;
+
+	tmp = g_shell->job_lst;
+	i = 1;
+	while (tmp)
+	{
+		if (job == tmp)
+			break ;
+		tmp = tmp->next;
+		i++;
+	}
+	ft_putstr("\n[");
+	ft_putnbr(i);
+	ft_putstr("]    ");
+	ft_putnbr(tmp->pgid);
+	ft_putendl2_fd(" Stopped    ", tmp->cmd_name, 1);
+}
+
 int		ft_wait_for_job(t_job **job)
 {
 	int		ret;
@@ -57,6 +78,7 @@ int		ft_wait_for_job(t_job **job)
 	{
 		if (ft_job_exists(g_shell->job_lst, *job) == 0)
 			ft_joblst_addback(&g_shell->job_lst, *job);
+		ft_stopped_msg(*job);
 	}
 	else
 	{
