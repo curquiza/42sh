@@ -21,6 +21,7 @@
 # include <sys/ioctl.h>
 # include <dirent.h>
 # include <sys/param.h>
+# include <signal.h>
 
 # include "libft.h"
 # include "define.h"
@@ -107,7 +108,8 @@ int			ft_check_ctrl_c(char **line, t_shell *shell);
 void		ft_ctrl_c(int sig);
 void		ft_cancel_ctrl_c(int sig);
 void		ft_redim_window(int sig);
-void		ft_catch_signals(int mode);
+void		ft_catch_signal_parent(void);
+void		ft_catch_signal_child(void);
 
 /*
 ** exit_shell.c

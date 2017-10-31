@@ -85,7 +85,23 @@ static void	ft_fill_history_from_file(t_shell *shell)
 		ft_histo_file_read(shell->histo_ctrl, histo_file);
 }
 
-t_shell		*ft_init_shell(int ac, char **av, char **environ, char *name)
+static void	ft_init_for_job_ctrl(t_shell *shell)
+{
+	shell->terminal = STDOUT_FILENO;
+	while (tcgetpgrp(shell->terminal) != (shell->pgid = getpgrp()))
+		kill(- shell->pgid, SIGTTIN);
+	shell->pgid = getpid();
+	if (setpgid(shell->pgid, shell->pgid) < 0)
+		ft_exit("Shell init : couldn't put the shell in its own process group",
+				1);
+	if (tcsetpgrp(shell->terminal, shell->pgid) == -1)
+		ft_exit("Shell init : impossible to grab the control of the terminal",
+				1);
+	if (tcgetattr(shell->terminal, &shell->dfl_term) != 0)
+		ft_exit("Shell init : imposible to get the termios structure", 1);
+}
+
+t_shell	*ft_init_shell(int ac, char **av, char **environ, char *name)
 {
 	t_shell		*shell;
 
@@ -99,5 +115,6 @@ t_shell		*ft_init_shell(int ac, char **av, char **environ, char *name)
 	shell->histo_ctrl = ft_memalloc(sizeof(*shell->histo_ctrl));
 	shell->comp_ctrl = ft_memalloc(sizeof(*shell->comp_ctrl));
 	ft_fill_history_from_file(shell);
+	ft_init_for_job_ctrl(shell);
 	return (shell);
 }

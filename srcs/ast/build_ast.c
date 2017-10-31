@@ -18,7 +18,7 @@
 ** t_lexeme.
 */
 
-int		ft_is_in_lexlst(t_lexeme *lex, enum e_op op)
+static int	ft_is_in_lexlst(t_lexeme *lex, enum e_op op)
 {
 	while (lex)
 	{
@@ -35,7 +35,7 @@ int		ft_is_in_lexlst(t_lexeme *lex, enum e_op op)
 ** est construit à l'envers du cas géneral.
 */
 
-void	ft_split_in_tree_pipe(t_ast *ast)
+static void	ft_split_in_tree_pipe(t_ast *ast)
 {
 	t_lexeme	*scmd_start;
 	t_lexeme	*node;
@@ -58,7 +58,7 @@ void	ft_split_in_tree_pipe(t_ast *ast)
 		ast->right = ft_ast_newnode(current, ast->shell);
 }
 
-void	ft_build_pipeline(t_ast *ast)
+void		ft_build_pipeline(t_ast *ast)
 {
 	if (ast)
 	{
@@ -79,7 +79,7 @@ void	ft_build_pipeline(t_ast *ast)
 ** La branche droite : la partie de lex à droite de op.
 */
 
-void	ft_split_in_tree(t_ast *ast, enum e_op op1, enum e_op op2)
+static void	ft_split_in_tree(t_ast *ast, enum e_op op1, enum e_op op2)
 {
 	t_lexeme	*left_end;
 	t_lexeme	*node;
@@ -112,7 +112,7 @@ void	ft_split_in_tree(t_ast *ast, enum e_op op1, enum e_op op2)
 ** Deux opérateurs possible dans le cas de priorités égales (ex : || et &&)
 */
 
-void	ft_build_ast(t_ast *ast, enum e_op op1, enum e_op op2)
+void		ft_build_ast(t_ast *ast, enum e_op op1, enum e_op op2)
 {
 	if (ast)
 	{

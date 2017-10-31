@@ -12,20 +12,72 @@
 
 #include "shell.h"
 
-int		ft_exec_scmd_pipeline(t_ast *ast)
+static char		*ft_get_pipeline_name(t_ast *ast)
 {
-	if (ast)
+	char	*rslt;
+	char	*cmd;
+	char	*tmp;
+
+	rslt = NULL;
+	while (ast && ast->lex && ast->lex->op == PIPE)
 	{
-		ft_do_ass_word(ast, 1);
-		if (ast->redir_list
-			&& ft_do_redirection(ast->redir_list, ast->shell) == -1)
-			return (CMD_FAILURE);
-		return (ft_do_cmd(ast));
+		if (ast && ast->left && ast->left->argtab)
+			cmd = ft_tab_to_str(ast->left->argtab);
+		else
+			cmd = ft_strdup("");
+		tmp = rslt;
+		rslt = tmp ? ft_strjoin3(tmp, " | ", cmd) : ft_strdup(cmd);
+		ft_strdel(&tmp);
+		ft_strdel(&cmd);
+		ast = ast->right;
 	}
-	return (CMD_SUCCESS);
+	cmd = (ast && ast->argtab) ? ft_tab_to_str(ast->argtab) : ft_strdup("");
+	tmp = rslt;
+	rslt = tmp ? ft_strjoin3(tmp, " | ", cmd) : ft_strdup(cmd);
+	ft_strdel(&tmp);
+	ft_strdel(&cmd);
+	return (rslt);
 }
 
-int		ft_fork_and_exec(t_ast *ast)
+static int		ft_manage_job_ctrl(t_ast *ast, t_job *current_job, pid_t pid)
+{
+	int		ret;
+
+	setpgid(pid, pid);
+	ret = CMD_SUCCESS;
+	if (ast->bg == 0)
+	{
+		ret = ft_wait_for_job(&current_job);
+		tcsetpgrp(g_shell->terminal, g_shell->pgid);
+		tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
+	}
+	else
+	{	
+		ft_joblst_addback(&g_shell->job_lst, current_job);
+		ft_putchar('[');
+		ft_putnbr(ft_joblst_len(g_shell->job_lst));
+		ft_putnbr2("]	", current_job->pgid);
+	}
+	return (ret);
+}
+
+int				ft_process_controller(pid_t pid, t_ast *ast)
+{
+	t_job	*current_job;
+	char	*cmd_name;
+
+	if (ast->lex && ast->lex->op == PIPE)
+		cmd_name = ft_get_pipeline_name(ast);
+	else if (ast->argtab)
+		cmd_name = ft_tab_to_str(ast->argtab);
+	else
+		cmd_name = ft_strdup("");
+	current_job = ft_joblst_new(cmd_name, pid);
+	ft_strdel(&cmd_name);
+	return (ft_manage_job_ctrl(ast, current_job, pid));
+}
+
+static int		ft_fork_and_exec(t_ast *ast)
 {
 	pid_t	pid;
 	int		ret;
@@ -39,7 +91,7 @@ int		ft_fork_and_exec(t_ast *ast)
 		exit(ft_do_cmd(ast));
 	}
 	else if (pid > 0)
-		wait(&ret);
+		ret = ft_process_controller(pid, ast);
 	return (ft_get_cmdret(ret));
 }
 
@@ -54,6 +106,8 @@ int		ft_exec_scmd(t_ast *ast)
 		if (ast->redir_list
 			&& ft_do_redirection(ast->redir_list, ast->shell) == -1)
 			return (CMD_FAILURE);
+		if (!ast->cmd)
+			return (CMD_SUCCESS);
 		if (ast->cmd &&
 			(builtin_ret = ft_is_built_in(ast->cmd->s)) != NOT_BUILTIN)
 			return (ft_exec_built_in(ast, builtin_ret));

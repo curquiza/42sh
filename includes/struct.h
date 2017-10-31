@@ -105,7 +105,15 @@ typedef struct		s_ast
 	struct s_shell	*shell;
 	struct s_ast	*left;
 	struct s_ast	*right;
+	int				bg;
 }					t_ast;
+
+typedef struct		s_job
+{
+	char			*cmd_name;
+	int				pgid;
+	struct s_job	*next;
+}					t_job;
 
 typedef struct		s_shell
 {
@@ -127,6 +135,10 @@ typedef struct		s_shell
 	int				ctrl_c;
 	int				inhib;
 	int				event_err;
+	pid_t			pgid;
+	int				terminal;
+	t_job			*job_lst;
+	struct termios	dfl_term;
 }					t_shell;
 
 #endif

@@ -61,7 +61,27 @@ static void	ft_save_history_in_file(t_shell *shell)
 		ft_histo_file_write(shell->histo_ctrl, histo_file, HISTO_WRITE);
 }
 
-int			ft_exit_shell(void)
+static void	ft_del_all_jobs(t_job **alst)
+{
+	t_job	*current;
+	t_job	*suppr;
+
+	if (!alst)
+		return ;
+	current = *alst;
+	while (current)
+	{
+		suppr = current;
+		current = current->next;
+		ft_strdel(&suppr->cmd_name);
+		suppr->pgid = 0;
+		suppr->next = NULL;
+		free(suppr);
+	}
+	*alst = NULL;
+}
+
+int		ft_exit_shell(void)
 {
 	int		i;
 	int		exit_status;
@@ -70,6 +90,11 @@ int			ft_exit_shell(void)
 	i = 0;
 	while (++i < 32)
 		signal(i, SIG_DFL);
+	if (g_shell->job_lst)
+	{
+		ft_putendl("There are stopped jobs. Jobs quitting...");
+		ft_del_all_jobs(&g_shell->job_lst);
+	}
 	ft_putendl("exit");
 	exit_status = g_shell->exit_status;
 	ft_del_shell(&g_shell);
