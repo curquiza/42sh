@@ -67,9 +67,12 @@ static int	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 ** - execution : on execute la commande simple.
 */
 
-int			main(int ac, char **av, char **environ) { g_shell =
-	ft_init_shell(ac, av, environ, SHELL_NAME); ft_catch_signal_parent(); while
-		(g_shell->run == 1) {
+int			main(int ac, char **av, char **environ) 
+{
+	g_shell = ft_init_shell(ac, av, environ, SHELL_NAME);
+	ft_catch_signal_parent();
+	while (g_shell->run == 1)
+	{
 		if (ft_start_shell_loop(&g_shell->lex,
 								&g_shell->ast, &g_shell->line) == -1)
 			continue ;

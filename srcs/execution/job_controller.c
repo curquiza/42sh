@@ -11,7 +11,7 @@ static int	ft_job_exists(t_job *job_lst, t_job *current)
 	return (0);
 }
 
-void	ft_stopped_msg(t_job *job)
+static void	ft_stopped_msg(t_job *job)
 {
 	int		i;
 	t_job	*tmp;
@@ -32,7 +32,7 @@ void	ft_stopped_msg(t_job *job)
 	ft_putendl2_fd(" Stopped    ", tmp->cmd_name, 1);
 }
 
-int		ft_wait_for_job(t_job **job)
+int			ft_wait_for_job(t_job **job)
 {
 	int		ret;
 	pid_t	pid;
