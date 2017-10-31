@@ -106,7 +106,7 @@ int					ft_do_cmd(t_ast *ast)
 			return (ft_putmsg_cmderr(ast->cmd->s, error_ret, ast->shell));
 		setpgid(getpid(), getpid());
 		if (ast->bg == 1)
-			tcsetpgrp(1, g_shell->pgid);
+			tcsetpgrp(g_shell->terminal, g_shell->pgid);
 		else
 		{
 			tcsetpgrp(g_shell->terminal, getpid());

@@ -71,7 +71,7 @@ int				ft_process_controller(pid_t pid, t_ast *ast)
 		ft_putchar('[');
 		ft_putnbr(ft_joblst_len(g_shell->job_lst));
 		ft_putnbr2("]	", current_job->pgid);
-		ft_putchar('\n');
+		//ft_putchar('\n');
 	}
 	return (ret);
 }
