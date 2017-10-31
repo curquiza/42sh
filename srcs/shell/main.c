@@ -69,7 +69,7 @@ static int	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 
 int			main(int ac, char **av, char **environ) 
 {
-	g_shell = ft_init_shell(ac, av, environ, SHELL_NAME);
+	g_shell = ft_init_shell(ac, av, environ, 1);
 	ft_catch_signal_parent();
 	while (g_shell->run == 1)
 	{

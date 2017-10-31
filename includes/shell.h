@@ -57,7 +57,7 @@ void		ft_escape_removal_only(char **s);
 char		**ft_init_priv(void);
 t_flag		*ft_init_flags(int ac, char **av);
 char		**ft_init_env(char **environ);
-t_shell		*ft_init_shell(int ac, char **av, char **environ, char *name);
+t_shell		*ft_init_shell(int ac, char **av, char **environ, int mode);
 
 /*
 ** var_tab_functions1.c

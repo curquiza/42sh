@@ -68,7 +68,7 @@ t_shell		*ft_get_new_shell(char **arg, char *flags, t_shell *old_shell)
 	char	*new_path;
 
 	new_env = ft_get_new_env(arg, flags, old_shell);
-	new_shell = ft_init_shell(0, NULL, new_env, SHELL_NAME);
+	new_shell = ft_init_shell(0, NULL, new_env, 0);
 	ft_tabdel(&new_shell->var_env);
 	new_shell->var_env = ft_tabdup(new_env);
 	ft_tabdel(&new_env);

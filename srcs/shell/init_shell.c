@@ -101,12 +101,12 @@ static void	ft_init_for_job_ctrl(t_shell *shell)
 		ft_exit("Shell init : imposible to get the termios structure", 1);
 }
 
-t_shell	*ft_init_shell(int ac, char **av, char **environ, char *name)
+t_shell	*ft_init_shell(int ac, char **av, char **environ, int mode)
 {
 	t_shell		*shell;
 
 	shell = ft_memalloc(sizeof(*shell));
-	shell->name = ft_strdup(name);
+	shell->name = ft_strdup(SHELL_NAME);
 	shell->run = 1;
 	shell->var_env = ft_init_env(environ);
 	shell->var_priv = ft_init_priv();
@@ -114,7 +114,10 @@ t_shell	*ft_init_shell(int ac, char **av, char **environ, char *name)
 	shell->tc_tool = ft_memalloc(sizeof(*shell->tc_tool));
 	shell->histo_ctrl = ft_memalloc(sizeof(*shell->histo_ctrl));
 	shell->comp_ctrl = ft_memalloc(sizeof(*shell->comp_ctrl));
-	ft_fill_history_from_file(shell);
-	ft_init_for_job_ctrl(shell);
+	if (mode == 1)
+	{
+		ft_fill_history_from_file(shell);
+		ft_init_for_job_ctrl(shell);
+	}
 	return (shell);
 }
