@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:56:25 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/24 18:02:54 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/30 12:44:02 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 t_shell	*g_shell;
 
 /*
-** basics.c
+** basics.c 1 & 2
 */
 
 int			ft_is_separator(char c);
@@ -46,6 +46,8 @@ int			ft_next_squote(int i, char *s);
 int			ft_next_dquote(int i, char *s);
 int			ft_is_uns_nbr(char *s);
 char		*ft_tab_to_str(char **array);
+void		ft_clean_tab(char *line);
+void		ft_escape_removal_only(char **s);
 
 /*
 ** init_shell.c

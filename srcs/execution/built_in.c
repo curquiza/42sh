@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/15 16:18:42 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/19 17:19:32 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/10/27 13:50:51 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ enum e_builtin	ft_is_built_in(char *s)
 			return (B_EXPORT);
 		if (!ft_strcmp(s, "history"))
 			return (B_HISTORY);
+		if (!ft_strcmp(s, "read"))
+			return (B_READ);
 	}
 	return (NOT_BUILTIN);
 }
@@ -62,5 +64,7 @@ int				ft_exec_built_in(t_ast *ast, enum e_builtin ret)
 		return (ft_builtin_export(ast));
 	if (ret == B_HISTORY)
 		return (ft_builtin_history(ast));
+	if (ret == B_READ)
+		return (ft_builtin_read(ast));
 	return (0);
 }

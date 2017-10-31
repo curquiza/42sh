@@ -1,18 +1,5 @@
 #include "shell.h"
 
-static void	ft_clean_tab(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\t' || !ft_isprint(line[i]))
-			line[i] = ' ';
-		++i;
-	}
-}
-
 int			ft_histo_file_read(t_histo_ctrl *ctrl, char *file_name)
 {
 	int		fd;

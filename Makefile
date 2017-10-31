@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/23 18:15:13 by sfranc           ###   ########.fr        #
+#    Updated: 2017/10/30 18:06:36 by sfranc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,6 +118,8 @@ EXEC = $(addprefix execution/, \
 	  built_in_histo.c \
 	  built_in_histo_inside.c \
 	  built_in_histo_file.c \
+	  built_in_read.c \
+	  built_in_read_optr.c \
 	  execution.c \
 	  fd.c \
 	  exec_apply_ctrl_op.c \
@@ -137,6 +139,7 @@ MAIN = $(addprefix shell/, \
 	  var_tab_functions1.c \
 	  var_tab_functions2.c \
 	  basics.c \
+	  basics2.c \
 	  exit_shell.c \
 	  main.c)
 
