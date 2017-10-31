@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /*
-**	ft_clean_tab remove `\t' from line (nothing is node for `\n')
+**	ft_clean_tab remove `\t' from line (nothing is done for `\n')
 */
 
 void	ft_clean_tab(char *line)

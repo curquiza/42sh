@@ -12,6 +12,8 @@ static char	**ft_strsplit_escape(char *s)
 	field = NULL;
 	while (*s)
 	{
+		while (*s == ' ')
+			++s;
 		len = 0;
 		escape = 0;
 		while (*(s + len) && (*(s + len) != ' ' || (*(s + len) == ' ' && escape)))
@@ -29,8 +31,6 @@ static char	**ft_strsplit_escape(char *s)
 		ft_add_var(&field, tmp, NULL);
 		free(tmp);
 		s = s + len;
-		while (*s == ' ')
-			++s;
 	}
 	return (field);
 }
@@ -51,30 +51,29 @@ char	**ft_read_get_fields_opt_r(void)
 	return (field);
 }
 
-static int	ft_is_end_of_fields(char *line)
+static int	ft_is_end_of_fields(char *test)
 {
 	int		escape;
 
 	escape = 0;
-	while (*line)
+	while (*test)
 	{
-		if (*line == '\\' && !escape)
+		if (*test == '\\' && !escape)
 		{
-			line++;
-//			if (*line == '\n')
-//			{
-//				ft_putchar('A');
-//				line++;
-//			}
-//			else
+			++test;
+			if (*test == '\n')
+			{
+				*(test - 1) = '\0';
+				*test = '\0';
+				++test;
+			}
 			escape = 1;
 		}
 		else
 		{
-			line++;
+			++test;
 			escape = 0;
 		}
-		ft_putnbr(escape);
 	}
 	return (escape ? 0 : 1);
 }
@@ -91,7 +90,7 @@ char	**ft_read_get_fields_no_opt(void)
 	while (get_next_line(STDIN_FILENO, &next_line) == 1)
 	{
 		tmp = line;
-		line = ft_strjoin3(line, next_line,"\n");
+		line = ft_strjoin3(line, next_line, "\n");
 		free(tmp);
 		if (ft_is_end_of_fields(line) == 1)
 		{

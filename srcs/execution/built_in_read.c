@@ -1,50 +1,53 @@
 #include "shell.h"
 
-static int	ft_read_assign_field_to_var(char **var, char **field)
+static int	ft_read_assign_to_reply(char **field)
 {
 	char	*tmp;
-	int		nb_var;
-	int		nb_field;
+
+	tmp = field ? ft_tab_to_str(field) : NULL;
+	ft_chg_varval_or_add(&g_shell->var_loc, "REPLY", tmp);
+	free(tmp);
+	return (CMD_SUCCESS);
+}
+
+static int	ft_read_put_invalid_identifier(char *var)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin3("`", var, "'");
+	ft_put_errmsg(SHELL_NAME": read", tmp, "not a valid identifier");
+	free(tmp);
+	return (CMD_FAILURE);
+}
+
+static void	ft_join_field_and_add(char *var, char **field, int i)
+{
+	char	*tmp;
+
+	tmp = ft_tab_to_str(field + i);
+	ft_chg_varval_or_add(&g_shell->var_loc, var, tmp);
+	free(tmp);
+}
+
+static int	ft_read_assign_field_to_var(char **var, int nb_var, char **field,\
+		int nb_field)
+{
 	int		i;
 
-	if (!*var)
-	{
-		tmp = field ? ft_tab_to_str(field) : NULL;
-		ft_putendl2_fd("add ", "REPLY", 1);
-		ft_chg_varval_or_add(&g_shell->var_loc, "REPLY", tmp);
-		free (tmp);
-		return (CMD_SUCCESS);
-	}
 	i = 0;
-	nb_var = ft_tablen(var);
-	nb_field = ft_tablen(field);
 	while (var[i])
 	{
 		if (!ft_is_valid_name(var[i]))
-		{
-			//		tmp = ft_strjoin3("`", var[i], "'");
-			//		ft_put_errmsg(SHELL_NAME": read", tmp, "not a valid identifier");
-			//		free(tmp);
-			ft_put_errmsg(SHELL_NAME": read", var[i], "not a valid identifier");
-			return (CMD_FAILURE);
-		}
+			return (ft_read_put_invalid_identifier(var[i]));
 		if (nb_var == 1 && nb_field > 1)
-		{
-			tmp = ft_tab_to_str(field + i);
-			ft_putendl2_fd("add ", var[i], 1);
-			ft_chg_varval_or_add(&g_shell->var_loc, var[i], tmp);
-			free (tmp);
-			break ;
-		}
+			ft_join_field_and_add(var[i], field, i);
 		else if (nb_var && !nb_field)
 		{
-			ft_putendl2_fd("add ", var[i], 1);
 			ft_chg_varval_or_add(&g_shell->var_loc, var[i], "");
 			nb_var--;
 		}
 		else
 		{
-			ft_putendl2_fd("add ", var[i], 1);
 			ft_chg_varval_or_add(&g_shell->var_loc, var[i], field[i]);
 			nb_var--;
 			nb_field--;
@@ -54,7 +57,7 @@ static int	ft_read_assign_field_to_var(char **var, char **field)
 	return (CMD_SUCCESS);
 }
 
-int		ft_builtin_read(t_ast *ast)
+int			ft_builtin_read(t_ast *ast)
 {
 	char	*flags;
 	char	**var;
@@ -70,11 +73,10 @@ int		ft_builtin_read(t_ast *ast)
 		return (CMD_FAILURE);
 	}
 	var = ft_get_arg(ast->argtab + 1, flag_error);
-	if (*flags == 'r')
-		field = ft_read_get_fields_opt_r();
-	else
-		field = ft_read_get_fields_no_opt();
-	ret = ft_read_assign_field_to_var(var, field);
+	field = (*flags ? ft_read_get_fields_opt_r() : ft_read_get_fields_no_opt());
+	ret = (!*var ? ft_read_assign_to_reply(field) :\
+			ft_read_assign_field_to_var(var, ft_tablen(var),\
+				field, ft_tablen(field)));
 	ft_tabdel(&field);
 	ft_strdel(&flags);
 	return (ret);
