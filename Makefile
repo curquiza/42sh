@@ -121,6 +121,7 @@ EXEC = $(addprefix execution/, \
 	  built_in_fg_bg.c \
 	  built_in_jobs.c \
 	  job_lst.c \
+	  job_del.c \
 	  job_controller.c \
 	  execution.c \
 	  exec_apply_ctrl_op.c \

@@ -111,6 +111,12 @@ t_job				*ft_joblst_last(t_job *lst);
 t_job				*ft_joblst_at(t_job *lst, size_t n);
 
 /*
+** job_del.c
+*/
+
+void				ft_del_job(t_job *current);
+
+/*
 ** job_controller.c
 */
 
