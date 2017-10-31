@@ -25,18 +25,14 @@ void		ft_read_line(char **line, int prompt_len)
 	ft_strdel(line);
 	ft_init_tc();
 	ft_init_struct_tc(g_shell->tc_tool, prompt_len);
+	g_shell->ctrl_c = 0;
 	while (g_shell->tc_tool->stop == 0)
 	{
-		ft_init_struct_tc(g_shell->tc_tool, prompt_len);
+		ft_bzero(little_buff, 5);
 		//ft_putnbr2("g_shell->ctrl_c = ", g_shell->ctrl_c);
 		//ft_putnbr2("tool->stop = ", g_shell->tc_tool->stop);
-		g_shell->ctrl_c = 0;
-		while (g_shell->tc_tool->stop == 0)
-		{
-			ft_bzero(little_buff, 5);
-			read(0, little_buff, 4);
-			ft_interpreter(little_buff, g_shell->tc_tool);
-		}
+		read(0, little_buff, 4);
+		ft_interpreter(little_buff, g_shell->tc_tool);
 	}
 	ft_putendl("");
 	*line = ft_strdup(g_shell->tc_tool->buff);
