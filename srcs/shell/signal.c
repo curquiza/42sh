@@ -28,18 +28,10 @@ void	ft_ctrl_c(int sig)
 {
 	(void)sig;
 	ft_fill_cmd_return(CMD_FAILURE, g_shell);
-	//ft_lexlstdel(&g_shell->lex);
-	//ft_putendl("\n");
-	//ft_put_prompt();
 	ft_init_struct_tc(g_shell->tc_tool, PROMPT_DEF_SIZE);
 	g_shell->ctrl_c = 1;
 	g_shell->inhib = 0;
 }
-
-//void	ft_cancel_ctrl_c(int sig)
-//{
-//	(void)sig;
-//}
 
 void	ft_redim_window(int sig)
 {
@@ -68,24 +60,8 @@ void	ft_redim_window(int sig)
 							% (g_shell->tc_tool->x_max + 1);
 }
 
-//void	ft_catch_signals(int mode)
-//{
-//	signal(SIGQUIT, SIG_IGN);
-//	signal(SIGTERM, SIG_IGN);
-//	signal(SIGTSTP, SIG_IGN);
-//	signal(SIGTTIN, SIG_IGN);
-//	signal(SIGTTOU, SIG_IGN);
-//	signal(SIGWINCH, ft_redim_window);
-//	if (mode == 1)
-//		signal(SIGINT, ft_ctrl_c);
-//	else
-//		signal(SIGINT, ft_cancel_ctrl_c);
-//}
-
-
 void	ft_catch_signal_parent(void)
 {
-	//ft_putendl("parent sig");
 	signal(SIGQUIT, SIG_IGN);
 	//signal(SIGTERM, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
@@ -98,7 +74,6 @@ void	ft_catch_signal_parent(void)
 
 void	ft_catch_signal_child(void)
 {
-	//ft_putendl("child sig");
 	signal(SIGQUIT, SIG_DFL);
 	//signal(SIGTERM, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);

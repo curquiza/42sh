@@ -48,8 +48,6 @@ int		ft_apply_d_pipe(t_ast *ast)
 	int		ret;
 
 	ret = CMD_SUCCESS;
-	//if (ast->bg && ast->left)
-	///	ast->left->bg = 1;
 	if (ast->bg && ast->right)
 		ast->right->bg = 1;
 	if ((ret = ft_execution(ast->left)) != 0)
@@ -62,8 +60,6 @@ int		ft_apply_d_and(t_ast *ast)
 	int		ret;
 
 	ret = CMD_SUCCESS;
-	//if (ast->bg && ast->left)
-	//	ast->left->bg = 1;
 	if (ast->bg && ast->right)
 		ast->right->bg = 1;
 	if ((ret = ft_execution(ast->left)) == 0)

@@ -14,14 +14,10 @@
 
 static int	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 {
-	//if (g_shell->ctrl_c == 0)
-	//{
-		*lex = NULL;
-		*ast = NULL;
-		ft_put_prompt();
-		ft_read_line(line, PROMPT_DEF_SIZE);
-	//}
-	//g_shell->ctrl_c = 0;
+	*lex = NULL;
+	*ast = NULL;
+	ft_put_prompt();
+	ft_read_line(line, PROMPT_DEF_SIZE);
 	if (g_shell->event_err == 1)
 	{
 		g_shell->event_err = 0;
@@ -30,21 +26,21 @@ static int	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 	return (0);
 }
 
-void	ft_putjobs(t_job *job)
-{
-	ft_putendl("JOBS : ");
-	while (job)
-	{
-		ft_putstr("cmd_name = ");
-		if (job->cmd_name)
-			ft_putendl(job->cmd_name);
-		else
-			ft_putendl("NULL");
-		ft_putnbr2("pgid = ", job->pgid);
-		ft_putendl("----");
-		job = job->next;
-	}
-}
+//void	ft_putjobs(t_job *job)
+//{
+//	ft_putendl("JOBS : ");
+//	while (job)
+//	{
+//		ft_putstr("cmd_name = ");
+//		if (job->cmd_name)
+//			ft_putendl(job->cmd_name);
+//		else
+//			ft_putendl("NULL");
+//		ft_putnbr2("pgid = ", job->pgid);
+//		ft_putendl("----");
+//		job = job->next;
+//	}
+//}
 
 /*
 ** DEROULEMENT DU SHELL :
@@ -71,13 +67,9 @@ void	ft_putjobs(t_job *job)
 ** - execution : on execute la commande simple.
 */
 
-int			main(int ac, char **av, char **environ)
-{
-	g_shell = ft_init_shell(ac, av, environ, SHELL_NAME);
-	//ft_catch_signals(SIGINT_ON);
-	ft_catch_signal_parent();
-	while (g_shell->run == 1)
-	{
+int			main(int ac, char **av, char **environ) { g_shell =
+	ft_init_shell(ac, av, environ, SHELL_NAME); ft_catch_signal_parent(); while
+		(g_shell->run == 1) {
 		if (ft_start_shell_loop(&g_shell->lex,
 								&g_shell->ast, &g_shell->line) == -1)
 			continue ;
@@ -85,9 +77,7 @@ int			main(int ac, char **av, char **environ)
 		if (ft_parser(&g_shell->lex, g_shell) == 0)
 		{
 			ft_ast(g_shell->lex, &g_shell->ast, g_shell);
-			//ft_catch_signals(SIGINT_OFF);
 			ft_cmd_line_execution(&g_shell->ast, g_shell);
-			//ft_catch_signals(SIGINT_ON);
 		}
 		else
 		{
@@ -95,9 +85,8 @@ int			main(int ac, char **av, char **environ)
 				ft_fill_cmd_return(258, g_shell);
 			ft_lexlstdel(&g_shell->lex);
 		}
-		//g_shell->run == 1 && g_shell->ctrl_c == 0 ? ft_putendl("") : 0;
 		ft_exit_job(1);
-		ft_putjobs(g_shell->job_lst);
+		//ft_putjobs(g_shell->job_lst);
 		g_shell->run == 1 ? ft_putendl("") : 0;
 	}
 	return (ft_exit_shell());

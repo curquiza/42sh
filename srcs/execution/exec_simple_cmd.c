@@ -21,7 +21,6 @@ static char		*ft_get_pipeline_name(t_ast *ast)
 	rslt = NULL;
 	while (ast && ast->lex && ast->lex->op == PIPE)
 	{
-		cmd = NULL;
 		if (ast && ast->left && ast->left->argtab)
 			cmd = ft_tab_to_str(ast->left->argtab);
 		else
@@ -32,10 +31,7 @@ static char		*ft_get_pipeline_name(t_ast *ast)
 		ft_strdel(&cmd);
 		ast = ast->right;
 	}
-	if (ast && ast->argtab)
-		cmd = ft_tab_to_str(ast->argtab);
-	else
-		cmd = ft_strdup("");
+	cmd = (ast && ast->argtab) ? ft_tab_to_str(ast->argtab) : ft_strdup("");
 	tmp = rslt;
 	rslt = tmp ? ft_strjoin3(tmp, " | ", cmd) : ft_strdup(cmd);
 	ft_strdel(&tmp);
@@ -43,20 +39,10 @@ static char		*ft_get_pipeline_name(t_ast *ast)
 	return (rslt);
 }
 
-int				ft_process_controller(pid_t pid, t_ast *ast)
+static int		ft_manage_job_ctrl(t_ast *ast, t_job *current_job, pid_t pid)
 {
 	int		ret;
-	t_job	*current_job;
-	char	*cmd_name;
 
-	if (ast->lex && ast->lex->op == PIPE)
-		cmd_name = ft_get_pipeline_name(ast);
-	else if (ast->argtab)
-		cmd_name = ft_tab_to_str(ast->argtab);
-	else
-		cmd_name = ft_strdup("");
-	current_job = ft_joblst_new(cmd_name, pid);
-	ft_strdel(&cmd_name);
 	setpgid(pid, pid);
 	ret = CMD_SUCCESS;
 	if (ast->bg == 0)
@@ -71,16 +57,30 @@ int				ft_process_controller(pid_t pid, t_ast *ast)
 		ft_putchar('[');
 		ft_putnbr(ft_joblst_len(g_shell->job_lst));
 		ft_putnbr2("]	", current_job->pgid);
-		//ft_putchar('\n');
 	}
 	return (ret);
+}
+
+int				ft_process_controller(pid_t pid, t_ast *ast)
+{
+	t_job	*current_job;
+	char	*cmd_name;
+
+	if (ast->lex && ast->lex->op == PIPE)
+		cmd_name = ft_get_pipeline_name(ast);
+	else if (ast->argtab)
+		cmd_name = ft_tab_to_str(ast->argtab);
+	else
+		cmd_name = ft_strdup("");
+	current_job = ft_joblst_new(cmd_name, pid);
+	ft_strdel(&cmd_name);
+	return (ft_manage_job_ctrl(ast, current_job, pid));
 }
 
 static int		ft_fork_and_exec(t_ast *ast)
 {
 	pid_t	pid;
 	int		ret;
-	//t_job	*current_job;
 
 	ret = CMD_SUCCESS;
 	if ((pid = fork()) == -1)
