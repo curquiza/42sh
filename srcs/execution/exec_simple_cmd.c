@@ -58,11 +58,21 @@ int				ft_process_controller(pid_t pid, t_ast *ast)
 	current_job = ft_joblst_new(cmd_name, pid);
 	ft_strdel(&cmd_name);
 	setpgid(pid, pid);
-	ret = ft_wait_for_job(&current_job);
-	//if (tree->fg)
+	ret = CMD_SUCCESS;
+	if (ast->bg == 0)
+	{
+		ret = ft_wait_for_job(&current_job);
 		tcsetpgrp(g_shell->terminal, g_shell->pgid);
-	//if (tree->fg)
 		tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
+	}
+	else
+	{	
+		ft_joblst_addback(&g_shell->job_lst, current_job);
+		ft_putchar('[');
+		ft_putnbr(ft_joblst_len(g_shell->job_lst));
+		ft_putnbr2("]	", current_job->pgid);
+		ft_putchar('\n');
+	}
 	return (ret);
 }
 

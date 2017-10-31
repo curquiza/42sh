@@ -90,12 +90,13 @@ void		ft_exit_job(int sig)
 	tmp = g_shell->job_lst;
 	while (tmp)
 	{
+		ft_putendl_fd("titi", 2);
 		if (waitpid(tmp->pgid, &i, WNOHANG | WCONTINUED | WUNTRACED) == -1
 			&& errno == 10 && sig)
 		{
 			ft_putchar('[');
 			ft_putnbr(i);
-			ft_putstr("]  +  ");
+			ft_putstr("]    ");
 			ft_putnbr(tmp->pgid);
 			ft_putstr(" done	");
 			ft_putendl(tmp->cmd_name);
