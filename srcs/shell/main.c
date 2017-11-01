@@ -69,6 +69,8 @@ static int	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 
 int			main(int ac, char **av, char **environ) 
 {
+	if (isatty(0) != 1 || isatty(1) != 1 || isatty(2) != 1)
+		return (0);
 	g_shell = ft_init_shell(ac, av, environ, 1);
 	ft_catch_signal_parent();
 	while (g_shell->run == 1)
