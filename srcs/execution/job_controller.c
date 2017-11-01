@@ -35,10 +35,9 @@ static void	ft_stopped_msg(t_job *job)
 int			ft_wait_for_job(t_job **job)
 {
 	int		ret;
-	pid_t	pid;
 
 	ret = 0;
-	pid = waitpid((*job)->pgid, &ret, WUNTRACED);
+	waitpid((*job)->pgid, &ret, WUNTRACED);
 	if (WIFSTOPPED(ret))
 	{
 		if (ft_job_exists(g_shell->job_lst, *job) == 0)
