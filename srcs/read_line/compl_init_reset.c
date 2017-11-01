@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/27 14:48:11 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/17 12:49:04 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/11/01 17:06:57 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		ft_get_comp_status(t_tc *tool, t_comp_ctrl *ctrl)
 		else
 			--i;
 	}
-	return (0);
+	return (1);
 }
 
 void	ft_erase_comp(t_comp_ctrl *ctrl)
