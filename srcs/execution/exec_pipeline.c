@@ -8,6 +8,7 @@ static int		ft_exec_scmd_pipeline(t_ast *ast)
 		if (ast->redir_list
 			&& ft_do_redirection(ast->redir_list, ast->shell) == -1)
 			return (CMD_FAILURE);
+		setsid();
 		return (ft_do_cmd(ast));
 	}
 	return (CMD_SUCCESS);
