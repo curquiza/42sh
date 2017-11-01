@@ -63,7 +63,7 @@ void	ft_redim_window(int sig)
 void	ft_catch_signal_parent(void)
 {
 	signal(SIGQUIT, SIG_IGN);
-	//signal(SIGTERM, SIG_IGN);
+	signal(SIGTERM, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
@@ -75,7 +75,7 @@ void	ft_catch_signal_parent(void)
 void	ft_catch_signal_child(void)
 {
 	signal(SIGQUIT, SIG_DFL);
-	//signal(SIGTERM, SIG_DFL);
+	signal(SIGTERM, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, SIG_DFL);
