@@ -48,7 +48,7 @@ void	ft_eol_interpreter(char *buff, t_tc *tool)
 
 void	ft_basic_interpreter(char *buff, t_tc *tool)
 {
-	ft_isprint(buff[0]) == 1 && !buff[1]? ft_insert(buff, tool) : 0;
+	ft_isprint(buff[0]) == 1 ? ft_insert(buff, tool) : 0;
 	buff[0] == 127 ? ft_delete_back(tool) : 0;
 	if (buff[0] == 27 && buff[2] == 51 && buff[3] == 126)
 		ft_delete_front(tool);
