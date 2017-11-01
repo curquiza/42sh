@@ -10,7 +10,7 @@ static int	ft_read_assign_to_reply(char **field)
 	char	*tmp;
 
 	tmp = field ? ft_tab_to_str(field) : NULL;
-	ft_chg_varval_or_add(&g_shell->var_loc, "REPLY", tmp);
+	ft_check_env_before_chg_or_add("REPLY", tmp);
 	free(tmp);
 	return (CMD_SUCCESS);
 }
@@ -36,7 +36,7 @@ static void	ft_join_field_and_add(char *var, char **field, int i)
 	char	*tmp;
 
 	tmp = ft_tab_to_str(field + i);
-	ft_chg_varval_or_add(&g_shell->var_loc, var, tmp);
+	ft_check_env_before_chg_or_add(var, tmp);
 	free(tmp);
 }
 
@@ -61,12 +61,12 @@ static int	ft_read_assign_field_to_var(char **var, int nb_var, char **field,\
 			ft_join_field_and_add(var[i], field, i);
 		else if (nb_var && !nb_field)
 		{
-			ft_chg_varval_or_add(&g_shell->var_loc, var[i], "");
+			ft_check_env_before_chg_or_add(var[i], "");
 			nb_var--;
 		}
 		else
 		{
-			ft_chg_varval_or_add(&g_shell->var_loc, var[i], field[i]);
+			ft_check_env_before_chg_or_add(var[i], field[i]);
 			nb_var--;
 			nb_field--;
 		}

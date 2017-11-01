@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:12:54 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 17:13:20 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/11/01 20:05:13 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,17 @@ void	ft_suppr_var(char ***vartab, char *varname)
 	(*vartab)[j] = NULL;
 	ft_strdel(&tmp[index]);
 	free(tmp);
+}
+
+/*
+** For READ builtin: check if the var exists in env, if so, change it, else
+** add or change the varaible within the local variables.
+*/
+
+void	ft_check_env_before_chg_or_add(char *var, char *value)
+{
+	if (ft_exist_in(g_shell->var_env, var))
+		ft_chg_varval(g_shell->var_env, var, value);
+	else
+		ft_chg_varval_or_add(&g_shell->var_loc, var, value);
 }

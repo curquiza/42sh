@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:56:25 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/30 12:44:02 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/11/01 19:59:53 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void		ft_add_var(char ***vartab, char *newvar, char *value);
 void		ft_chg_varval(char **vartab, char *newvar, char *value);
 void		ft_chg_varval_or_add(char ***vartab, char *newvar, char *value);
 void		ft_suppr_var(char ***vartab, char *varname);
+void		ft_check_env_before_chg_or_add(char *var, char *value);
 
 /*
 ** flags_token.c
