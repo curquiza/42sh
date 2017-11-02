@@ -68,7 +68,10 @@ int		ft_hdoc(t_lexeme *lex, t_shell *shell)
 		if (lex->op == DLESS && lex->next)
 		{
 			if ((quoted = ft_is_quoted(lex->next->s)) == 1)
+			{
 				ft_quote_removal(&lex->next->s);
+				lex->next->hdoc_delim = 1;
+			}
 			if (ft_get_hdoc_lines(lex, quoted))
 				return (-1);
 			if (quoted == 0)

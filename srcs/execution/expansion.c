@@ -23,7 +23,8 @@ void	ft_apply_expansion_on(t_lexeme **lex, t_shell *shell)
 		{
 			ft_tilde_expansion(&current->s, shell);
 			ft_parameter_expansion(&current->s, shell);
-			ft_quote_removal(&current->s);
+			if (current->hdoc_delim == 0)
+				ft_quote_removal(&current->s);
 		}
 		current = current->next;
 	}
