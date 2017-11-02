@@ -79,6 +79,7 @@ typedef struct		s_lexeme
 {
 	char			*s;
 	char			*hdoc;
+	int				hdoc_delim;
 	enum e_token	token;
 	enum e_op		op;
 	struct s_lexeme	*next;
