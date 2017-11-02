@@ -25,7 +25,7 @@ static void	ft_add_assword_var(char *assword, t_shell *shell, int mode)
 	varname = ft_strsub(assword, 0, i);
 	if (ft_exist_in(shell->var_priv, varname) == 1)
 	{
-		(mode == 1) ? ft_put_readonly_errmsg(shell->name, NULL, varname) : 0;
+		ft_put_readonly_errmsg(shell->name, NULL, varname);
 		ft_strdel(&varname);
 		return ;
 	}

@@ -26,10 +26,7 @@ void	ft_ast(t_lexeme *lex, t_ast **ast, t_shell *shell);
 ** build_ast.c
 */
 
-int		ft_is_in_lexlst(t_lexeme *lex, enum e_op op);
-void	ft_split_in_tree_pipe(t_ast *ast);
 void	ft_build_pipeline(t_ast *ast);
-void	ft_split_in_tree(t_ast *ast, enum e_op op1, enum e_op op2);
 void	ft_build_ast(t_ast *ast, enum e_op op, enum e_op op2);
 
 /*

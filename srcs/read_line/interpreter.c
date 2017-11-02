@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:41:52 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/23 17:21:48 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/26 12:36:37 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	ft_interpreter(char *buff, t_tc *tool)
 {
+	if (g_shell->ctrl_c == 1)
+	{
+		tool->stop = 1;
+		return ;
+	}
 	ft_eol_interpreter(buff, tool);
 	ft_basic_interpreter(buff, tool);
 	ft_histo_interpreter(buff, tool);
@@ -79,7 +84,7 @@ void	ft_histo_interpreter(char *buff, t_tc *tool)
 			ft_histo_up(tool, g_shell->histo_ctrl);
 		else if (buff[0] == 27 && buff[1] == 91 && buff[2] == 66)
 			ft_histo_down(tool, g_shell->histo_ctrl);
-		else
+		else if (buff[0])
 			g_shell->histo_ctrl->pos = 0;
 	}
 }

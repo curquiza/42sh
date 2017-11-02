@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:56:25 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/30 12:44:02 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/11/01 19:59:53 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/ioctl.h>
 # include <dirent.h>
 # include <sys/param.h>
+# include <signal.h>
 
 # include "libft.h"
 # include "define.h"
@@ -56,7 +57,7 @@ void		ft_escape_removal_only(char **s);
 char		**ft_init_priv(void);
 t_flag		*ft_init_flags(int ac, char **av);
 char		**ft_init_env(char **environ);
-t_shell		*ft_init_shell(int ac, char **av, char **environ, char *name);
+t_shell		*ft_init_shell(int ac, char **av, char **environ, int mode);
 
 /*
 ** var_tab_functions1.c
@@ -74,6 +75,7 @@ void		ft_add_var(char ***vartab, char *newvar, char *value);
 void		ft_chg_varval(char **vartab, char *newvar, char *value);
 void		ft_chg_varval_or_add(char ***vartab, char *newvar, char *value);
 void		ft_suppr_var(char ***vartab, char *varname);
+void		ft_check_env_before_chg_or_add(char *var, char *value);
 
 /*
 ** flags_token.c
@@ -107,7 +109,8 @@ int			ft_check_ctrl_c(char **line, t_shell *shell);
 void		ft_ctrl_c(int sig);
 void		ft_cancel_ctrl_c(int sig);
 void		ft_redim_window(int sig);
-void		ft_catch_signals(int mode);
+void		ft_catch_signal_parent(void);
+void		ft_catch_signal_child(void);
 
 /*
 ** exit_shell.c

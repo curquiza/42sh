@@ -38,6 +38,12 @@ enum e_builtin	ft_is_built_in(char *s)
 			return (B_HISTORY);
 		if (!ft_strcmp(s, "read"))
 			return (B_READ);
+		if (!ft_strcmp(s, "fg"))
+			return (B_FG);
+		if (!ft_strcmp(s, "bg"))
+			return (B_BG);
+		if (!ft_strcmp(s, "jobs"))
+			return (B_JOBS);
 	}
 	return (NOT_BUILTIN);
 }
@@ -66,5 +72,11 @@ int				ft_exec_built_in(t_ast *ast, enum e_builtin ret)
 		return (ft_builtin_history(ast));
 	if (ret == B_READ)
 		return (ft_builtin_read(ast));
+	if (ret == B_FG)
+		return (ft_builtin_fg(ast));
+	if (ret == B_BG)
+		return (ft_builtin_bg(ast));
+	if (ret == B_JOBS)
+		return (ft_builtin_jobs(ast));
 	return (0);
 }

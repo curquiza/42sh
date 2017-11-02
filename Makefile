@@ -120,9 +120,15 @@ EXEC = $(addprefix execution/, \
 	  built_in_histo_file.c \
 	  built_in_read.c \
 	  built_in_read_optr.c \
+	  built_in_fg_bg.c \
+	  built_in_jobs.c \
+	  job_lst.c \
+	  job_del.c \
+	  job_controller.c \
 	  execution.c \
 	  fd.c \
 	  exec_apply_ctrl_op.c \
+	  exec_pipeline.c \
 	  exec_simple_cmd.c \
 	  exec_error_msg.c \
 	  exec_cmd.c \

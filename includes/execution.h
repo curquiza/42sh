@@ -37,18 +37,22 @@ void				ft_cmd_line_execution(t_ast **ast, t_shell *shell);
 */
 
 int					ft_apply_semic(t_ast *ast);
+int					ft_apply_and(t_ast *ast);
 int					ft_apply_d_pipe(t_ast *ast);
 int					ft_apply_d_and(t_ast *ast);
-int					ft_right_pipe(int pfd[2], int left, t_ast *ast_right);
+
+/*
+** exec_pipeline.c
+*/
+
 int					ft_apply_pipe(t_ast *ast);
 
 /*
 ** exec_simple_cmd.c
 */
 
-int					ft_exec_scmd_pipeline(t_ast *ast);
-int					ft_fork_and_exec(t_ast *ast);
 int					ft_exec_scmd(t_ast *ast);
+int					ft_process_controller(pid_t pid, t_ast *ast);
 
 /*
 ** exec_error_msg.c
@@ -103,5 +107,28 @@ void				ft_do_ass_word(t_ast *ast, int mode);
 
 int					ft_get_cmdret(int status);
 void				ft_fill_cmd_return(int ret, t_shell *shell);
+
+/*
+** job_lst.c
+*/
+
+t_job				*ft_joblst_new(char *cmdname, int pgid);
+void				ft_joblst_addback(t_job **alst, t_job *new);
+int					ft_joblst_len(t_job *lst);
+t_job				*ft_joblst_last(t_job *lst);
+t_job				*ft_joblst_at(t_job *lst, size_t n);
+
+/*
+** job_del.c
+*/
+
+void				ft_del_job(t_job *current);
+
+/*
+** job_controller.c
+*/
+
+int					ft_wait_for_job(t_job **job);
+void				ft_exit_job(int sig);
 
 #endif

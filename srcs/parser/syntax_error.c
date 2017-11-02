@@ -57,7 +57,7 @@ char		*ft_check_tokenerror(t_lexeme *lex)
 		return (lex->s);
 	while (lex)
 	{
-		if (lex->op == DSEMIC || lex->op == AND || lex->op == CLOBBER
+		if (lex->op == DSEMIC || lex->op == CLOBBER
 			|| lex->op == LESSGREAT || lex->op == DLESSDASH)
 			return (lex->s);
 		if (lex->token == RED_OP && lex->next && lex->next->token != WORD)

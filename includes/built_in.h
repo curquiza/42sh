@@ -26,7 +26,10 @@ enum	e_builtin
 	B_UNSET,
 	B_EXPORT,
 	B_HISTORY,
-	B_READ
+	B_READ,
+	B_FG,
+	B_BG,
+	B_JOBS
 };
 
 /*
@@ -139,4 +142,16 @@ int				ft_only_name_export(t_shell *shell, char *arg, char *cmd);
 int				ft_val_with_name_export(t_shell *shell, char *arg, char *cmd);
 int				ft_builtin_export(t_ast *ast);
 
+/*
+** built_in_fg_bg.c
+*/
+
+int				ft_builtin_fg(t_ast *ast);
+int				ft_builtin_bg(t_ast *ast);
+
+/*
+** built_in_jobs.c
+*/
+
+int				ft_builtin_jobs(t_ast *ast);
 #endif

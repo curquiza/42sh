@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:09:42 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 16:09:37 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/10/26 14:29:08 by curquiza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	ft_init_tc(void)
 		ft_exit("Init termcaps: tcgetattr error", 1);
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
+	term.c_cc[VMIN] = 0;
+	term.c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSANOW, &term) != 0)
 		ft_exit("Init termcaps: tcsetattr error", 1);
 }

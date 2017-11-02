@@ -30,7 +30,7 @@ void	ft_ast(t_lexeme *lex, t_ast **ast, t_shell *shell)
 	if (lex)
 	{
 		*ast = ft_ast_newnode(lex, shell);
-		ft_build_ast(*ast, SEMIC, -1);
+		ft_build_ast(*ast, SEMIC, AND);
 		ft_build_ast(*ast, DAND, DPIPE);
 		ft_build_pipeline(*ast);
 	}
