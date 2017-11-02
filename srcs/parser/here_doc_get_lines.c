@@ -18,7 +18,7 @@
 ** Renvoie -1 si un Ctrl C ou un Ctrl D a été capté, 0 sinon.
 */
 
-int		ft_manage_bslash_in_hdoc(char **line, char **word)
+static int		ft_manage_bslash_in_hdoc(char **line, char **word)
 {
 	char	*buff;
 	char	*tmp;
@@ -54,7 +54,8 @@ int		ft_manage_bslash_in_hdoc(char **line, char **word)
 ** ft_manage_bslash_in_hdoc) ou si Ctrl C a été capté, 0 si ok.
 */
 
-int		ft_manage_hdoc_line(t_lexeme *lex, int quoted, char **line, char **word)
+static int	ft_manage_hdoc_line(t_lexeme *lex, int quoted, char **line,
+								char **word)
 {
 	char	*tmp;
 
@@ -63,11 +64,10 @@ int		ft_manage_hdoc_line(t_lexeme *lex, int quoted, char **line, char **word)
 		free(*word);
 		return (-1);
 	}
-	if (ft_check_and_restore_ctrld(g_shell) == 1)
+	if (ft_check_and_restore_ctrld(g_shell) == 1 || !*line)
 		return (1);
-	if (!*line)
-		return (1);
-	while (quoted == 0 && (*line)[ft_strlen(*line) - 2] == 92)
+	while (!quoted && ft_strlen(*line) > 1
+			&& (*line)[ft_strlen(*line) - 2] == 92)
 	{
 		g_shell->inhib = 1;
 		ft_putstr(BSLASH_PROMPT);

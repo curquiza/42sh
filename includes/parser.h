@@ -74,9 +74,9 @@ int				ft_hdoc(t_lexeme *lex, t_shell *shell);
 ** here_doc_get_lines.c
 */
 
-int				ft_manage_bslash_in_hdoc(char **line, char **word);
-int				ft_manage_hdoc_line(t_lexeme *lex, int quoted, char **line,
-									char **word);
+//int				ft_manage_bslash_in_hdoc(char **line, char **word);
+//int				ft_manage_hdoc_line(t_lexeme *lex, int quoted, char **line,
+//									char **word);
 int				ft_get_hdoc_lines(t_lexeme *lex, int quoted);
 
 /*
