@@ -19,7 +19,7 @@ static char	**ft_get_new_env(char **arg, char *flags, t_shell *shell)
 
 	if (ft_strchr(flags, 'i'))
 	{
-		if (!(new_env = (char **)malloc(sizeof(**new_env))))
+		if (!(new_env = (char **)malloc(sizeof(*new_env))))
 			ft_exit("malloc error", 1);
 		new_env[0] = NULL;
 	}
