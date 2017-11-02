@@ -25,6 +25,7 @@ t_lexeme	*ft_lexlst_new(char *s)
 	new->hdoc = NULL;
 	new->token = 0;
 	new->op = 0;
+	new->hdoc_delim = 0;
 	new->next = NULL;
 	return (new);
 }
