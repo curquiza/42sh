@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 17:03:09 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/18 17:05:15 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/11/02 17:22:47 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		ft_read_line(char **line, int prompt_len)
 		ft_bzero(little_buff, 5);
 		//ft_putnbr2("g_shell->ctrl_c = ", g_shell->ctrl_c);
 		//ft_putnbr2("tool->stop = ", g_shell->tc_tool->stop);
-		read(0, little_buff, 4);
+		read(0, little_buff, 3);
 		ft_interpreter(little_buff, g_shell->tc_tool);
 	}
 	ft_putendl("");
