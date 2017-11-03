@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:09:42 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/26 14:29:08 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/11/03 13:58:32 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_init_tc(void)
 	name_term = ft_get_varvalue(g_shell->var_env, "TERM");
 	if (!name_term || tgetent(NULL, name_term) != 1)
 		ft_exit("\ninit termcaps: not a valid terminal name,\
- can't get the terminal informations.\nShell closing...", 1);
+				can't get the terminal informations.\nShell closing...", 1);
 	if (tcgetattr(0, &term) != 0)
 		ft_exit("Init termcaps: tcgetattr error", 1);
 	term.c_lflag &= ~(ICANON);
