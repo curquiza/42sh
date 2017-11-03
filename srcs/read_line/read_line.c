@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 17:03:09 by curquiza          #+#    #+#             */
-/*   Updated: 2017/11/03 13:58:58 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/11/03 15:06:06 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		ft_read_line(char **line, int prompt_len)
 	while (g_shell->tc_tool->stop == 0)
 	{
 		ft_bzero(little_buff, 5);
-		read(0, little_buff, 3);
+		read(0, little_buff, 4);
 		ft_interpreter(little_buff, g_shell->tc_tool);
 	}
 	ft_putendl("");
