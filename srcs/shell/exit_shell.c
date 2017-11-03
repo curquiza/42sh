@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:04:56 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/27 12:49:43 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/11/03 14:00:27 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	ft_del_all_jobs(t_job **alst)
 	*alst = NULL;
 }
 
-int		ft_exit_shell(void)
+int			ft_exit_shell(void)
 {
 	int		i;
 	int		exit_status;

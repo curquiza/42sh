@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 23:01:06 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/27 12:54:53 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/11/03 14:06:52 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,11 @@ t_flag		*ft_init_flags(int ac, char **av)
 	return (new);
 }
 
-static void	ft_fill_history_from_file(t_shell *shell)
-{
-	char	*histo_file;
-
-	if ((histo_file = ft_get_varvalue(shell->var_priv, "42SH_HISTO_FILE")))
-		ft_histo_file_read(shell->histo_ctrl, histo_file);
-}
-
 static void	ft_init_for_job_ctrl(t_shell *shell)
 {
 	shell->terminal = STDOUT_FILENO;
 	while (tcgetpgrp(shell->terminal) != (shell->pgid = getpgrp()))
-		kill(- shell->pgid, SIGTTIN);
+		kill(-shell->pgid, SIGTTIN);
 	shell->pgid = getpid();
 	if (setpgid(shell->pgid, shell->pgid) < 0)
 		ft_exit("Shell init : couldn't put the shell in its own process group",
@@ -101,7 +93,7 @@ static void	ft_init_for_job_ctrl(t_shell *shell)
 		ft_exit("Shell init : imposible to get the termios structure", 1);
 }
 
-t_shell	*ft_init_shell(int ac, char **av, char **environ, int mode)
+t_shell		*ft_init_shell(int ac, char **av, char **environ, int mode)
 {
 	t_shell		*shell;
 

@@ -6,7 +6,7 @@
 #    By: curquiza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/16 17:08:05 by curquiza          #+#    #+#              #
-#    Updated: 2017/10/30 18:06:36 by sfranc           ###   ########.fr        #
+#    Updated: 2017/11/03 14:02:55 by sfranc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -142,6 +142,7 @@ MAIN = $(addprefix shell/, \
 	  flags_token.c \
 	  flags_ast.c \
 	  init_shell.c \
+	  init_history.c \
 	  var_tab_functions1.c \
 	  var_tab_functions2.c \
 	  basics.c \

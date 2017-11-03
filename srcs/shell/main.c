@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:44:40 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/26 12:17:20 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/11/03 14:05:50 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,6 @@ static int	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 	}
 	return (0);
 }
-
-//void	ft_putjobs(t_job *job)
-//{
-//	ft_putendl("JOBS : ");
-//	while (job)
-//	{
-//		ft_putstr("cmd_name = ");
-//		if (job->cmd_name)
-//			ft_putendl(job->cmd_name);
-//		else
-//			ft_putendl("NULL");
-//		ft_putnbr2("pgid = ", job->pgid);
-//		ft_putendl("----");
-//		job = job->next;
-//	}
-//}
 
 /*
 ** DEROULEMENT DU SHELL :
@@ -67,7 +51,7 @@ static int	ft_start_shell_loop(t_lexeme **lex, t_ast **ast, char **line)
 ** - execution : on execute la commande simple.
 */
 
-int			main(int ac, char **av, char **environ) 
+int			main(int ac, char **av, char **environ)
 {
 	if (isatty(0) != 1 || isatty(1) != 1 || isatty(2) != 1)
 		return (0);
@@ -91,7 +75,6 @@ int			main(int ac, char **av, char **environ)
 			ft_lexlstdel(&g_shell->lex);
 		}
 		ft_exit_job(1);
-		//ft_putjobs(g_shell->job_lst);
 		g_shell->run == 1 ? ft_putendl("") : 0;
 	}
 	return (ft_exit_shell());

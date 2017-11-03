@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:56:25 by curquiza          #+#    #+#             */
-/*   Updated: 2017/11/01 19:59:53 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/11/03 14:02:25 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char		**ft_init_priv(void);
 t_flag		*ft_init_flags(int ac, char **av);
 char		**ft_init_env(char **environ);
 t_shell		*ft_init_shell(int ac, char **av, char **environ, int mode);
+void	ft_fill_history_from_file(t_shell *shell);
 
 /*
 ** var_tab_functions1.c
