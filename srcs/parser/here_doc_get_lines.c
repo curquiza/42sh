@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 19:03:23 by curquiza          #+#    #+#             */
-/*   Updated: 2017/08/20 16:50:31 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/11/03 12:37:45 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Renvoie -1 si un Ctrl C ou un Ctrl D a été capté, 0 sinon.
 */
 
-static int		ft_manage_bslash_in_hdoc(char **line, char **word)
+static int	ft_manage_bslash_in_hdoc(char **line, char **word)
 {
 	char	*buff;
 	char	*tmp;
@@ -89,7 +89,7 @@ static int	ft_manage_hdoc_line(t_lexeme *lex, int quoted, char **line,
 ** Cf shell grammar.
 */
 
-int		ft_get_hdoc_lines(t_lexeme *lex, int quoted)
+int			ft_get_hdoc_lines(t_lexeme *lex, int quoted)
 {
 	char	*line;
 	int		ret;
