@@ -6,14 +6,14 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/15 15:33:31 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/30 15:27:18 by sfranc           ###   ########.fr       */
+/*   Updated: 2017/11/03 15:18:36 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILT_IN_H
 # define BUILT_IN_H
 
-enum	e_builtin
+enum			e_builtin
 {
 	NOT_BUILTIN,
 	B_ECHO,
@@ -51,10 +51,11 @@ char			**ft_get_arg(char **array, char flag_error);
 
 /*
 ** built_in_read.c
-*/ 
-int		ft_builtin_read(t_ast *ast);
-char	**ft_read_get_fields_opt_r(void);
-char	**ft_read_get_fields_no_opt(void);
+*/
+
+int				ft_builtin_read(t_ast *ast);
+char			**ft_read_get_fields_opt_r(void);
+char			**ft_read_get_fields_no_opt(void);
 
 /*
 ** built_in_history.c
@@ -154,4 +155,5 @@ int				ft_builtin_bg(t_ast *ast);
 */
 
 int				ft_builtin_jobs(t_ast *ast);
+
 #endif

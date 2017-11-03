@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:33:05 by curquiza          #+#    #+#             */
-/*   Updated: 2017/07/31 19:05:14 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/11/03 15:26:22 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,6 @@ int				ft_hdoc(t_lexeme *lex, t_shell *shell);
 ** here_doc_get_lines.c
 */
 
-//int				ft_manage_bslash_in_hdoc(char **line, char **word);
-//int				ft_manage_hdoc_line(t_lexeme *lex, int quoted, char **line,
-//									char **word);
 int				ft_get_hdoc_lines(t_lexeme *lex, int quoted);
 
 /*
