@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   job_del.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/03 12:35:38 by sfranc            #+#    #+#             */
+/*   Updated: 2017/11/03 12:35:45 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell.h"
 
 static void	ft_job_suppr_elem(t_job **elem)
@@ -12,7 +24,7 @@ static void	ft_job_suppr_elem(t_job **elem)
 	free(suppr);
 }
 
-void	ft_del_job(t_job *current)
+void		ft_del_job(t_job *current)
 {
 	t_job	*tmp;
 

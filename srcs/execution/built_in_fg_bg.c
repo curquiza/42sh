@@ -1,7 +1,18 @@
-#include "shell.h"
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_in_fg_bg.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/03 12:25:21 by sfranc            #+#    #+#             */
+/*   Updated: 2017/11/03 12:26:50 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static int	ft_check_arg(t_job *job_lst, char **arg, char *builtin)
+#include "shell.h"
+
+static int		ft_check_arg(t_job *job_lst, char **arg, char *builtin)
 {
 	if (!arg)
 		return (-1);
@@ -34,7 +45,7 @@ static t_job	*ft_get_job(t_job *lst, char *job_pos)
 		return (ft_joblst_at(lst, ft_atoi(job_pos)));
 }
 
-int		ft_builtin_fg(t_ast *ast)
+int				ft_builtin_fg(t_ast *ast)
 {
 	t_job	*curr_job;
 
@@ -47,7 +58,6 @@ int		ft_builtin_fg(t_ast *ast)
 		ft_put_errmsg(g_shell->name, "fg", "no such job");
 		return (CMD_FAILURE);
 	}
-
 	tcsetpgrp(g_shell->terminal, curr_job->pgid);
 	if (kill(-curr_job->pgid, SIGCONT) < 0)
 		ft_put_errmsg(g_shell->name, "kill", "error");
@@ -57,7 +67,7 @@ int		ft_builtin_fg(t_ast *ast)
 	return (CMD_SUCCESS);
 }
 
-int		ft_builtin_bg(t_ast *ast)
+int				ft_builtin_bg(t_ast *ast)
 {
 	t_job	*curr_job;
 
@@ -74,4 +84,3 @@ int		ft_builtin_bg(t_ast *ast)
 		ft_put_errmsg(g_shell->name, "kill", "error");
 	return (CMD_SUCCESS);
 }
-

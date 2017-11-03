@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 10:02:07 by curquiza          #+#    #+#             */
-/*   Updated: 2017/10/26 17:17:31 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/11/03 12:34:02 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void		ft_pre_execution(t_ast *ast)
 		ft_expansion(ast);
 		ft_get_argtab(ast);
 		ft_build_redir_list(ast);
-		//ft_save_std_fd(ast);
 	}
 }
 

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_pipeline.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/03 12:31:17 by sfranc            #+#    #+#             */
+/*   Updated: 2017/11/03 12:32:09 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell.h"
 
-static int		ft_exec_scmd_pipeline(t_ast *ast)
+static int	ft_exec_scmd_pipeline(t_ast *ast)
 {
 	if (ast)
 	{
@@ -18,7 +30,7 @@ static int	ft_launch_pipeline(t_ast *ast)
 {
 	int		pfd[2];
 	pid_t	pid;
-	
+
 	(pipe(pfd) == -1) ? ft_put_errmsg(ast->shell->name, NULL, "pipe error") : 0;
 	if ((pid = fork()) == -1)
 		ft_put_errmsg(ast->shell->name, NULL, "fork error");
@@ -57,7 +69,7 @@ static void	ft_pre_execution_pipeline(t_ast *ast)
 		ft_pre_execution(ast);
 }
 
-int		ft_apply_pipe(t_ast *ast)
+int			ft_apply_pipe(t_ast *ast)
 {
 	pid_t	pid;
 	int		ret;

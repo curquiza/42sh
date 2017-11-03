@@ -6,7 +6,7 @@
 /*   By: curquiza <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 22:37:13 by curquiza          #+#    #+#             */
-/*   Updated: 2017/06/01 10:37:50 by curquiza         ###   ########.fr       */
+/*   Updated: 2017/11/03 12:33:26 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int		ft_manage_job_ctrl(t_ast *ast, t_job *current_job, pid_t pid)
 		tcsetattr(g_shell->terminal, TCSADRAIN, &(g_shell->dfl_term));
 	}
 	else
-	{	
+	{
 		ft_joblst_addback(&g_shell->job_lst, current_job);
 		ft_putchar('[');
 		ft_putnbr(ft_joblst_len(g_shell->job_lst));
@@ -95,7 +95,7 @@ static int		ft_fork_and_exec(t_ast *ast)
 	return (ft_get_cmdret(ret));
 }
 
-int		ft_exec_scmd(t_ast *ast)
+int				ft_exec_scmd(t_ast *ast)
 {
 	int		builtin_ret;
 
